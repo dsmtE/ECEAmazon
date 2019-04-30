@@ -28,6 +28,10 @@ class Session {
         unset($_SESSION[messages]);
         return $mssages;
     }
+
+    public function authentification() {
+        
+    }
 }
 
 ?>

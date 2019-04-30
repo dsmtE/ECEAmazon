@@ -4,6 +4,59 @@ html, body {
     padding-top: 50px; /*for navBar*/
 }
 
-nav {
-    
+
+/* animation du boutton toogle */
+.navbar-toggler {
+    border: none;
+    background: transparent !important;
 }
+.navbar-toggler:hover {
+    background: transparent !important;
+}
+.navbar-toggler span {
+    display: block;
+    background-color: #fff;
+
+    height: 2px;
+    width: 22px;
+    margin-top:4px;
+    margin-bottom: 4px;
+
+    -webkit-transition: all .35s;
+    -moz-transition: all .35s;
+    -o-transition: all .35s;
+    transition: all .35s;
+    opacity: 1;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(1) {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+
+    -webkit-transform-origin: 10% 10%;
+    -moz-transform-origin: 10% 10%;
+    -o-transform-origin: 10% 10%;
+    transform-origin: 10% 10%;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(3) {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+
+    -webkit-transform-origin: 10% 90%;
+    -moz-transform-origin: 10% 90%;
+    -o-transform-origin: 10% 90%;
+    transform-origin: 10% 90%;
+}
+
+
+
+
