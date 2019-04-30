@@ -1,9 +1,18 @@
 <?php
-
+// source: https://apprendre-php.com/tutoriels/tutoriel-45-singleton-instance-unique-d-une-classe.html
 class Session {
 
-    public function __construct() {
+    private static $instance = null; // variable static de l'instance session singleton
+
+    private function __construct() {
         session_start();
+    }
+
+    public static function getSession() {
+        if(!self::$instance) {
+            self::$instance = new Session();
+        }
+        return self::$instance;
     }
 
     public function addMessage($type, $message) {// permet d'ajouter un message

@@ -9,7 +9,7 @@ class DB {
             $this->$pdo =  new PDO("mysql:host=$host;dbname=$name;charset=utf8", $login, $password);
             // source: https://www.php.net/manual/fr/pdo.setattribute.php
             $this->$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // permet d'afficher les erreur de PDO au lieu de les passer sous silence
-            $this->$pdo->setAttribute(ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ); // retourne les fetch sous forme d'objet plutôt qu'un tableau sur les nom et index
+            $this->$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ); // retourne les fetch sous forme d'objet plutôt qu'un tableau sur les nom et index
         }
     }
 

@@ -1,5 +1,6 @@
-<?php require_once "phpclass/autoloader.php"; ?> <!-- chargement des différentes classes php -->
-
+<?php 
+  require_once 'phpClass/autoloader.php'; // chargement des différentes classes php 
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,7 +11,7 @@
     <!-- <meta name="description" content=""> -->
     <!-- <meta name="author" content=""> -->
     <!-- <link rel="icon" href="../../../../favicon.ico"> -->
-    <?php Site::getSession() ?>
+
     <title>ECEAmazon</title>
 
     <!-- Compiled and minified Bootstrap CSS -->
@@ -25,10 +26,8 @@
   </head>
 
   <body>
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="#">
-        <i class="fab fa-artstation"></i>
+      <a class="navbar-brand" href="#"><i class="fab fa-artstation"></i></a>
 
       <button class=" navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <!-- <span class="navbar-toggler-icon"></span> -->
@@ -40,7 +39,7 @@
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
@@ -70,14 +69,14 @@
     <!-- trigger modal if messages exist -->
 
     <script type="text/javascript">
-      <?php if (Site::getSession()->hasMessages() ) {?>
+      <?php if (Session::getSession()->hasMessages() ) {?>
         var messagesData = '<?php echo "json_encode( Site::getSession()->getMessages() )";?>';
       <?php }else{?>
         var messagesData = '<?php echo "{\"success\": \"test success message\" , \"error\": \"test error message\"}";?>';
       <?php }?>
       messagesData = JSON.parse(messagesData);
       for (var key in messagesData) {
-        alert(key , messagesData[key] );
+        // alert(key , messagesData[key] );
         console.log(key + " -> " + messagesData[key]);
       }
     </script>
@@ -87,11 +86,11 @@
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#messageModal"> debug modal </button>
     
     <!-- messageModal -->
-    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="false">
-      <div class="modal-dialog .modal-notify  <?php if(Site::getSession()->hasMessages() || true) {echo Site::getSession();} ?>modal-dialog-scrollable|modal-dialog-centered modal-sm|modal-lg|modal-xl" role="document">
+    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="modaleTitle" aria-hidden="false">
+      <div class="modal-dialog .modal-notify  <?php ?>modal-dialog-scrollable|modal-dialog-centered modal-sm|modal-lg|modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <h5 class="modal-title" id="modaleTitle">Modal title</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
