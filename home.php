@@ -1,17 +1,5 @@
 <?php include "header.php"?>	
 
-<!--
-<div class="row justify-content-center" style="transform: translate(0%, 10%);">
-	<div class="align-self-center" style="width: 300px;">
-		<i alt="LogoECEAmazon" class="fab fa-artstation fa-7x" style="float:left;margin : 20px;"></i>
-
-		<h1 class="text-center" style="font-style : bold; top:20%; transform: translate(40%, -50%);">ECEAmazon</h1>
-		<h2 class="text-center" style="font-size : 1.7em; font-style: italic; transform: translate(45%, 0%);">N°1 de la vente en ligne</h2>
-
-	</div>
-</div>
--->
-
 <div class="row justify-content-center">
 	<div class=" col-5  align-self-center ">
 		<div class="row">
@@ -36,4 +24,4 @@
 </div>
 
 
-<?php include "footer.php"?>	
+<?php include "footer.php"?>
