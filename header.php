@@ -69,14 +69,18 @@
 
     <script type="text/javascript">
       <?php if (Session::getSession()->hasMessages() ) {?>
-        var messagesData = '<?php echo "json_encode( Site::getSession()->getMessages() )";?>';
+        var messagesData = '<?php echo"json_encode( Site::getSession()->getMessages() )";?>';
       <?php }else{?>
-        var messagesData = '<?php echo "{\"success\": \"test success message\" , \"error\": \"test error message\"}";?>';
+        var messagesData = '<?php echo"{\"success\": \"test success message\" , \"error\": \"test error message\"}";?>';
       <?php }?>
       messagesData = JSON.parse(messagesData);
+      var messageModal = $('#myModal');
       for (var key in messagesData) {
         // alert(key , messagesData[key] );
         console.log(key + " -> " + messagesData[key]);
+        messageModal.find('.message').text(messagesData);
+        messageModal.find('.modal-notify').addClass(key);
+        messageModal.modal('show');
       }
     </script>
     
@@ -85,8 +89,8 @@
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#messageModal"> debug modal </button>
     
     <!-- messageModal -->
-    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="modaleTitle" aria-hidden="false">
-      <div class="modal-dialog .modal-notify  <?php ?>modal-dialog-scrollable|modal-dialog-centered modal-sm|modal-lg|modal-xl" role="document">
+    <div class="modal hide fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="modaleTitle" aria-hidden="false">
+      <div class="modal-dialog .modal-notify  modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="modaleTitle">Modal title</h5>
@@ -95,7 +99,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p id="message"></p>
+            
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
