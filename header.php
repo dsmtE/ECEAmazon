@@ -10,7 +10,7 @@
     <!-- <meta name="description" content=""> -->
     <!-- <meta name="author" content=""> -->
     <!-- <link rel="icon" href="../../../../favicon.ico"> -->
-
+    <?php Site::getSession() ?>
     <title>ECEAmazon</title>
 
     <!-- Compiled and minified Bootstrap CSS -->
@@ -68,15 +68,14 @@
 
 
     <!-- trigger modal if messages exist -->
+
     <script type="text/javascript">
       <?php if (Site::getSession()->hasMessages() ) {?>
-        var messagesData = <?php echo json_encode( Site::getSession()->getMessages() ); ?>;
+        var messagesData = '<?php echo "json_encode( Site::getSession()->getMessages() )";?>';
       <?php }else{?>
-        var messagesData = <?php echo "{\"success\": test message }"; ?>;
+        var messagesData = '<?php echo "{\"success\": \"test success message\" , \"error\": \"test error message\"}";?>';
       <?php }?>
-      
       messagesData = JSON.parse(messagesData);
-
       for (var key in messagesData) {
         alert(key , messagesData[key] );
         console.log(key + " -> " + messagesData[key]);

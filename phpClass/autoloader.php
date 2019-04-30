@@ -5,7 +5,6 @@ spl_autoload_register(function ($class) {
         include  "phpClass/$class.php";
     } catch (Exception $e) {
         echo "erreur de chargement de la class : $class\n";
-        echo e."\n";
     }   
 });
 

@@ -16,6 +16,7 @@ class Site {
         if(!self::$session) {
             self::$session = new Session();
         }
+        var_dump(self::$session);
         return self::$session;
     }
 
