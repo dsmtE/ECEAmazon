@@ -1,5 +1,5 @@
     <footer>
-        <p>&copy; 2019 Company, Inc.</p>
+        <p>&copy; 2019 ECEAmazon </p>
     </footer>
 
     <!-- JavaScript placed at the end of the document (body) for optimized loading -->
@@ -16,6 +16,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <!-- custom javascript -->
+    <script src="js/main.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

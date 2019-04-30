@@ -1,4 +1,4 @@
-<?php require_once "phpclass/autoloader.php"; ?>
+<?php require_once "phpclass/autoloader.php"; ?> <!-- chargement des différentes classes php -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +26,7 @@
 
   <body>
 
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <a class="navbar-brand" href="#">
         <img src="img/placeholder.jpg" width="30" height="30" class="d-inline-block align-top" alt=""><i class="fab fa-artstation"></i></a>
 
@@ -62,3 +62,49 @@
 
       </div>
     </nav>
+
+
+        <!-- gestion des messages de session par modal -->
+
+
+    <!-- trigger modal if messages exist -->
+    <script type="text/javascript">
+
+      
+      <?php if (Site::getSession()->hasMessages()) { ?>
+        var messagesData = <?php echo json_encode( Site::getSession()->getMessages() ); ?>;
+      <?php }else{?>
+        var messagesData = <?php echo "{\"success\": test message }"; ?>;
+      <?php } ?>
+        messagesData = JSON.parse(messagesData);
+
+        for (var key in messagesData) {
+          alert(key , messagesData[key] );
+          console.log(key + " -> " + messagesData[key]);
+        }
+    </script>
+    
+
+    <!-- Button debug trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#messageModal"> debug modal </button>
+    
+    <!-- messageModal -->
+    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="false">
+      <div class="modal-dialog .modal-notify  <?php if(Site::getSession()->hasMessages() || true) {echo Site::getSession();} ?>modal-dialog-scrollable|modal-dialog-centered modal-sm|modal-lg|modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="message"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>

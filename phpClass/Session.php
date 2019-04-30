@@ -6,11 +6,19 @@ class Session {
         session_start();
     }
 
-    public function ajoutMessage($type, $message) {
-        $_SESSION[messages][$type] = $message;
+    public function addMessage($type, $message) {// permet d'ajouter un message
+        $_SESSION["messages"][$type] = $message;
     }
 
-    public function 
+    public function hasMessages() {// permet de voir si il y a un message
+        return isset($_SESSION["messages"]);
+    }
+
+    public function getMEssages() {// permet de recuperer les messages de la session en les supprimant
+        $messages = $_SESSION["messages"];
+        unset($_SESSION[messages]);
+        return $mssages;
+    }
 }
 
 ?>

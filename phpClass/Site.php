@@ -19,9 +19,14 @@ class Site {
         return self::$session;
     }
 
+
     static public function redirection($url) {
         header("location : $url");
     }
+
+    static public function rechargerPage() {
+        header("Refresh:0");
+    } 
 }
 
-?>
+?>s
