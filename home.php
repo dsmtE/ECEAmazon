@@ -1,24 +1,39 @@
 <?php include "header.php"?>	
 
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> <!--FontAwesome's CDN pour permettre l'importation du logo-->
+<!--
+<div class="row justify-content-center" style="transform: translate(0%, 10%);">
+	<div class="align-self-center" style="width: 300px;">
+		<i alt="LogoECEAmazon" class="fab fa-artstation fa-7x" style="float:left;margin : 20px;"></i>
 
-	<!-- Bootstrap's CDN  -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<h1 class="text-center" style="font-style : bold; top:20%; transform: translate(40%, -50%);">ECEAmazon</h1>
+		<h2 class="text-center" style="font-size : 1.7em; font-style: italic; transform: translate(45%, 0%);">N°1 de la vente en ligne</h2>
 
-</head>
-<body>
-	<div class="row justify-content-center" style="transform: translate(0%, 50%);">
-		<div class="align-self-center" style="width: 300px;">
-			<i alt="LogoECEAmazon" class="fab fa-artstation fa-7x" style="float:left;margin : 20px;"></i>
-
-			<h1 class="text-center" style="font-style : bold; top:50%; transform: translate(40%, -50%);">ECEAmazon</h1>
-			<h3 class="text-center" style="font-style: italic; top:55%; transform: translate(40%, -55%);">N°1 de la vente en ligne</h3>
-
-		</div>
 	</div>
-</body>
-</html>
+</div>
+-->
+
+<div class="row justify-content-center">
+	<div class=" col-5  align-self-center ">
+		<div class="row">
+			<div class="col-3">
+				<i alt="LogoECEAmazon" class="fab fa-artstation fa-7x" style="float:left;margin : 10px;"></i>
+			</div>
+			<div class="col-9" style="top: 1em;">
+				<div class="row">
+					<div class="col">
+						<h1 class="text-center" style="font-size:3em;font-style : bold; ">ECEAmazon</h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<h2 class="text-center" style="font-size : 1.7em; font-style: italic;">N°1 de la vente en ligne</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+<?php include "footer.php"?>	
