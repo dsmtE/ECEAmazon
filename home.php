@@ -15,7 +15,8 @@
 		<div class="align-self-center" style="width: 300px;">
 			<i alt="LogoECEAmazon" class="fab fa-artstation fa-7x" style="float:left;margin : 20px;"></i>
 
-			<h1 class="text-center" style="top:50%; transform: translate(40%, -50%);">ECEAmazon</h1>
+			<h1 class="text-center" style="font-style : bold; top:50%; transform: translate(40%, -50%);">ECEAmazon</h1>
+			<h3 class="text-center" style="font-style: italic; top:60%; transform: translate(40%, -60%);">N°1 de la vente en ligne</h3>
 
 		</div>
 	</div>
