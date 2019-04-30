@@ -14,7 +14,7 @@ class Session {
         return isset($_SESSION["messages"]);
     }
 
-    public function getMEssages() {// permet de recuperer les messages de la session en les supprimant
+    public function getMessages() {// permet de recuperer les messages de la session en les supprimant
         $messages = $_SESSION["messages"];
         unset($_SESSION[messages]);
         return $mssages;

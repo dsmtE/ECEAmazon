@@ -28,7 +28,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <a class="navbar-brand" href="#">
-        <img src="img/placeholder.jpg" width="30" height="30" class="d-inline-block align-top" alt=""><i class="fab fa-artstation"></i></a>
+        <i class="fab fa-artstation"></i>
 
       <button class=" navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <!-- <span class="navbar-toggler-icon"></span> -->
@@ -69,19 +69,18 @@
 
     <!-- trigger modal if messages exist -->
     <script type="text/javascript">
-
-      
-      <?php if (Site::getSession()->hasMessages()) { ?>
+      <?php if (Site::getSession()->hasMessages() ) {?>
         var messagesData = <?php echo json_encode( Site::getSession()->getMessages() ); ?>;
       <?php }else{?>
         var messagesData = <?php echo "{\"success\": test message }"; ?>;
-      <?php } ?>
-        messagesData = JSON.parse(messagesData);
+      <?php }?>
+      
+      messagesData = JSON.parse(messagesData);
 
-        for (var key in messagesData) {
-          alert(key , messagesData[key] );
-          console.log(key + " -> " + messagesData[key]);
-        }
+      for (var key in messagesData) {
+        alert(key , messagesData[key] );
+        console.log(key + " -> " + messagesData[key]);
+      }
     </script>
     
 
