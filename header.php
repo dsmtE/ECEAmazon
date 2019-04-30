@@ -20,14 +20,18 @@
     <!--Import fontawesome Icon & Font-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
+    <!-- Import animation.css provide better animation-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    
     <!-- Custom styles -->
     <link href="css/custom.css" rel="stylesheet">
 
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="#"><i class="fab fa-artstation"></i></a>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top ">
+      <a href="index.php" class="navbar-brand " href="#"><i class="fab fa-artstation"></i> ECE Amazon</a>
 
       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="icon-bar"></span>
@@ -36,74 +40,68 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbar">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="lien désactivé"> <!-- tooltip on disable link -->
-            <a class="nav-link disabled" href="#">Disabled</a>
-            </span>
-          </li>
+        <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdownAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+            <a class="nav-link dropdown-toggle disabled" href="http://example.com" id="dropdownAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
             <div class="dropdown-menu" aria-labelledby="dropdownAdmin">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="#">modifier les utilisateur</a> <!-- placeholder link -->
+              <a class="dropdown-item" href="#">modifier les produits</a>  <!-- placeholder link -->
             </div>
           </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Produits</a> <!-- placeholder link -->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fas fa-shopping-basket"></i></a>  <!-- placeholder link -->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Se Connecter</a>  <!-- placeholder link -->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">S'inscrire</a>  <!-- placeholder link -->
+          </li>  
         </ul>
 
       </div>
     </nav>
 
-
-        <!-- gestion des messages de session par modal -->
-
-
-    <!-- trigger modal if messages exist -->
-
-    <script type="text/javascript">
-      <?php if (Session::getSession()->hasMessages() ) {?>
-        var messagesData = '<?php echo"json_encode( Site::getSession()->getMessages() )";?>';
-      <?php }else{?>
-        var messagesData = '<?php echo"{\"success\": \"test success message\" , \"error\": \"test error message\"}";?>';
-      <?php }?>
-      messagesData = JSON.parse(messagesData);
-      var messageModal = $('#myModal');
-      for (var key in messagesData) {
-        // alert(key , messagesData[key] );
-        console.log(key + " -> " + messagesData[key]);
-        messageModal.find('.message').text(messagesData);
-        messageModal.find('.modal-notify').addClass(key);
-        messageModal.modal('show');
-      }
-    </script>
-    
+     <!-- gestion des messages de session par modal -->
 
     <!-- Button debug trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#messageModal"> debug modal </button>
     
     <!-- messageModal -->
     <div class="modal hide fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="modaleTitle" aria-hidden="false">
-      <div class="modal-dialog .modal-notify  modal-dialog-centered modal-lg" role="document">
+      <div class="modal-dialog modal-notify modal-info modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modaleTitle">Modal title</h5>
+            <h5 class="modal-title" id="modaleTitle">Informations</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
+            <div class="text-center">
+              <i class="fas fa-exclamation-triangle fa-4x animated rotateIn text-danger"></i>
+            </div>
+            <div class="dropdown-divider"></div>
+            <?php
+            Session::getSession()->addMessage("success", "message test success");
+            Session::getSession()->addMessage("danger", "message test danger");
+
+            if (Session::getSession()->hasMessages() ) {
+
+              foreach (Session::getSession()->getMessages() as $type => $message) {
+               echo ' <div class="alert alert-'.$type.'" role="alert">
+                        <strong>Warning!</strong> '.$message.'
+                      </div> ';
+              }
+            }
+            ?>
             
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
