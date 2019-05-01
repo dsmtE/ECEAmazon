@@ -14,13 +14,14 @@ class Site {
 
     static public function getUser() {
         if(!self::$user) {
-            self::$user = new User(self::$db, Session::getSession());
+            self::$user = new User(self::getDatabase(), Session::getSession());
         }
         return self::$user;
     }
 
     static public function redirection($url) {
-        header("location : $url");
+        header('Location: '.$url);
+        exit();
     }
 
     static public function rechargerPage() {

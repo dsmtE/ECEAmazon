@@ -1,6 +1,11 @@
 <?php 
   require_once 'phpClass/autoloader.php'; // chargement des différentes classes php 
-  Session::getSession(); // instanciation de la session
+  // Session::getSession(); // instanciation de la session
+
+
+  $logged = Site::getUser()->isConnected(); // savoir si l'utilisateur est connecté
+  $admin = Site::getUser()->isAdmin(); // savoir si l'utilisateur est connecté et admin
+
 ?>
 
 <!DOCTYPE html>
@@ -43,6 +48,7 @@
 
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav ml-auto">
+          <?php if($admin) { ?>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle disabled" href="http://example.com" id="dropdownAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
             <div class="dropdown-menu" aria-labelledby="dropdownAdmin">
@@ -50,24 +56,31 @@
               <a class="dropdown-item" href="#">modifier les produits</a>  <!-- placeholder link -->
             </div>
           </li>
+          <?php } ?>
           <li class="nav-item">
             <a class="nav-link" href="#">Produits</a> <!-- placeholder link -->
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#"><i class="fas fa-shopping-basket"></i></a>  <!-- placeholder link -->
           </li>
+          <?php if(!$logged) { ?>
           <li class="nav-item">
-            <a class="nav-link" href="signIn.php">Se Connecter</a>  <!-- placeholder link php affichage -->
+            <a class="nav-link" href="signIn.php">Se Connecter</a> 
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">S'inscrire</a>  <!-- placeholder link php affichage  -->
-          </li> 
+            <a class="nav-link" href="inscription.php">S'inscrire</a> 
+          </li>
+          <?php }else{ ?>
           <li class="nav-item disabled">
-            <a class="nav-link" href="#">Mon Compte</a>  <!-- placeholder link php affichage -->
+            <a class="nav-link" href="#">Mon Compte</a>  <!-- placeholder link -->
           </li>
           <li class="nav-item disabled">
-            <a class="nav-link" href="#">Vendre</a>  <!-- placeholder link php affichage -->
-          </li>  
+            <a class="nav-link" href="#">Vendre</a>  <!-- placeholder link-->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="deconnection.php">Se Déconnecter</a>
+          </li>
+          <?php } ?>
         </ul>
 
       </div>
@@ -103,8 +116,11 @@
                         <strong>Warning!</strong> '.$text.'
                       </div> ';
               }
+
+               echo '<span id="messageModalShow"></span>'; // permet de savoir si il faut afficher ou non la modal
             }
             ?>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
