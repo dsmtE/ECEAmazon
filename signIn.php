@@ -1,10 +1,14 @@
 <?php 
-require_once 'phpClass/autoloader.php';
-
+	require_once 'phpClass/autoloader.php';
+	$session = Session::getSession();
+		
+	if (Site::getUser()->isConnected()) {
+		$session->addMessage('info', "tu es déjà connecté");
+		Site::redirection('index.php');
+	}
 	if(!empty($_POST)) { // si on recoi des données
 
 		$erreurs = array();
-		$session = Session::getSession();
 		$db = Site::getDatabase();
 
 		// test mail
@@ -25,18 +29,23 @@ require_once 'phpClass/autoloader.php';
 			}	
 		}
 		
+
+
 		if(empty($erreurs)) { // il n'y a pas eu d'erreurs
-			$user = $db->requete('SELECT * FROM Utilisateurs WHERE mail = ?', [$_POST['mail']])->fetch();
+			$ruse = Site::getUser()->compteExistantbyMail($_POST['mail']);
 
 			if ($user) {
-				if ($_POST['mdp'] = $user->mdp) {
-				//if (password_verify($_POST['mdp'], $user->mdp)) {
-					Site::getUser()->connectionUser($user->idUser);
-					$session->addMessage('success', "tu es bien connecté");
-
-					Site::redirection('index.php');
-				}else {
-					$session->addMessage('danger', "ton mod de passe est invalide");
+				if (Site::getUser()->isValidated()) {
+					if ($_POST['mdp'] == $user->mdp) {
+					//if (password_verify($_POST['mdp'], $user->mdp)) {
+						Site::getUser()->connectionUser($user->idUser);
+						$session->addMessage('success', "tu es bien connecté");
+						Site::redirection('index.php');
+					}else {
+						$session->addMessage('danger', "ton mot de passe est invalide");
+					}
+				} else {
+						$session->addMessage('info', "ton compte n'a pas été validé");	
 				}
 			} else {
 				$session->addMessage('danger', "Ce compte n'existe pas");
