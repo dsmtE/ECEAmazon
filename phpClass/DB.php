@@ -24,8 +24,12 @@ class DB {
         return $req;
     }
 
-    public function getLastInsertId(){
+    public function getLastInsertId() {
         return $this->$db->last
+    }
+
+    public function getUser($idUser) { // requête prédéfini souvent utilisée
+        return $this->requete('SELECT * FROM Utilisateurs WHERE id = ?', [$idUser])->fetch();
     }
 }
 

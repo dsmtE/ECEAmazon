@@ -1,5 +1,6 @@
 <?php 
   require_once 'phpClass/autoloader.php'; // chargement des différentes classes php 
+  Session::getSession(); // instanciation de la session
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +32,7 @@
   <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top ">
-      <a href="index.php" class="navbar-brand " href="#"><i class="fab fa-artstation"></i> ECE Amazon</a>
+      <a href="index.php" class="navbar-brand " href="#"><i class="fab fa-artstation text-white"></i> ECE Amazon</a>
 
       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="icon-bar"></span>
@@ -48,17 +49,23 @@
               <a class="dropdown-item" href="#">modifier les produits</a>  <!-- placeholder link -->
             </div>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="#">Produits</a> <!-- placeholder link -->
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#"><i class="fas fa-shopping-basket"></i></a>  <!-- placeholder link -->
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Se Connecter</a>  <!-- placeholder link -->
+            <a class="nav-link" href="#">Se Connecter</a>  <!-- placeholder link php affichage -->
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">S'inscrire</a>  <!-- placeholder link -->
+            <a class="nav-link" href="#">S'inscrire</a>  <!-- placeholder link php affichage  -->
+          </li> 
+          <li class="nav-item disabled">
+            <a class="nav-link" href="#">Mon Compte</a>  <!-- placeholder link php affichage -->
+          </li>
+          <li class="nav-item disabled">
+            <a class="nav-link" href="#">Vendre</a>  <!-- placeholder link php affichage -->
           </li>  
         </ul>
 
@@ -75,15 +82,12 @@
       <div class="modal-dialog modal-notify modal-info modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modaleTitle">Informations</h5>
+            <h5 class="modal-title" id="modaleTitle"><i class="fas fa-exclamation-triangle fa-2x animated rotateIn text-dark"></i> Informations</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <div class="text-center">
-              <i class="fas fa-exclamation-triangle fa-4x animated rotateIn text-danger"></i>
-            </div>
             <div class="dropdown-divider"></div>
             <?php
             Session::getSession()->addMessage("success", "message test success");
@@ -91,9 +95,11 @@
 
             if (Session::getSession()->hasMessages() ) {
 
-              foreach (Session::getSession()->getMessages() as $type => $message) {
+              foreach (Session::getSession()->getMessages() as $message) {
+                $type = explode(Session::$msgSeparator, $message)[0];
+                $text = explode(Session::$msgSeparator, $message)[1];
                echo ' <div class="alert alert-'.$type.'" role="alert">
-                        <strong>Warning!</strong> '.$message.'
+                        <strong>Warning!</strong> '.$text.'
                       </div> ';
               }
             }

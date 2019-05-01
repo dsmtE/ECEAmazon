@@ -8,7 +8,7 @@ $(function() { // Shorthand for $(document).ready() with jQuery
 
     // ajout la class "active" à l'element ciblant la page active
     //on recupere le dernier element du split ave .pop() ce qui permet de recuperer tout la fin de la chaine apres le dernier / de l'url
-    $('nav a[href$="' +location.pathname.split("/").pop() + '"]').addClass('active');
+    $('nav a[href$="' +location.pathname.split("/").pop() + '"]').addClass('active text-info');
 
 
 
