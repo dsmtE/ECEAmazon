@@ -32,44 +32,124 @@
 		</div>
 		
 		<div class="row justify-content-center"> <!--sous bloc produits-->
-			<div class="col align-self-center" >
-				
-				<div class="col-3" style="padding : 1em;"> <!--sous bloc produit 1-->
-					<div class="row"><!--catégorie produit 1-->
-						<div class="col">
-							<h3 class="text-center" style="font-style : italic; float: left; text-shadow: 1px 1px #000000;">Littérature</h3>
-						</div>
+			
+
+			<div class="col-3"> <!--sous bloc produit 1-->
+				<div class="row justify-content-center"><!--catégorie produit 1-->
+					<div class="col-7">
+						<h3 class="text-center" style="font-style : italic; float: left; text-shadow: 1px 1px #000000;">Littérature</h3>
 					</div>
-					<div class="row"> <!-- Photo produit 1-->
-						<div class="col">
-							<i class="far fa-image fa-8x"></i>
-						</div>
+				</div>
+				<div class="row justify-content-center"> <!-- Photo produit 1-->
+					<div class="col-7">
+						<i class="far fa-image fa-10x" id="photo1"><!--placeholder SQL--></i>
 					</div>
-					<div class="row">
-						<div class="col-4">
-							
-						</div>
+				</div>
+				<div class="row justify-content-center"><!--Nom du produit-->
+					<div class= "col-7" id="NomProduit" style="float:left; font-size : 18px; padding-bottom: 10px;">NomProduit <!--placeholder SQL--></div>
+				</div>
+				<div class="row justify-content-center"><!-- Description du produit-->
+					<div class="col-7" id="Description" style="background-color :#C4C1C0;border-radius: 10px; text-align : left;">
+						description***********
+						**********************
+						**********************
+						<!--placeholder SQL-->
+						<p id="nomVendeur" style="font-style : italic; text-align: center;">NomVendeur  <!--placeholder SQL--></p>
+						<p style="font-style : bold; text-align: center; display : inline-block; padding-left : 3em;">Prix : <p id="prix" style="display : inline-block; font-style : bold; text-align: center; padding-left: 0.5em;"> -- <!--placeholder SQL--> </p> €</p>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-5 align-self-center"><input type="button" name="productFeatures" value="Voir le produit" style="background-color: #1EE91E; margin-top: 1em;">
 					</div>
 				</div>
 			</div>
-			<div class="col-3" style="padding : 1em;"> <!--sous bloc produit 2-->
-				<div class="row"><!--catégorie produit 2-->
-					<div class="col-6">
+
+			<div class="col-3"> <!--sous bloc produit 2-->
+				<div class="row justify-content-center"><!--catégorie produit 2-->
+					<div class="col-7">
 						<h3 class="text-center" style="font-style : italic; float: left; text-shadow: 1px 1px #000000;">Musique</h3>
 					</div>
 				</div>
-			</div>
-			<div class="col-3" style="padding : 1em;"> <!--sous bloc produit 3-->
-				<div class="row"><!--catégorie produit 3-->
-					<div class="col-6">
-						<h3 class="text-center" style="font-style : italic; float: left; text-shadow: 1px 1px #000000;">Mode</h3>
+				<div class="row justify-content-center"> <!-- Photo produit 2-->
+					<div class="col-7">
+						<i class="far fa-image fa-10x" id="photo2"><!--placeholder SQL--></i>
+					</div>
+				</div>
+				<div class="row justify-content-center"><!--Nom du produit-->
+					<div class= "col-7" id="NomProduit" style="float:left; font-size : 18px; padding-bottom: 10px;">NomProduit <!--placeholder SQL--></div>
+				</div>
+				<div class="row justify-content-center"><!-- Description du produit-->
+					<div class="col-7" id="Description" style="background-color :#C4C1C0;border-radius: 10px; text-align : left;">
+						description***********
+						**********************
+						**********************
+						<!--placeholder SQL-->
+						<p id="nomVendeur" style="font-style : italic; text-align: center;">NomVendeur  <!--placeholder SQL--></p>
+						<p style="font-style : bold; text-align: center; display : inline-block; padding-left : 3em;">Prix : <p id="prix" style="display : inline-block; font-style : bold; text-align: center; padding-left: 0.5em;"> -- <!--placeholder SQL--> </p> €</p>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-5 align-self-center"><input type="button" name="productFeatures" value="Voir le produit" style="background-color: #1EE91E; margin-top: 1em;">
 					</div>
 				</div>
 			</div>
-			<div class="col-3" style="padding : 1em;"> <!--sous bloc produit 4-->
-				<div class="row"><!--catégorie produit 4-->
+
+			<div class="col-3"> <!--sous bloc produit 3-->
+				<div class="row justify-content-center"><!--catégorie produit 3-->
+					<div class="col-7">
+						<h3 class="text-center" style="font-style : italic; float: left; text-shadow: 1px 1px #000000;">Mode</h3>
+					</div>
+				</div>
+				<div class="row justify-content-center"> <!-- Photo produit 3-->
+					<div class="col-7">
+						<i class="far fa-image fa-10x" id="photo3"><!--placeholder SQL--></i>
+					</div>
+				</div>
+				<div class="row justify-content-center"><!--Nom du produit-->
+					<div class= "col-7" id="NomProduit" style="float:left; font-size : 18px; padding-bottom: 10px;">NomProduit <!--placeholder SQL--></div>
+				</div>
+				<div class="row justify-content-center"><!-- Description du produit-->
+					<div class="col-7" id="Description" style="background-color :#C4C1C0;border-radius: 10px; text-align : left;">
+						description***********
+						**********************
+						**********************
+						<!--placeholder SQL-->
+						<p id="nomVendeur" style="font-style : italic; text-align: center;">NomVendeur  <!--placeholder SQL--></p>
+						<p style="font-style : bold; text-align: center; display : inline-block; padding-left : 3em;">Prix : <p id="prix" style="display : inline-block; font-style : bold; text-align: center; padding-left: 0.5em;"> -- <!--placeholder SQL--> </p> €</p>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-5 align-self-center"><input type="button" name="productFeatures" value="Voir le produit" style="background-color: #1EE91E; margin-top: 1em;">
+					</div>
+				</div>
+			</div>
+
+			<div class="col-3"> <!--sous bloc produit 4-->
+				<div class="row justify-content-center"><!--catégorie produit 4-->
 					<div class="col-8">
 						<h3 class="text-center" style="font-style : italic; float: left; text-shadow: 1px 1px #000000;">Sport et loisirs</h3>
+					</div>
+				</div>
+				<div class="row justify-content-center"> <!-- Photo produit 4-->
+					<div class="col-7">
+						<i class="far fa-image fa-10x" id="photo2"><!--placeholder SQL--></i>
+					</div>
+				</div>
+				<div class="row justify-content-center"><!--Nom du produit-->
+					<div class= "col-7" id="NomProduit" style="float:left; font-size : 18px; padding-bottom: 10px;">NomProduit <!--placeholder SQL--></div>
+				</div>
+				<div class="row justify-content-center"><!-- Description du produit-->
+					<div class="col-7" id="Description" style="background-color :#C4C1C0;border-radius: 10px; text-align : left;">
+						description***********
+						**********************
+						**********************
+						<!--placeholder SQL-->
+						<p id="nomVendeur" style="font-style : italic; text-align: center;">NomVendeur  <!--placeholder SQL--></p>
+						<p style="font-style : bold; text-align: center; display : inline-block; padding-left : 3em;">Prix : <p id="prix" style="display : inline-block; font-style : bold; text-align: center; padding-left: 0.5em;"> -- <!--placeholder SQL--> </p> €</p>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-5 align-self-center"><input type="button" name="productFeatures" value="Voir le produit" style="background-color: #1EE91E; margin-top: 1em;">
 					</div>
 				</div>
 			</div>
