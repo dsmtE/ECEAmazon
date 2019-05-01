@@ -1,6 +1,6 @@
-    <footer>
+    <div id="footer">
         <p>&copy; 2019 ECEAmazon </p>
-    </footer>
+    </div>
 
     <!-- JavaScript placed at the end of the document (body) for optimized loading -->
 
@@ -17,5 +17,6 @@
 
     <!-- custom javascript -->
     <script src="js/main.js"></script>
+    
   </body>
 </html>

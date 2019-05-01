@@ -23,6 +23,12 @@ class Session {
         array_push ($_SESSION["messages"], $type . self::$msgSeparator . $message);
     }
 
+    public function addMessages($type, $arrayMsg) {// permet d'ajouter des messages depuis un talbeau
+        foreach ($arrayMsg as $msg){
+            $this->addMessage($type, $msg);
+        }
+    }
+
     public function hasMessages() {// permet de voir si il y a un message
         return isset($_SESSION["messages"]);
     }
@@ -33,19 +39,6 @@ class Session {
         return $messages;
     }
 
-    public function connectionUser($db, $idUser) { // permet de connecter un utilisateur
-        $_SESSION["user"] = $db->getUser($idUser);
-    }
-
-    public function deconnectionUser() {// permet d'ajouter un utilisateur en connection
-        if(isset($_SESSION["user"])) {
-            unset($_SESSION["user"]);
-            $this->addMessage('info', 'tu as bien été deconnecté');
-        } else {
-            $this->addMessage('danger', 'tu n\'est pas connecté');
-        }
-    }
-
     public function write($key, $value) { // accesseur qui permet d'ecrire une valeur de session
         $_SESSION[$key] = $value;
         return $_SESSION[$key];
@@ -54,6 +47,9 @@ class Session {
     public function read($key) { // accesseur qui permet de lire une valeur de session
         return isset( $_SESSION[$key] ) ? $_SESSION[$key] : null;
     }
-}
 
+    public function del($key) {
+        unset($_SESSION[$key]);
+    }
+}
 ?>

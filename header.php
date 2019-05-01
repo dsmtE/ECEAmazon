@@ -2,6 +2,7 @@
   require_once 'phpClass/autoloader.php'; // chargement des différentes classes php 
   Session::getSession(); // instanciation de la session
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -31,7 +32,7 @@
 
   <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top ">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-8">
       <a href="index.php" class="navbar-brand " href="#"><i class="fab fa-artstation text-white"></i> ECE Amazon</a>
 
       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,7 +57,7 @@
             <a class="nav-link" href="#"><i class="fas fa-shopping-basket"></i></a>  <!-- placeholder link -->
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Se Connecter</a>  <!-- placeholder link php affichage -->
+            <a class="nav-link" href="signIn.php">Se Connecter</a>  <!-- placeholder link php affichage -->
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">S'inscrire</a>  <!-- placeholder link php affichage  -->
@@ -90,8 +91,8 @@
           <div class="modal-body">
             <div class="dropdown-divider"></div>
             <?php
-            Session::getSession()->addMessage("success", "message test success");
-            Session::getSession()->addMessage("danger", "message test danger");
+            // Session::getSession()->addMessage("success", "message test success");
+            // Session::getSession()->addMessage("danger", "message test danger");
 
             if (Session::getSession()->hasMessages() ) {
 
@@ -104,7 +105,6 @@
               }
             }
             ?>
-            
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
