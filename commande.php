@@ -82,7 +82,7 @@
 		</div>
 	</div>
 	<div class="col-sm">
-		<div id="blockCard" style="visibility: ; position: absolute;"> <!-- Bloc pour les CB-->
+		<div id="blockCard" style="visibility: hidden; position: absolute;"> <!-- Bloc pour les CB-->
 			<h3 class="pt-3"style="font-size : 1.5em; text-align: center;">Carte bancaire (Visa, MasterCard, AmericanExpress)</h3>
 			<form>
 				<div class="form-group row">
@@ -127,10 +127,13 @@
 					<div class="col-2">
 						<input type="text" class="form-control" name="securityCode"placeholder="***">
 					</div>
+					<div class="col-6">
+						<button type="button" class="btn btn-success" style="float: right; width : 8em;">Valider</button> <!--placeholder SQL-->
+					</div>
 				</div>
 			</form>
 		</div>
-		<div id="paypalAccount" style="visibility: hidden; position: absolute;"> <!--Bloc Paypal-->
+		<div id="paypalAccount" style="visibility: hidden ; position: absolute; width : 50em; "> <!--Bloc Paypal-->
 			<h3 class="pt-3"style="font-size : 1.5em; text-align: center;">PayPal</h3>
 			<div class="col-sm mt-3">
 				<p style="text-align:center; font-size: 1.3em;">Connexion au compte Paypal</p>
@@ -147,11 +150,12 @@
 							<input type="password" class="form-control" id="inputPasswordPP" placeholder="*******">
 						</div>
 					</div>
+					<button type="button" class="btn btn-success" style="float: right; width : 8em;">Valider</button> <!--placeholder SQL-->
 				</form>
 			</div>
 		</div>
-		<div id="chqCadeau" style="visibility:hidden;">
-			<h3 class="pt-3"style="font-size : 1.5em; text-align: center;">Chèque cadeau</h3>
+		<div id="chqCadeau" style="visibility: ;">
+			<h3 class="pt-3 pb-3"style="font-size : 1.5em; text-align: center;">Chèque cadeau</h3>
 			<div class="col-sm mt-3">
 				<form>
 					<div class="form-group row">
@@ -160,11 +164,16 @@
 							<input type="text" id="numChq" class="form-control" placeholder="123456">
 						</div>
 					</div>
+					<div class="row justify-content-center">
+						<div class="col-md-4">
+							<button type="button" class="btn btn-success" style="float: left;">Valider</button>
+						</div>
+					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	
 </div>
+
 
 <?php include "footer.php"?>
