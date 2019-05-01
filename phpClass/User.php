@@ -15,16 +15,14 @@ class User {
 
         //source: https://www.geeksforgeeks.org/generating-random-string-using-php/
         // permet de generer une chaine aléatoire
-        $strValidation = substr(str_shuffle(str_repeat('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 60)), 0, 60);
+        $strValidation = bin2hex(random_bytes(20));
 
         // on ajout l'utilisateur à la base de donnée
-        $this->db->requete('INSERT INTO Utilisateurs SET nom = ?, prenom = ?, mail = ?, tel = ?, admin = 0, mdp = ?, img = ?, imgFond = ?, dateInscription = NULL, strValidation = ?, adresse = NUll, codePostal = NULL, pays = NULL', [$nom, $prenom, $mail, $tel, $mdp, $img, $imgFond, $strValidation]);
+        $this->db->requete('INSERT INTO Utilisateurs SET nom = ?, prenom = ?, email = ?, tel = ?, admin = 0, mdp = ?, img = ?, imgFond = ?, dateInscription = NULL, strValidation = ?, adresse = NUll, codePostal = NULL, pays = NULL', [$nom, $prenom, $mail, $tel, $mdp, $img, $imgFond, $strValidation]);
 
         // on récupère son id puis on envoi un mail pour la confirmation
         $idUser = $this->db->getLastInsertId();
-        //mail($mail, "confirmation d\'inscription", "pour confirmer votre inscription cliquez sur ce lien : \n http://localhost:14/ECEAmazon/confirmationInscription.php?id=".$idUser.'&str='.$strValidation, "From: desmet.enguerrand@gmail.com");
-        $this->session->addMessage('info',"pour confirmer votre inscription cliquez sur ce lien : \n http://localhost:14/ECEAmazon/confirmationInscription.php?id=".$idUser.'&str='.$strValidation );
-
+        mail($mail, "confirmation d\'inscription", "pour confirmer votre inscription cliquez sur ce lien : \n http://localhost:14/ECEAmazon/confirmationInscription.php?id=".$idUsed.'&str='.$strValidation);
 
     }
 
@@ -40,35 +38,34 @@ class User {
         
     }
 
-    public function isConnected() {
-        return $this->session->read("user") != null;
+    public function isConnected($warningMsg = "tu n'a pas accès à cette page !") {
+        if(!$session->read("user")) {// si l'utilisateur n'est pas connecté
+            $this->addMessage('danger', $warningMsg);
+            return false;
+        }
+        return true;
     }
 
-    public function isValidated($mail) {
-        $user = $this->compteExistantbyMail($mail);
-        return $user && $user->dateInscription != null;
-    }
-
-    public function isAdmin() {
-        $user = $this->session->read("user");
-        return $user != null && $user->admin == 1;
+    public function isAdmin($warningMsg = "tu n'est pas administrateur !") {
+        $user = $this->db->getUser($idUser);
+        if(!$session->read("user") || $user->admin != 1) {// si l'utilisateur n'est pas connecté ou pas admin
+            $this->addMessage('danger', $warningMsg);
+            return false;
+        }
+        return true;
     }
 
     public function connectionUser($idUser) { // permet de connecter un utilisateur
         $this->session->write("user", $this->db->getUser($idUser));
     }
 
-    public function deconnectionUser() {// permet de deconnecter un utilisateur
-        if($this->session->read("user")) {
-            $this->session->del("user");
-            $this->session->addMessage('info', 'tu as bien été deconnecté');
+    public function deconnectionUser() {// permet d'ajouter un utilisateur en connection
+        if(!$session->read("user")) {
+            $session->del("user");
+            $this->addMessage('info', 'tu as bien été deconnecté');
         } else {
-            $this->session->addMessage('danger', 'tu n\'est pas connecté');
+            $this->addMessage('danger', 'tu n\'est pas connecté');
         }
-    }
-
-    public function compteExistantbyMail($mail) {
-        return $this->db->requete('SELECT * FROM Utilisateurs WHERE mail = ?', [$mail])->fetch();
     }
 
 }

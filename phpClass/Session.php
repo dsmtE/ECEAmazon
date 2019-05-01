@@ -7,7 +7,6 @@ class Session {
 
     private function __construct() {
         session_start();
-        // echo "session start ";
     }
 
     public static function getSession() {

@@ -7,8 +7,8 @@ CREATE TABLE `Utilisateurs`
   `tel` int DEFAULT NULL,
   `admin` boolean NOT NULL DEFAULT 0,
   `mdp` varchar(255) NOT NULL,
-  `img` mediumblob NOT NULL, 
-  `imgFond` mediumblob NOT NULL,
+  `img` blob NOT NULL, 
+  `imgFond` blob NOT NULL,
   `dateInscription` date DEFAULT NULL,
   `strValidation` varchar(255),
   `adresse` varchar(255) DEFAULT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE `Produits`
   `description` varchar(255) DEFAULT "",
   `prix` float NOT NULL,
   `quantity` int NOT NULL,
-  `img` mediumblob NOT NULL
+  `img` blob NOT NULL
 );
 
 CREATE TABLE `Achats`
