@@ -45,6 +45,11 @@
 							<i class="far fa-image fa-8x"></i>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-4">
+							
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-3" style="padding : 1em;"> <!--sous bloc produit 2-->
@@ -71,8 +76,6 @@
 		</div>
 	</div>
 </div>
-</div>
-</div>
-</div>
+
 
 <?php include "footer.php"?>
