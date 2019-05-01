@@ -38,8 +38,8 @@
 						<input type="password" class="form-control" id="inputPassword3" placeholder="Mot de passe">
 					</div>
 				</div>
-			</div>
-		</form>
+			</form>
+		</div>
 	</div>
 </div>
-<?php include "footer.php"?>
+	<?php include "footer.php"?>
