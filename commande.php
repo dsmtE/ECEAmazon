@@ -58,7 +58,7 @@
 		<h2 style="text-align: center; color: #1EC4E9">Informations de paiement</h2>
 	</div>
 	<div class="col-sm-2 mt-3 mr-1">
-		<div class="dropdown">
+		<!--<div class="dropdown"> 
 			<button class="btn btn-secondary dropdown-toggle" type="button" id="typePaiement" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				Modes de paiement
 			</button>
@@ -69,6 +69,16 @@
 				<a class="dropdown-item" id="paypal" href="#">PayPal</a>
 				<a class="dropdown-item" id="chqCadeau" href="#">Chèque cadeau</a>
 			</div>
+		</div>-->
+		<div class="input-group mb-3"> <!--Meilleure option ??-->
+			<select class="custom-select" id="typePaiement">
+				<option selected>Mode de paiement</option>
+				<option value="1" id="visa" href="#">Visa</option>
+				<option value="2" id="master" href="#">MasterCard</option>
+				<option value="3" id="american" href="#">AmericanExpress</option>
+				<option value="4" id="paypal" href="#">PayPal</option>
+				<option value="5" id="chqCadeau" href="#">Chèque cadeau</option>
+			</select>
 		</div>
 	</div>
 	<div class="col-sm">
