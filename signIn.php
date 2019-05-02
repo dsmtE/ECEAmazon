@@ -32,11 +32,11 @@
 
 
 		if(empty($erreurs)) { // il n'y a pas eu d'erreurs
-			$ruse = Site::getUser()->compteExistantbyMail($_POST['mail']);
+			$user = Site::getUser()->compteExistantbyMail($_POST['mail']);
 
 			if ($user) {
-				if (Site::getUser()->isValidated()) {
-					if ($_POST['mdp'] == $user->mdp) {
+				if (Site::getUser()->isValidated($_POST['mail'])) {
+					if (password_verify($_POST['mdp'], $user->mdp)) {
 					//if (password_verify($_POST['mdp'], $user->mdp)) {
 						Site::getUser()->connectionUser($user->idUser);
 						$session->addMessage('success', "tu es bien connecté");
@@ -63,7 +63,7 @@ include "header.php";
 
 
 <div class="container-fluid col">
-	<div class="row justify-content-center" style="margin : 1em;"> <!--Bloc global-->
+	<div class="row justify-content-center m-1"> <!--Bloc global-->
 		<div class=" col-5  align-self-center ">
 			<div class="row"><!-- Sous bloc logo/titre-->
 				<div class="col-3"><!-- Sous colonne logo-->

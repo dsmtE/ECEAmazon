@@ -18,7 +18,7 @@ class User {
         $strValidation = substr(str_shuffle(str_repeat('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 60)), 0, 60);
 
         // on ajout l'utilisateur à la base de donnée
-        $this->db->requete('INSERT INTO Utilisateurs SET nom = ?, prenom = ?, mail = ?, tel = ?, admin = 0, mdp = ?, img = ?, imgFond = ?, dateInscription = NULL, strValidation = ?, adresse = NUll, codePostal = NULL, pays = NULL', [$nom, $prenom, $mail, $tel, $mdp, $img, $imgFond, $strValidation]);
+        $this->db->requete('INSERT INTO Utilisateurs SET nom = ?, prenom = ?, mail = ?, tel = ?, mdp = ?, img = ?, imgFond = ?, strValidation = ?', [$nom, $prenom, $mail, $tel, $mdp, $img, $imgFond, $strValidation]);
 
         // on récupère son id puis on envoi un mail pour la confirmation
         $idUser = $this->db->getLastInsertId();

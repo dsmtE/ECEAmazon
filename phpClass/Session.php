@@ -3,11 +3,11 @@
 class Session {
 
     private static $instance = null; // variable static de l'instance session singleton
+
     static $msgSeparator = '/*s*/';
 
     private function __construct() {
         session_start();
-        // echo "session start ";
     }
 
     public static function getSession() {
@@ -17,6 +17,7 @@ class Session {
         return self::$instance;
     }
 
+    //----------  gestion des messages ----------
     public function addMessage($type, $message) {// permet d'ajouter un message
         if(!isset($_SESSION["messages"])) {
             $_SESSION["messages"] = array();
@@ -38,6 +39,30 @@ class Session {
         $messages = $_SESSION["messages"];
         unset($_SESSION["messages"]);
         return $messages;
+    }
+
+    //----------  gestion du panier ----------
+    public function addToBasket($idProduit, $quantity) {// permet dun produit au panier
+        if(!isset($_SESSION["panier"])) {
+            $_SESSION["panier"] = array();
+        }
+        array_push ($_SESSION["panier"], [$idProduit, $quantity]);
+    }
+
+    public function besketEmpty() {// permet de savoir si il y a des elements dans le panier
+        return isset($_SESSION["panier"]);
+    }
+
+    // public function besketChangeQuantity($idProduit, $newQuantity) {
+    //     if(!isset($_SESSION["panier"])) {
+    //         $_SESSION["panier"] = array();
+    //     }
+    // }
+
+    public function getBasketElems() {// permet de recuperer les produits du panier
+        $panier = $_SESSION["panier"];
+        unset($_SESSION["panier"]);
+        return $panier;
     }
 
     public function write($key, $value) { // accesseur qui permet d'ecrire une valeur de session

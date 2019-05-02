@@ -2,7 +2,6 @@
   require_once 'phpClass/autoloader.php'; // chargement des différentes classes php 
   // Session::getSession(); // instanciation de la session
 
-
   $logged = Site::getUser()->isConnected(); // savoir si l'utilisateur est connecté
   $admin = Site::getUser()->isAdmin(); // savoir si l'utilisateur est connecté et admin
 
@@ -57,6 +56,7 @@
             </div>
           </li>
           <?php } ?>
+          
           <li class="nav-item">
             <a class="nav-link" href="#">Produits</a> <!-- placeholder link -->
           </li>
@@ -104,8 +104,6 @@
           <div class="modal-body">
             <div class="dropdown-divider"></div>
             <?php
-            // Session::getSession()->addMessage("success", "message test success");
-            // Session::getSession()->addMessage("danger", "message test danger");
 
             if (Session::getSession()->hasMessages() ) {
 
