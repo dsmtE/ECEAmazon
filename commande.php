@@ -2,7 +2,7 @@
 
 <div class="row">
 	<div class="col bg-info" id="banniere"> <!--placeholder SQL-->
-		<div class="row">
+		<div class="r2w">
 			<div class="col-2 text-white" id="NomPrenom" style="padding : 1.5em 0 1em 3em;">
 				Nom Prénom <!--placeholder SQL-->
 			</div>
@@ -73,67 +73,54 @@
 		<div class="input-group mb-3"> <!--Meilleure option ??-->
 			<select class="custom-select" id="typePaiement">
 				<option selected>Mode de paiement</option>
-				<option value="1" id="visa" href="#">Visa</option>
-				<option value="2" id="master" href="#">MasterCard</option>
-				<option value="3" id="american" href="#">AmericanExpress</option>
-				<option value="4" id="paypal" href="#">PayPal</option>
-				<option value="5" id="chqCadeau" href="#">Chèque cadeau</option>
+				<option value="blockCard"  href="#">Carte bancaire</option>
+				<option value="paypal"  href="#">PayPal</option>
+				<option value="chqCadeau" href="#">Chèque cadeau</option>
 			</select>
 		</div>
 	</div>
-	<div class="col-sm">
-		<div id="blockCard" style="visibility: hidden; position: absolute;"> <!-- Bloc pour les CB-->
-			<h3 class="pt-3"style="font-size : 1.5em; text-align: center;">Carte bancaire (Visa, MasterCard, AmericanExpress)</h3>
+	<div class="col-sm formulaire">
+		<div class="blockCard col-sm" style="visibility:hidden ; position: absolute;"> <!-- Bloc pour les CB-->
+			<h3 class="pt-3"style="font-size : 1.5em; text-align: center;">Carte bancaire</h3>
 			<form>
-				<div class="form-group row">
-					<label for="inputCard" class="col-sm-2 col-form-label pt-3">Numéro de carte :</label>
+				<div class="form-group row mt-3">
+					<label for="inputCard" class="col-sm-2 col-form-label mt-3">Numéro de carte :</label>
 					<div class="col-sm-4">
 						<input type="text" class="form-control mt-3" id="inputCard" placeholder="XXXX-XXXX-XXXX-XXXX">
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label for="dateCard" class="col-sm-5 col-form-label">Date d'expiration</label>
-							<select>
-								<option value="01">January</option>
-								<option value="02">February </option>
-								<option value="03">March</option>
-								<option value="04">April</option>
-								<option value="05">May</option>
-								<option value="06">June</option>
-								<option value="07">July</option>
-								<option value="08">August</option>
-								<option value="09">September</option>
-								<option value="10">October</option>
-								<option value="11">November</option>
-								<option value="12">December</option>
-							</select>
-							<select>
-								<option value="19"> 2019</option>
-								<option value="20"> 2020</option>
-								<option value="21"> 2021</option>
-								<option value="22"> 2022</option>
-							</select>
+							<label for="dateCard" class="col-sm-4 col-form-label mt-3">Date d'expiration :</label>
+							<input class="form-control col-6" type="month" value="2019-05" id="example-month-input" style="display: inline-block;">
 						</div>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="nameCard" class="col-sm-2 col-form-label">Nom du titulaire :</label>
-					<div class="col-sm-7">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" id="nameCard">
 					</div>
+					<div class="input-group col-4 offset-1">
+						<select class="custom-select" id="typeCarte">
+							<option selected>Type de carte</option>
+							<option value="visa"  href="#">Visa</option>
+							<option value="american" href="#">AmericanExpress</option>
+							<option value="master" href="#">MasterCard</option>
+						</select>
+					</div>
 				</div>
-				<div class="form-group row">
+				<div class="form-group row mt-4">
 					<label for="securityCode" class="col-sm-2 col-form-label">Code de sécurité:</label>
 					<div class="col-2">
 						<input type="text" class="form-control" name="securityCode"placeholder="***">
 					</div>
-					<div class="col-6">
-						<button type="button" class="btn btn-success" style="float: right; width : 8em;">Valider</button> <!--placeholder SQL-->
+					<div class="col-5 ml-auto">
+						<button type="button" class="btn btn-success" style=" width : 8em;" id="validerCB">Valider</button> <!--placeholder SQL-->
 					</div>
 				</div>
 			</form>
 		</div>
-		<div id="paypalAccount" style="visibility: hidden ; position: absolute; width : 50em; "> <!--Bloc Paypal-->
+		<div id="paypal" style="visibility:hidden; position: absolute; width : 50em; "> <!--Bloc Paypal-->
 			<h3 class="pt-3"style="font-size : 1.5em; text-align: center;">PayPal</h3>
 			<div class="col-sm mt-3">
 				<p style="text-align:center; font-size: 1.3em;">Connexion au compte Paypal</p>
@@ -150,23 +137,23 @@
 							<input type="password" class="form-control" id="inputPasswordPP" placeholder="*******">
 						</div>
 					</div>
-					<button type="button" class="btn btn-success" style="float: right; width : 8em;">Valider</button> <!--placeholder SQL-->
+					<button type="button" class="btn btn-success" style="float: right; width : 8em;" id="validerPaypal">Valider</button> <!--placeholder SQL-->
 				</form>
 			</div>
 		</div>
-		<div id="chqCadeau" style="visibility: ;">
+		<div id="chqCadeau" style="visibility:  ;">
 			<h3 class="pt-3 pb-3"style="font-size : 1.5em; text-align: center;">Chèque cadeau</h3>
 			<div class="col-sm mt-3">
 				<form>
-					<div class="form-group row">
-						<label for="numChq" class="col-sm-5 col-form-label mb-2"> Veuillez entrer le code chèque cadeau :</label>
-						<div class="col-sm-6">
+					<div class="form-group row justify-content-center">
+						<label for="numChq" class="col-sm-4 col-form-label mb-2"> Veuillez entrer le code chèque cadeau :</label>
+						<div class="col-sm-4">
 							<input type="text" id="numChq" class="form-control" placeholder="123456">
 						</div>
 					</div>
 					<div class="row justify-content-center">
-						<div class="col-md-4">
-							<button type="button" class="btn btn-success" style="float: left;">Valider</button>
+						<div class="col-md-2">
+							<button type="button" class="btn btn-success" id="validerChq">Valider</button>
 						</div>
 					</div>
 				</form>
