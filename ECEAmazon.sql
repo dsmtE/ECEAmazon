@@ -112,7 +112,7 @@ INSERT INTO CaraChoix (idCara, nom) VALUES
  ('2', 'poche'), ('2', 'brochet'),
  ('3', 'gallimard '), ('3', 'flammarion '), ('3', 'milan'), ('3', 'Hachette'),
  ('4', 'jazz'), ('4', 'rock'), ('4', 'electro'), ('4', 'rap'), ('4', 'classique'), ('4', 'funk'),
- ('5', 'homme'), ('5', 'femme'), ('5', 'enfant'),
+ ('5', 'homme'), ('5', 'femme'), ('5', 'enfant');
 
 
 
