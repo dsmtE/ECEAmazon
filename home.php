@@ -34,7 +34,7 @@
 		<div class="row justify-content-center"> <!--sous bloc produits-->
 			
 
-			<div class="col-3"> <!--sous bloc produit 1-->
+			<div class="col-sm-3"> <!--sous bloc produit 1-->
 				<div class="row justify-content-center"><!--catégorie produit 1-->
 					<div class="col-7">
 						<h3 class="text-center" style="font-style : italic; float: left; text-shadow: 1px 1px #000000;">Littérature</h3>
@@ -64,7 +64,7 @@
 				</div>
 			</div>
 
-			<div class="col-3"> <!--sous bloc produit 2-->
+			<div class="col-sm-3"> <!--sous bloc produit 2-->
 				<div class="row justify-content-center"><!--catégorie produit 2-->
 					<div class="col-7">
 						<h3 class="text-center" style="font-style : italic; float: left; text-shadow: 1px 1px #000000;">Musique</h3>
@@ -94,7 +94,7 @@
 				</div>
 			</div>
 
-			<div class="col-3"> <!--sous bloc produit 3-->
+			<div class="col-sm-3"> <!--sous bloc produit 3-->
 				<div class="row justify-content-center"><!--catégorie produit 3-->
 					<div class="col-7">
 						<h3 class="text-center" style="font-style : italic; float: left; text-shadow: 1px 1px #000000;">Mode</h3>
@@ -124,7 +124,7 @@
 				</div>
 			</div>
 
-			<div class="col-3"> <!--sous bloc produit 4-->
+			<div class="col-sm-3"> <!--sous bloc produit 4-->
 				<div class="row justify-content-center"><!--catégorie produit 4-->
 					<div class="col-8">
 						<h3 class="text-center" style="font-style : italic; float: left; text-shadow: 1px 1px #000000;">Sport et loisirs</h3>
