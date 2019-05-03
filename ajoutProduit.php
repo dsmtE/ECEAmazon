@@ -10,7 +10,7 @@ $user = Session::getSession()->read("user");
 if(!empty($_POST)) { // si on recoi des données
 	$erreurs = array();
   	$db = Site::getDatabase();
-  	print_r($_POST);
+  	
 
   	if( !isset($_POST['productName']) || empty($_POST['productName']) ) {
     array_push($erreurs, "tu n\'a pas rentré de nom de produit");
@@ -32,23 +32,27 @@ if(!empty($_POST)) { // si on recoi des données
     array_push($erreurs, "tu n\'a pas rentré de prix");
   	}
 
+  	!isset($_POST['quantity']) || empty($_POST['quantity']) ? $_POST['quantity'] = 1 : "";
+
   	if( !isset($_POST['img']) || empty($_POST['img']) ) {
     array_push($erreurs, "tu n\'a pas selectionné d'image pour le produit");
   	}
 
-  	
+  	print_r($_POST);
+  	//print_r($erreurs);
 
-if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription
-	
+	if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription
 
-	//ajout du produit
-	$db->requete("INSERT INTO Produits (nom, categorie, idVendeur, description, prix) VALUES ('".$_POST['productName'].'", '
+		//ajout du produit
+		$db->requete("INSERT INTO Produits (nom, categorie, idVendeur, description, prix, quantity, img) VALUES ('".$_POST['productName']."', '".$_POST['categorie']."', ".$user->idUser.", '".$_POST['description']."', ".$_POST['price'].", ".$_POST['quantity'].", ".file_get_contents($_POST['img']).")");
 
-	Session::getSession()->addMessage('success', "Ton produit à bien été crée");
+		Session::getSession()->addMessage('success', "Ton produit à bien été crée");
 
-}else {
-	Session::getSession()->addMessages('danger', $erreurs);
-}
+	}else {
+		Session::getSession()->addMessages('danger', $erreurs);
+		Site::redirection('ajoutProduit.php');
+		exit();
+	}
 }
 
 ?>
@@ -138,9 +142,22 @@ if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription
 		</div>
 
 		<div class="form-group row">
-			<label for="price" class="col-sm-4 col-form-label">Prix :</label>
-			<div class="col-sm-8">
-				<input type="number" step="0.01" class="form-control" id="price" name="price" placeholder="--,--">
+			<div class="col-sm-6">
+				<div class="row">
+					<label for="price" class="col-sm-4 col-form-label">Prix :</label>
+					<div class="col-sm-8">
+						<input type="number" step="0.01" class="form-control" id="price" name="price" placeholder="--.--">
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-sm-6">
+				<div class="row">
+					<label for="price" class="col-sm-4 col-form-label">Quantité :</label>
+					<div class="col-sm-8">
+						<input type="number" class="form-control" id="price" name="quantity" placeholder="--">
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -151,8 +168,7 @@ if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription
 					<label class="custom-file-label" for="img">Importer une image de produit</label>
 				</div>
 			</div>
-		</div>
-		
+		</div>		
 
 		<button type="submit" class="btn btn-success offset-4 col-4 offset-md-9 mr-auto col-md-3">Ajouter le produit</button>
     </form>

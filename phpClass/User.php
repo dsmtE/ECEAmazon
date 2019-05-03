@@ -18,7 +18,9 @@ class User {
         $strValidation = substr(str_shuffle(str_repeat('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 60)), 0, 60);
 
         // on ajout l'utilisateur à la base de donnée
-        $this->db->requete('INSERT INTO Utilisateurs SET nom = ?, prenom = ?, mail = ?, tel = ?, mdp = ?, img = ?, imgFond = ?, strValidation = ?', [$nom, $prenom, $mail, $tel, $mdp, $img, $imgFond, $strValidation]);
+        //$this->db->requete('INSERT INTO Utilisateurs SET nom = ?, prenom = ?, mail = ?, tel = ?, mdp = ?, img = ?, imgFond = ?, strValidation = ?', [$nom, $prenom, $mail, $tel, $mdp, $img, $imgFond, $strValidation]);
+
+        $this->db->requete('INSERT INTO Utilisateurs (nom, prenom, mail, tel, mdp, img, imgFond, strValidation ) VALUES ("'.$nom.'", "'.$prenom.'", "'.$mail.'", '.$tel.', "'.$mdp.'", "'.$img.'", "'.$imgFond.'", "'.$strValidation.'")');
 
         // on récupère son id puis on envoi un mail pour la confirmation
         $idUser = $this->db->getLastInsertId();
@@ -31,6 +33,7 @@ class User {
     public function modificationCompte($nom, $prenom, $mail, $tel, $mdp, $adresse, $codePostal, $ville, $pays, $img, $imgFond) {
         
         $this->db->requete('UPDATE Utilisateurs SET nom = ?, prenom = ?, mail = ?, tel = ?, mdp = ?, adresse = ?, codePostal = ?, ville = ?, pays = ?, img = ?, imgFond = ? WHERE mail = ?', [$nom, $prenom, $mail, $tel, $mdp, $adresse, $codePostal, $ville, $pays, $img, $imgFond, $mail]);
+
         $this->session->addMessage('info',"ton compte à bien été modifé");
     }
 
