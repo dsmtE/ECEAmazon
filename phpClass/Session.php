@@ -43,14 +43,14 @@ class Session {
     }
 
     //----------  gestion du panier ----------
-    public function addToBasket($idProduit, $quantity) {// permet dun produit au panier
+    public function addToPAnier($idProduit, $quantity = 1) {// permet dun produit au panier
         if(!isset($_SESSION["panier"])) {
             $_SESSION["panier"] = array();
         }
         array_push ($_SESSION["panier"], [$idProduit, $quantity]);
     }
 
-    public function besketEmpty() {// permet de savoir si il y a des elements dans le panier
+    public function panierIsEmpty() {// permet de savoir si il y a des elements dans le panier
         return isset($_SESSION["panier"]);
     }
 
@@ -60,7 +60,7 @@ class Session {
     //     }
     // }
 
-    public function getBasketElems() {// permet de recuperer les produits du panier
+    public function getPAnierElems() {// permet de recuperer les produits du panier
         $panier = $_SESSION["panier"];
         unset($_SESSION["panier"]);
         return $panier;
