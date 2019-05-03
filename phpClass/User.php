@@ -24,12 +24,16 @@ class User {
         $idUser = $this->db->getLastInsertId();
         //mail($mail, "confirmation d\'inscription", "pour confirmer votre inscription cliquez sur ce lien : \n http://localhost:14/ECEAmazon/confirmationInscription.php?id=".$idUser.'&str='.$strValidation, "From: desmet.enguerrand@gmail.com");
         $this->session->addMessage('info',"pour confirmer votre inscription cliquez sur ce lien : \n http://localhost:14/ECEAmazon/confirmationInscription.php?id=".$idUser.'&str='.$strValidation );
+    }
 
-
+    public function modificationCompte($nom, $prenom, $mail, $tel, $mdp, $adresse, $codePostal, $ville, $pays, $img, $imgFond) {
+        
+        // 
+        $this->session->addMessage('info',"ton compte à bien été modifé");
     }
 
     public function confirmationInscription($idUser, $strValidation) { 
-        $user = $this->db->getUser($idUser);
+        $user = $this->db->getUserById($idUser);
         if($user && $user->strValidation == $strValidation) {// si la chaine est la même 
             // on met à jout la base de donné 
             $this->db->requete('UPDATE Utilisateurs SET strValidation = NULL, dateInscription = NOW() WHERE idUser = ?', [$idUser]);

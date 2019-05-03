@@ -13,6 +13,10 @@ $(function() { // Shorthand for $(document).ready() with jQuery
     if($('#messageModalShow').length) {// si il y a des message d'erreur dans la modal
         $('#messageModal').modal('show');
     }
+
+    $(".caraAdd").click(function() {
+        $( "#target" ).click();
+    });
     
 
 });

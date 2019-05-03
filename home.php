@@ -3,17 +3,17 @@
 	<div class=" col-sm-5  align-self-center ">
 		<div class="row"><!-- Sous bloc logo/titre-->
 			<div class="col-sm-3"><!-- Sous colonne logo-->
-				<i alt="LogoECEAmazon" class="fab fa-artstation fa-7x" style="float:left; margin :10px;"></i>
+				<i alt="LogoECEAmazon" class="fab fa-artstation fa-7x" style="float:left; margin :10px; "></i>
 			</div>
 			<div class="col-sm-8" style="top: 1em;"><!-- Sous colonne titre/sous-titres-->
 				<div class="row"><!--sous bloc titre-->
 					<div class="col">
-						<h1 class="text-center" style="font-size:3em; font-style : bold; ">ECEAmazon</h1>
+						<h1 class="text-center" style="font-size:3em; font-style : bold;color: rgb(23,162,184); ">ECEAmazon</h1>
 					</div>
 				</div>
 				<div class="row"><!-- Sous bloc sous titre-->
 					<div class="col">
-						<h2 class="text-center" style="font-size : 1.6em; font-style: italic;">N°1 de la vente en ligne</h2>
+						<h2 class="text-center" style="font-size : 1.6em; font-style: italic;color: rgb(23,162,184,0.6);">N°1 de la vente en ligne</h2>
 					</div>
 				</div>
 			</div>
@@ -125,7 +125,7 @@
 
 			<div class="col-sm-3"> <!--sous bloc produit 4-->
 				<div class="row justify-content-center"><!--catégorie produit 4-->
-					<div class="col-sm-7">
+					<div class="col-sm-8">
 						<h3 class="text-center" style="font-style : italic; float: left; text-shadow: 1px 1px #000000;">Sport et loisirs</h3>
 					</div>
 				</div>
