@@ -1,5 +1,3 @@
-<?php include "header.php"?>	
-
 <div class="row justify-content-center" style="margin : 1em;"> <!--Bloc global-->
 	<div class=" col-sm-5  align-self-center ">
 		<div class="row"><!-- Sous bloc logo/titre-->
@@ -156,6 +154,3 @@
 		</div>
 	</div>
 </div>
-
-
-<?php include "footer.php"?>

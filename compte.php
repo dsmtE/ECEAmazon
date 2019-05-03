@@ -1,4 +1,11 @@
-<?php include "header.php" ?>
+<?php 
+  include "header.php";
+  if( !$logged) {
+    $this->session->addMessage('danger', 'tu n\'est pas connecté');
+    Site::redirection('index.php');
+  }
+
+?>
 
   <body>
 

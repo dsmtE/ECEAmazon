@@ -58,21 +58,21 @@
           <?php } ?>
           
           <li class="nav-item">
-            <a class="nav-link" href="#">Produits</a> <!-- placeholder link -->
+            <a class="nav-link" href="produit.php">Produits</a> <!-- placeholder link -->
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#"><i class="fas fa-shopping-basket"></i></a>  <!-- placeholder link -->
           </li>
           <?php if(!$logged) { ?>
           <li class="nav-item">
-            <a class="nav-link" href="signIn.php">Se Connecter</a> 
+            <a class="nav-link" href="connexion.php">Se Connecter</a> 
           </li>
           <li class="nav-item">
             <a class="nav-link" href="inscription.php">S'inscrire</a> 
           </li>
           <?php }else{ ?>
           <li class="nav-item disabled">
-            <a class="nav-link" href="#">Mon Compte</a>  <!-- placeholder link -->
+            <a class="nav-link" href="compte.php">Mon Compte</a>  <!-- placeholder link -->
           </li>
           <li class="nav-item disabled">
             <a class="nav-link" href="#">Vendre</a>  <!-- placeholder link-->
@@ -87,10 +87,6 @@
     </nav>
 
      <!-- gestion des messages de session par modal -->
-
-    <!-- Button debug trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#messageModal"> debug modal </button>
-    
     <!-- messageModal -->
     <div class="modal hide fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="modaleTitle" aria-hidden="false">
       <div class="modal-dialog modal-notify modal-info modal-dialog-centered modal-lg" role="document">

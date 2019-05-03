@@ -5,10 +5,6 @@
 <form style="padding: 40px;">
     <div class="row"> 
 
-
-
-
-
         <div class="col-sm-4">
 
             <h1 class="text-left mb-5">Préférences</h1>
@@ -57,15 +53,15 @@
         <div class="row" style="border-style: solid; border-width: 0.1em; border-color: #ddd;">
             <div class="col-sm-4">
                 <img src="..." alt="..." class="img-thumbnail">
-                <p class="text-left" id="quantite">Quantité : </p>
-                <p class="text-left" id="vendeur">Vendeur</p>
+                <p class="text-left"> Quantité : </p>
+                <p class="text-left"> Vendu par </p>
 
             </div>
             <div class="col-sm-8">
                 <p class="text-left" id="nomproduit">Nom du produit</p>
                 <textarea class="form-control" id="description" rows="3"></textarea>
                 <p class="text-right" id="prix">Prix</p>
-                <button type="submit" class="btn btn-primary float-right mb-3">Panier</button>
+                <button type="submit" class="btn btn-primary float-right mb-3">Panier</button> <!-- modification if admin -->
             </div>
         </div>
 

@@ -124,7 +124,7 @@ include "header.php";
       <div class="form-group row">
         <div class="col-sm-8 offset-sm-4">
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="img">
+            <input type="file" class="custom-file-input" id="img" name="img">
             <label class="custom-file-label" for="img">Importer une image de profil</label>
           </div>
         </div>
@@ -132,7 +132,7 @@ include "header.php";
       <div class="form-group row">
         <div class="col-sm-8 offset-sm-4">
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="imgFond">
+            <input type="file" class="custom-file-input" id="imgFond" name="imgFond">
             <label class="custom-file-label" for="imgFond">Importer une image de fond</label>
           </div>
         </div>
