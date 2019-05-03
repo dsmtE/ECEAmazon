@@ -6,11 +6,20 @@ if(!$logged) {
 }
 $user = Session::getSession()->read("user");
 
-if(!empty($_POST)) { // si on recoi des données
-	$erreurs = array();
-	$db = Site::getDatabase();
 
-	print_r($_POST);
+if(isset($_GET['typePaiement'])){
+	$paiement = $_GET['typePaiement'];
+	switch($paiement){
+		case "blockCard" : $popUpCB = " "; break;
+		case "paypal" : $popUPPaypal = " "; break;
+		case "chqCadeau" : $popUpChq = " "; break;
+	}
+	print_r($_GET);
+}
+else{
+	$popUpCB = "hidden";
+	$popUpPaypal = "hidden";
+	$popUpChq = "hidden";
 }
 
 ?>
@@ -39,7 +48,7 @@ if(!empty($_POST)) { // si on recoi des données
 				<label for="inputAddress" class="col-sm-2 col-form-label">Adresse :</label>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" id="inputAddress" <?php if($user->adresse){
-						echo 'placeholder="'.$user->adresse.'">';}
+						echo 'placeholder="'.$user->adresse.'"';}
 						else{
 							echo 'placeholder="Adresse"';
 						}?>>
@@ -55,7 +64,7 @@ if(!empty($_POST)) { // si on recoi des données
 				<div class="col-sm-6">
 					<input type="number" class="form-control" id="inputPostal" 
 						<?php if($user->codePostal){
-						echo 'placeholder="'.$user->codePostal.'">';}
+						echo 'placeholder="'.$user->codePostal.'"';}
 						else{
 							echo 'placeholder="00000"';}?>
 					>
@@ -66,7 +75,7 @@ if(!empty($_POST)) { // si on recoi des données
 				<div class="col-sm-6">
 					<input type="text" class="form-control" id="inputCity" 
 						<?php if($user->ville){
-						echo'placholder="'.$user->ville.'">';}
+						echo'placholder="'.$user->ville.'"';}
 						else{
 							echo 'placeholder="Ville"';}?> 
 					>
@@ -77,7 +86,7 @@ if(!empty($_POST)) { // si on recoi des données
 				<div class="col-sm-6">
 					<input type="text" class="form-control" id="inputCountry" 
 						<?php if($user->pays){
-							echo'placholder="'.$user->pays.'">';}
+							echo'placholder="'.$user->pays.'"';}
 							else{
 								echo 'placeholder="France"';}?>
 					>
@@ -102,7 +111,7 @@ if(!empty($_POST)) { // si on recoi des données
 		</div>
 	</div>
 	<div class="col-sm formulaire">
-		<div class="blockCard col-sm" style="visibility:hidden ; position: absolute;"> <!-- Bloc pour les CB-->
+		<div class="blockCard col-sm" style="visibility:<?php echo $popUpCB ?> ; position: absolute;"> <!-- Bloc pour les CB-->
 			<h3 class="pt-3"style="font-size : 1.5em; text-align: center;">Carte bancaire</h3>
 			<form>
 				<div class="form-group row mt-3">
@@ -142,7 +151,7 @@ if(!empty($_POST)) { // si on recoi des données
 				</div>
 			</form>
 		</div>
-		<div id="paypal" style="visibility:hidden; position: absolute; width : 50em; "> <!--Bloc Paypal-->
+		<div id="paypal" style="visibility:<?php echo $popUpPaypal; ?>; position: absolute; width : 50em; "> <!--Bloc Paypal-->
 			<h3 class="pt-3"style="font-size : 1.5em; text-align: center;">PayPal</h3>
 			<div class="col-sm mt-3">
 				<p style="text-align:center; font-size: 1.3em;">Connexion au compte Paypal</p>
@@ -163,7 +172,7 @@ if(!empty($_POST)) { // si on recoi des données
 				</form>
 			</div>
 		</div>
-		<div id="chqCadeau" style="visibility:  ;">
+		<div id="chqCadeau" style="visibility: <?php echo $popUpChq; ?> ;">
 			<h3 class="pt-3 pb-3"style="font-size : 1.5em; text-align: center;">Chèque cadeau</h3>
 			<div class="col-sm mt-3">
 				<form>
