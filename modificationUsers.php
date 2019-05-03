@@ -81,7 +81,7 @@ else{
 				<div class="col-sm-8">
 					<input type="text" class="form-control" id="adresse" 
 					<?php if($userSelected){ 
-						if($userSelected->addresse)
+						if($userSelected->adresse)
 							{echo'placeholder="'.$userSelected->adresse.'"';}} 
 						echo'placeholder = "Adresse"'; ?>>
 					</div>
