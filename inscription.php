@@ -61,12 +61,12 @@ if(!empty($_POST)) { // si on recoi des données
 
 // test img
 if( !isset($_POST['img']) || empty($_POST['img']) ) {
-  array_push($erreurs, "tu n'a pas choisi d'image");
+  array_push($erreurs, "tu n'as pas choisi d'image");
 }
 
 // test imgFond
 if( !isset($_POST['imgFond']) || empty($_POST['imgFond']) ) {
-  array_push($erreurs, "tu n'a pas choisi d'image de fond");
+  array_push($erreurs, "tu n'as pas choisi d'image de fond");
 }
 
 
