@@ -1,3 +1,4 @@
+
 <div class="row justify-content-center" style="margin : 1em;"> <!--Bloc global-->
 	<div class=" col-sm-5  align-self-center ">
 		<div class="row"><!-- Sous bloc logo/titre-->
@@ -124,7 +125,7 @@
 
 			<div class="col-sm-3"> <!--sous bloc produit 4-->
 				<div class="row justify-content-center"><!--catégorie produit 4-->
-					<div class="col-sm-8">
+					<div class="col-sm-7">
 						<h3 class="text-center" style="font-style : italic; float: left; text-shadow: 1px 1px #000000;">Sport et loisirs</h3>
 					</div>
 				</div>
@@ -154,3 +155,4 @@
 		</div>
 	</div>
 </div>
+
