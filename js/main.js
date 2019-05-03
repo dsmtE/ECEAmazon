@@ -25,6 +25,12 @@ $(function() { // Shorthand for $(document).ready() with jQuery
         console.log('#caraChoix_'+caraSelect);
         $ ('#caraChoix_'+caraSelect).hide();
     });
+
+    $('#selectedUser').change(function() {
+        console.log($(this).val());
+        $(location).attr("href","http://localhost/ECEAmazon/modificationUsers.php?selectedUser="+$(this).val());
+
+    });
     
 
 });
