@@ -1,10 +1,24 @@
-<?php include "header.php" ?>
+<?php include "header.php";
+
+if( !$logged) {
+  $this->session->addMessage('danger', 'tu n\'est pas connecté');
+  Site::redirection('index.php');
+}
+
+$db = Site::getDatabase();
+$user = Session::getSession()->read("user");
+
+if(!empty($_POST)) { // si on recoi des données
+	echo 'test';
+}
+
+?>
 
 <div class="row">
 	<div class="col bg-info" id="banniere"> <!--placeholder SQL-->
 		<div class="row">
 			<div class="col-sm-2 text-white" id="NomPrenom" style="padding : 1.5em 0 1em 3em;">
-				Nom Prénom <!--placeholder SQL-->
+				<?php echo $user->nom.' '.$user->prenom; ?>
 			</div>
 		</div>
 		<div class="row">
@@ -15,37 +29,35 @@
 	</div>
 </div>
 
-<div class="row justify-content-center mt-4">
-	<div class="col-sm-8 align-content-center">
-		<form>
-			<div class="form-group row">
-				<label for="inputProductName" class="col-sm-4 col-form-label">Nom du produit :</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control" id="inputProductName" placeholder="Nom">
-				</div>
+<div class="w-100 d-flex justify-content-center">
+	<form action="" method="POST" class="p-2 w-75">
+
+		<div class="form-group row">
+			<label for="inputProductName" class="col-sm-4 col-form-label">Nom du produit :</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" id="inputProductName" placeholder="Nom">
 			</div>
-			<div class="form-group row">
-				<label for="inputCategorie" class="col-sm-4 col-form-label">Catégorie :</label>
-				<div class="col-sm-8">
-					<select class="custom-select" id="inputCategorie">
-						<option selected>Choisir la catégorie</option>
-						<option value="livres">Livres</option>
-						<option value="musique">Musique</option>
-						<option value="mode">Vêtements</option>
-						<option value="sports">Sports et loisirs</option>
-					</select>
-				</div>
+		</div>
+		<div class="form-group row">
+			<label for="inputCategorie" class="col-sm-4 col-form-label">Catégorie :</label>
+			<div class="col-sm-8">
+				<select class="custom-select" id="inputCategorie">
+					<option selected>Choisir la catégorie</option>
+					<option value="livres">Livres</option>
+					<option value="musique">Musique</option>
+					<option value="mode">Vêtements</option>
+					<option value="sports">Sports et loisirs</option>
+				</select>
 			</div>
-			<div class="form-group row">
-				<label for="inputDescription" class="col-sm-4 col-form-label">Description :</label>
-				<div class="col-sm-8">
-					<textarea class="form-control" id="inputDescription"></textarea>
-				</div>
+		</div>
+		<div class="form-group row">
+			<label for="inputDescription" class="col-sm-4 col-form-label">Description :</label>
+			<div class="col-sm-8">
+				<textarea class="form-control" id="inputDescription"></textarea>
 			</div>
-		</form>	
-	</div>
-</div>
-<div class="row justify-content-center">
+		</div>
+	</form>
+
 	<div class="col-sm-8">
 		<div class="row">
 			<div class="col-sm-4">
@@ -158,4 +170,6 @@
 		<button type="submit" class="btn btn-success offset-4 col-4 offset-sm-9 mr-auto col-sm-3">Ajouter le produit</button>
 	</div>
 </div>
-<?php include "footer.php" ?>
+
+
+<?php include "footer.php"; ?>

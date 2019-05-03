@@ -1,12 +1,10 @@
 <?php 
   require_once 'phpClass/autoloader.php'; // chargement des différentes classes php 
-  // Session::getSession(); // instanciation de la session
 
   $logged = Site::getUser()->isConnected(); // savoir si l'utilisateur est connecté
   $admin = Site::getUser()->isAdmin(); // savoir si l'utilisateur est connecté et admin
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -87,7 +85,6 @@
     </nav>
 
      <!-- gestion des messages de session par modal -->
-    <!-- messageModal -->
     <div class="modal hide fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="modaleTitle" aria-hidden="false">
       <div class="modal-dialog modal-notify modal-info modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">

@@ -55,7 +55,7 @@ class User {
     }
 
     public function connectionUser($idUser) { // permet de connecter un utilisateur
-        $this->session->write("user", $this->db->getUser($idUser));
+        $this->session->write("user", $this->db->getUserById($idUser));
     }
 
     public function deconnectionUser() {// permet de deconnecter un utilisateur

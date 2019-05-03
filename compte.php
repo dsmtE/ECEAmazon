@@ -1,7 +1,8 @@
 <?php 
 include "header.php";
+
 if( !$logged) {
-  $this->session->addMessage('danger', 'tu n\'est pas connecté');
+  $this->session->addMessage('danger', 'tu n\'es pas connecté');
   Site::redirection('index.php');
 }
 

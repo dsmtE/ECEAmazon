@@ -27,7 +27,7 @@ class DB {
         return $this->pdo->lastInsertId();
     }
 
-    public function getUser($idUser) { // requête prédéfini souvent utilisée
+    public function getUserById($idUser) { // requête prédéfini souvent utilisée
         return $this->requete('SELECT * FROM Utilisateurs WHERE idUser = ?', [$idUser])->fetch();
     }
 }

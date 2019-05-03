@@ -27,6 +27,7 @@ class Site {
     static public function rechargerPage() {
         header("Refresh:0");
     }
+
 }
 
 ?>

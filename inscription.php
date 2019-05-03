@@ -1,11 +1,13 @@
 <?php
-require_once 'phpClass/autoloader.php';
+include "header.php";
 $session = Session::getSession();
 
-if (Site::getUser()->isConnected()) {
-  $session->addMessage('info', "tu es déjà connecté");
+if($logged) {
+  $this->session->addMessage('info', 'tu es  déjà connecté');
   Site::redirection('index.php');
 }
+
+
 if(!empty($_POST)) { // si on recoi des données
 
   $erreurs = array();
@@ -79,7 +81,6 @@ $session->addMessage('success', "Ton compte à bien été crée, un mail de conf
 
 }
 
-include "header.php";
 ?>
   <h3 class="text-center mb-4 mt-1">Inscription</h3>
 <!-- <div class="row justify-content-center"> -->
