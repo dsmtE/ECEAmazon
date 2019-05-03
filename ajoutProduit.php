@@ -1,7 +1,7 @@
 <?php include "header.php";
 
 if( !$logged) {
-  $this->session->addMessage('danger', 'tu n\'est pas connecté');
+  Session::getSession()->addMessage('danger', 'tu n\'est pas connecté');
   Site::redirection('connexion.php');
 }
 
@@ -10,6 +10,8 @@ $user = Session::getSession()->read("user");
 if(!empty($_POST)) { // si on recoi des données
 	$erreurs = array();
   	$db = Site::getDatabase();
+
+  	print_r($_POST);
 }
 
 ?>
@@ -64,37 +66,44 @@ if(!empty($_POST)) { // si on recoi des données
 				<div class="input-group-prepend">
     				<label class="input-group-text">Caractéristiques</label>
   				</div>
-				<select class="custom-select" id="carac">
+				<select class="custom-select" id="selectCara">
 					<option selected></option>
 					<?php foreach (Site::getDatabase()->requete("SELECT * FROM Carateristiques") as $cara) { 
 						echo '<option value="'.$cara->nom.'">'.$cara->nom.'</option>';
 					}?>
 				</select>
 				<div class="input-group-append">
-					<button class="btn btn-outline-secondary caraAdd" type="button"><i class="fas fa-plus-circle"></i></button>
+					<button class="btn btn-outline-secondary" id="caraAdd" type="button"><i class="fas fa-plus-circle"></i></button>
+				</div>
+				<div class="input-group-append">
+					<button class="btn btn-outline-secondary" id="caraDel" type="button"><i class="fas fa-minus-circle"></i></button>
 				</div>
 			</div>
 		</div>
 		
-		<div class="form-group row col-sm-8 offset-sm-2">
+		<div class="form-group row col-sm-12">
 			
-			<?php foreach (Site::getDatabase()->requete("SELECT * FROM Carateristiques") as $cara) { ?>
-			<div class="input-group col-sm-3 mb-1" style="visibility: show;">
+			<?php foreach (Site::getDatabase()->requete("SELECT * FROM Carateristiques") as $cara) { 
+				print_r(Site::getDatabase()->requete("SELECT * FROM CaraChoix WHERE idCara = ?", [$cara->idCara])->fetchAll());
+			?>
+			<div class="input-group col-sm-3 mb-1 br-1" id="caraChoix_<?php echo $cara->nom; ?>" style="display: none;">
 				<div class="input-group-prepend">
-					<?php echo '<label class="input-group-text" for="inputGroup_'.$cara->nom.'">'.$cara->nom.'</label>'; ?>
+					<?php echo '<label class="input-group-text">'.$cara->nom.'</label>'; ?>
 				</div>
 				<select class="custom-select" id="inputGroupSelect01">
 
 				<?php 
-				//foreach (Site::getDatabase()->requete("SELECT * FROM Carateristiques") as $choix) { 
-				//}
+
+					foreach (Site::getDatabase()->requete("SELECT choix.nom FROM CaraChoix as choix JOIN Carateristiques AS cara ON choix.idCara = cara.idCara  WHERE  cara.idCara = ?", [$cara->idCara]) as $choix) { 
+						echo '<option value="'.$choix->nom.'">'.$choix->nom.'</option>';
+					}
 
 				?>
-				
+<!-- 				
 					<option selected>...</option>
 					<option value="S">S</option>
 					<option value="M">M</option>
-					<option value="L">L</option>
+					<option value="L">L</option> -->
 				</select>
 			</div>
 			

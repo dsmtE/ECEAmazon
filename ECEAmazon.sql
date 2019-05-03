@@ -107,12 +107,12 @@ INSERT INTO Carateristiques (nom) VALUES
  ('sexe');
 
 INSERT INTO CaraChoix (idCara, nom) VALUES
- (0, 'XS'), (0, 'S'), (0, 'M'), (0, 'L'), (0, 'XL'),
- (1, 'bleu'), (1, 'rouge'), (1, 'vert'), (1, 'noir'), (1, 'jaune'), (1, 'blanc'),
- (2, 'poche'), (2, 'brochet'),
- (3, 'gallimard '), (3, 'flammarion '), (3, 'milan'), (3, 'Hachette'),
- (4, 'jazz'), (4, 'rock'), (4, 'electro'), (4, 'rap'), (4, 'classique'), (4, 'funk'),
- (5, 'homme'), (5, 'femme'), (5, 'enfant');
+ (1, 'XS'), (1, 'S'), (1, 'M'), (1, 'L'), (1, 'XL'),
+ (2, 'bleu'), (2, 'rouge'), (2, 'vert'), (2, 'noir'), (2, 'jaune'), (2, 'blanc'),
+ (3, 'poche'), (3, 'brochet'),
+ (4, 'gallimard '), (4, 'flammarion '), (4, 'milan'), (4, 'Hachette'),
+ (5, 'jazz'), (5, 'rock'), (5, 'electro'), (5, 'rap'), (5, 'classique'), (5, 'funk'),
+ (6, 'homme'), (6, 'femme'), (6, 'enfant');
 
 
 

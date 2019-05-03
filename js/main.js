@@ -14,8 +14,16 @@ $(function() { // Shorthand for $(document).ready() with jQuery
         $('#messageModal').modal('show');
     }
 
-    $(".caraAdd").click(function() {
-        $( "#target" ).click();
+    $("#caraAdd").click(function() {
+        var caraSelect = $( "#selectCara" ).val();
+        console.log('#caraChoix_'+caraSelect);
+        $ ('#caraChoix_'+caraSelect).show();
+    });
+
+    $("#caraDel").click(function() {
+        var caraSelect = $( "#selectCara" ).val();
+        console.log('#caraChoix_'+caraSelect);
+        $ ('#caraChoix_'+caraSelect).hide();
     });
     
 
