@@ -13,7 +13,7 @@ CREATE TABLE `Utilisateurs`
   `strValidation` varchar(255),
   `adresse` varchar(255) DEFAULT NULL,
   `codePostal` int DEFAULT NULL,
-  `ville` int DEFAULT NULL,
+  `ville` varchar(255) DEFAULT NULL,
   `pays` varchar(255) DEFAULT NULL
 );
 
