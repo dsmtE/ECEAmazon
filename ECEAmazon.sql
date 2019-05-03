@@ -90,8 +90,6 @@ ALTER TABLE `CaraProduits` ADD FOREIGN KEY (`idProduit`) REFERENCES `Produits` (
 
 ALTER TABLE `CaraChoix` ADD FOREIGN KEY (`idCara`) REFERENCES `Carateristiques` (`idCara`);
 
-ALTER TABLE `Produits` ADD FOREIGN KEY (`idProduit`) REFERENCES `ChoixDispoProduits` (`idProduit`);
-
 ALTER TABLE `ChoixDispoProduits` ADD FOREIGN KEY (`idChoix`) REFERENCES `CaraChoix` (`idChoix`);
 
 ALTER TABLE `ChoixDispoProduits` ADD FOREIGN KEY (`idProduit`) REFERENCES `Produits` (`idProduit`);

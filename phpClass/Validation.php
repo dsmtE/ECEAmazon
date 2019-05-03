@@ -11,7 +11,7 @@ class Validation {
     }
     
     static function isphoneNumber($str) {
-        return preg_match('/^[\/\- ,]*(\d{2}[\/\- ,]*){5}$/', $str);
+        return preg_match('/^(?:\+33\s|0)[1-9](?:[\/\-\s]\d{2}){4}$/', $str);
     }
 }
 

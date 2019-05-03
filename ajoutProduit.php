@@ -9,11 +9,9 @@ $user = Session::getSession()->read("user");
 
 if(!empty($_POST)) { // si on recoi des données
 	$erreurs = array();
-  	$db = Site::getDatabase();
-  	
 
   	if( !isset($_POST['productName']) || empty($_POST['productName']) ) {
-    array_push($erreurs, "tu n\'a pas rentré de nom de produit");
+    	array_push($erreurs, "tu n\'a pas rentré de nom de produit");
   	} else {
 	    if( !Validation::isAlphanumeric($_POST['productName']) ) {
 	      array_push($erreurs, "ton nom n'est pas valide");
@@ -21,32 +19,49 @@ if(!empty($_POST)) { // si on recoi des données
   	}
 
   	if( !isset($_POST['categorie']) || empty($_POST['categorie']) ) {
-    array_push($erreurs, "tu n\'a pas choisi de catégorie");
+    	array_push($erreurs, "tu n\'a pas choisi de catégorie");
   	}
 
   	if( !isset($_POST['description']) || empty($_POST['description']) ) {
-    array_push($erreurs, "tu n\'a pas ecrit de description");
+    	array_push($erreurs, "tu n\'a pas ecrit de description");
   	}
 
   	if( !isset($_POST['price']) || empty($_POST['price']) ) {
-    array_push($erreurs, "tu n\'a pas rentré de prix");
+    	array_push($erreurs, "tu n\'a pas rentré de prix");
   	}
 
   	!isset($_POST['quantity']) || empty($_POST['quantity']) ? $_POST['quantity'] = 1 : "";
 
-  	if( !isset($_POST['img']) || empty($_POST['img']) ) {
-    array_push($erreurs, "tu n\'a pas selectionné d'image pour le produit");
+  	print_r($_FILES);
+
+  	$img = $_FILES['img']['tmp_name'];
+// test img
+  	if(!isset($img) || empty($img) )  {
+  		array_push($erreurs, "tu n'a pas selectionné d'image pour le produit");
+  	}else {
+  		if( !getimagesize( $img )) {
+  			array_push($erreurs, "le fichier choisi n'est pas une image");
+  		}
   	}
 
-  	print_r($_POST);
+
   	//print_r($erreurs);
 
 	if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription
 
 		//ajout du produit
-		$db->requete("INSERT INTO Produits (nom, categorie, idVendeur, description, prix, quantity, img) VALUES ('".$_POST['productName']."', '".$_POST['categorie']."', ".$user->idUser.", '".$_POST['description']."', ".$_POST['price'].", ".$_POST['quantity'].", ".file_get_contents($_POST['img']).")");
+		 Site::getDatabase()->requete('INSERT INTO Produits (nom, categorie, idVendeur, description, prix, quantity, img) 
+			VALUES ("'.
+			$_POST['productName'].'", "'.
+			$_POST['categorie'].'", '.
+			$user->idUser.', "'.
+			$_POST['description'].'", '.
+			$_POST['price'].", ".
+			$_POST['quantity'].', "'.
+			addslashes(file_get_contents($img)).'")');
 
 		Session::getSession()->addMessage('success', "Ton produit à bien été crée");
+		Site::redirection('ajoutProduit.php');
 
 	}else {
 		Session::getSession()->addMessages('danger', $erreurs);
@@ -73,8 +88,7 @@ if(!empty($_POST)) { // si on recoi des données
 </div>
 
 <div class="w-100 d-flex justify-content-center">
-	<form action="" method="POST" class="p-2 w-75">
-
+	<form class="p-2 w-75" action="" method="POST" enctype="multipart/form-data">
 		<div class="form-group row">
 			<label for="productName" class="col-sm-4 col-form-label">Nom du produit :</label>
 			<div class="col-sm-8">

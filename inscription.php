@@ -1,4 +1,5 @@
 <?php
+
 include "header.php";
 $session = Session::getSession();
 
@@ -48,7 +49,7 @@ if(!empty($_POST)) { // si on recoi des données
     }
   }
 
-// test tel
+  // test tel
   if( !isset($_POST['telephone']) || empty($_POST['telephone']) ) {
     array_push($erreurs, "tu n\'a pas rentré de numero de telephone");
   } else {
@@ -58,26 +59,28 @@ if(!empty($_POST)) { // si on recoi des données
       $_POST['telephone'] = preg_replace('/[\/\- ,]/', '', $_POST['telephone']);// on converti le numero de tel
     }
   }
+  print_r($_POST['telephone']);
 
-$img = $_FILES['img']['tmp_name'];
-// test img
-if(!isset($img) || empty($img) )  {
-  array_push($erreurs, "tu n'as pas choisi d'image");
-}else {
-  if( !getimagesize( $img )) {
-    array_push($erreurs, "le fichier choisi n'est pas une image");
+//source: https://www.php.net/manual/fr/reserved.variables.files.php
+  $img = $_FILES['img']['tmp_name'];
+  // test img
+  if(!isset($img) || empty($img) )  {
+    array_push($erreurs, "tu n'as pas choisi d'image");
+  }else {
+    if( !getimagesize( $img )) {
+      array_push($erreurs, "le fichier choisi n'est pas une image");
+    }
   }
-}
 
-$imgFond = $_FILES['imgFond']['tmp_name'];
-// test imgFond
-if(!isset($imgFond) || empty($imgFond))  {
-  array_push($erreurs, "tu n'as pas choisi d'image");
-}else {
-  if( !getimagesize( $imgFond )) {
-    array_push($erreurs, "le fichier choisi n'est pas une image");
+  $imgFond = $_FILES['imgFond']['tmp_name'];
+  // test imgFond
+  if(!isset($imgFond) || empty($imgFond))  {
+    array_push($erreurs, "tu n'as pas choisi d'image");
+  }else {
+    if( !getimagesize( $imgFond )) {
+      array_push($erreurs, "le fichier choisi n'est pas une image");
+    }
   }
-}
 
 
 if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription

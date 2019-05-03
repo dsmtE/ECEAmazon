@@ -25,7 +25,7 @@ class Site {
     }
 
     static public function rechargerPage() {
-        header("Refresh:0");
+        header('Refresh: 0');
     }
 
 }

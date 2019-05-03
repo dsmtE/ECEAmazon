@@ -13,20 +13,18 @@ if(!empty($_POST)) { // si on recoi des données
   $erreurs = array();
   $db = Site::getDatabase();
 
+  !isset($_POST['mdp']) || empty($_POST['mdp']) ? $_POST['mdp'] = $user->mdp : $_POST['mdp'] =  password_hash($_POST['mdp'], PASSWORD_BCRYPT);
+  !isset($_POST['nom']) || empty($_POST['nom']) ? $_POST['nom']                      = $user->nom :"";
+  !isset($_POST['prenom']) || empty($_POST['prenom']) ?$_POST['prenom']              = $user->prenom :"";
+  !isset($_POST['mail']) || empty($_POST['mail']) ? $_POST['mail']                   = $user->mail :"";
+  !isset($_POST['telephone']) || empty($_POST['telephone']) ? $_POST['telephone']    = $user->tel :"";
+  !isset($_POST['adresse']) || empty($_POST['adresse']) ? $_POST['adresse']          = isset($user->adresse) ? $user->adresse : null :"";
+  !isset($_POST['codePostal']) || empty($_POST['codePostal']) ? $_POST['codePostal'] = isset($user->codePostal) ? $user->codePostal : null :"";
+  !isset($_POST['ville']) || empty($_POST['ville']) ? $ $_POST['ville']              = isset($user->ville) ? $user->ville : null  :"";
+  !isset($_POST['pays']) || empty($_POST['pays']) ? $_POST['pays']                   = isset($user->pays) ? $user->pays : null  :"";
+  !isset($_POST['img']) || empty($_POST['img']) ? $_POST['img']                      = $user->img :"";
+  !isset($_POST['imgFond']) || empty($_POST['imgFond']) ? $_POST['imgFond']          = $user->imgFond :"";
 
-  isset($_POST['nom']) && !empty($_POST['nom']) ? $_POST['nom'] :  $_POST['nom'] = $user->nom;
-  isset($_POST['prenom']) && !empty($_POST['prenom']) ? $_POST['prenom'] : $_POST['prenom'] = $user->prenom;
-  isset($_POST['mail']) && !empty($_POST['mail']) ? $_POST['mail'] : $_POST['mail'] = $user->mail;
-  isset($_POST['telephone']) && !empty($_POST['telephone']) ? $_POST['telephone'] : $_POST['telephone'] = $user->tel;
-  isset($_POST['mdp']) && !empty($_POST['mdp']) ? $_POST['mdp'] =  password_hash($_POST['mdp'], PASSWORD_BCRYPT) : $_POST['mdp'] = $user->mdp;
-  isset($_POST['adresse']) && !empty($_POST['adresse']) ? $_POST['adresse'] : $_POST['adresse'] = $user->adresse || " ";
-  isset($_POST['codePostal']) && !empty($_POST['codePostal']) ? $_POST['codePostal'] : $_POST['codePostal'] = $user->codePostal || " ";
-  isset($_POST['ville']) && !empty($_POST['ville']) ? $_POST['ville'] :  $_POST['ville'] = $user->ville || " ";
-  isset($_POST['pays']) && !empty($_POST['pays']) ? $_POST['pays'] : $_POST['pays'] = $user->pays || " ";
-  isset($_POST['img']) && !empty($_POST['img']) ? $_POST['img'] : $_POST['img'] = $user->img;
-  isset($_POST['imgFond']) && !empty($_POST['imgFond']) ? $_POST['imgFond'] : $_POST['imgFond'] = $user->imgFond;
-
-  print_r($_POST);
 
 // test nom
   if(!Validation::isAlphanumeric($_POST['nom']) ) {
@@ -60,51 +58,46 @@ if(!empty($_POST)) { // si on recoi des données
     */
 // test adresse
   
-  if(!Validation::isAlphanumeric($_POST['adresse']) ) {
+  if($_POST['adresse'] != null && !Validation::isAlphanumeric($_POST['adresse']) ) {
     array_push($erreurs, "la nouvelle adresse n'est pas valide");
   }   
 
  // test code postal
-  if(!Validation::isAlphanumeric($_POST['codePostal']) ) {
+  if($_POST['codePostal'] != null && !Validation::isAlphanumeric($_POST['codePostal']) ) {
     array_push($erreurs, "le nouveau code postal n'est pas valide");
   }      
 
  // test ville
-  if(!Validation::isAlphanumeric($_POST['ville']) ) {
+  if($_POST['ville'] != null && !Validation::isAlphanumeric($_POST['ville']) ) {
     array_push($erreurs, "la nouvelle ville n'est pas valide");
   }      
 
  // test pays
-  if(!Validation::isAlphanumeric($_POST['pays']) ) {
+  if($_POST['pays'] != null && !Validation::isAlphanumeric($_POST['pays']) ) {
     array_push($erreurs, "le nouveau pays n'est pas valide");
   }    
   
 
-    print_r($erreurs);
+  if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription
 
-if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription
+    Site::getUser()->modificationCompte( $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['telephone'], $_POST['mdp'], $_POST['adresse'], $_POST['codePostal'], $_POST['ville'], $_POST['pays'], $_POST['img'], $_POST['imgFond']);
 
-Site::getUser()->modificationCompte( $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['telephone'], $_POST['mdp'], $_POST['adresse'], $_POST['codePostal'], $_POST['ville'], $_POST['pays'], $_POST['img'], $_POST['imgFond']);
-    Session::getSession()->addMessage('info', "test");
-
+    //rechergement des informations utilisateur dans la sesion
     Session::getSession()->write('user', $db->getUserById($user->idUser));
 
     Site::redirection("index.php");
 
-}else {
-  Session::getSession()->addMessages('danger', $erreurs);
+  }else {
+    Session::getSession()->addMessages('danger', $erreurs);
+    Site::rechargerPage();
+  }
 }
-
-
-
 ?>
 
-
-
-<h3 class="text-center mb-4 mt-1"> Mon compte</h3>
+<h3 class="text-center mb-2 mt-2"> Mon compte</h3>
 
 <div class="w-100 d-flex justify-content-center">
-<form action="" method="POST" class="p-2 w-75">
+<form class="p-2 w-75" action="" method="POST" enctype="multipart/form-data">
   <div class="form-group row">
     <label for="nom" class="col-sm-3 col-form-label">Nom</label>
     <div class="col-sm-8 offset-sm-1">
@@ -138,25 +131,25 @@ Site::getUser()->modificationCompte( $_POST['nom'], $_POST['prenom'], $_POST['ma
   <div class="form-group row">
     <label for="adresse" class="col-sm-3 col-form-label">Adresse</label>
     <div class="col-sm-8 offset-sm-1">
-      <input type="text" class="form-control" name="adresse" placeholder=<?php echo '"'.$user->adresse.'"'; ?>>
+      <input type="text" class="form-control" name="adresse" placeholder=<?php echo '"'.isset($user->adresse) ? $user->adresse : null.'"'; ?>>
     </div>
   </div>
   <div class="form-group row">
     <label for="code postal" class="col-sm-3 col-form-label">Code postal</label>
     <div class="col-sm-8 offset-sm-1">
-      <input type="text" class="form-control" name="codePostal" placeholder=<?php echo '"'.$user->codePostal.'"'; ?>>
+      <input type="text" class="form-control" name="codePostal" placeholder=<?php echo '"'.isset($user->codePostal) ? $user->codePostal : null.'"'; ?>>
     </div>
   </div>
   <div class="form-group row">
     <label for="ville" class="col-sm-3 col-form-label">Ville</label>
     <div class="col-sm-8 offset-sm-1">
-      <input type="text" class="form-control" name="ville" placeholder=<?php echo '"'.$user->ville.'"'; ?>>
+      <input type="text" class="form-control" name="ville" placeholder=<?php echo '"'.isset($user->ville) ? $user->ville : null.'"'; ?>>
     </div>
   </div>
   <div class="form-group row">
     <label for="pays" class="col-sm-3 col-form-label">Pays</label>
     <div class="col-sm-8 offset-sm-1">
-      <input type="text" class="form-control" name="pays" placeholder=<?php echo '"'.$user->pays.'"'; ?>>
+      <input type="text" class="form-control" name="pays" placeholder=<?php echo '"'.isset($user->pays) ? $user->pays : null.'"'; ?>>
     </div>
   </div>
       <div class="form-group row">
@@ -180,9 +173,4 @@ Site::getUser()->modificationCompte( $_POST['nom'], $_POST['prenom'], $_POST['ma
 </form>
 </div>
 
-
-<?php include "footer.php" ?>
-
-
-
-
+<?php include "footer.php"; ?>

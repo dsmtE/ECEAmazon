@@ -49,14 +49,14 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle disabled" href="http://example.com" id="dropdownAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
             <div class="dropdown-menu" aria-labelledby="dropdownAdmin">
-              <a class="dropdown-item" href="modificationUsers.php">Modifier les utilisateur</a> <!-- placeholder link -->
+              <a class="dropdown-item" href="modificationUsers.php">Modifier les utilisateur</a>
               <a class="dropdown-item" href="#">Modifier les produits</a>  <!-- placeholder link -->
             </div>
           </li>
           <?php } ?>
           
           <li class="nav-item">
-            <a class="nav-link" href="produit.php">Produits</a> <!-- placeholder link -->
+            <a class="nav-link" href="produit.php">Produits</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="panier.php"><i class="fas fa-shopping-basket"></i></a>  <!-- placeholder link -->
