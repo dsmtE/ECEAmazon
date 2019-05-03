@@ -80,7 +80,7 @@ Site::getUser()->modificationCompte( $_POST['nom'],$_POST['prenom'], $_POST['mai
   $session->addMessages('danger', $erreurs);
 }
 
-}
+
 
 ?>
 
