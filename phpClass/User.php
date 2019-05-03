@@ -28,7 +28,7 @@ class User {
 
     public function modificationCompte($nom, $prenom, $mail, $tel, $mdp, $adresse, $codePostal, $ville, $pays, $img, $imgFond) {
         
-        // 
+        $this->db->requete('UPDATE Utilisateurs SET nom = ?, prenom = ?, mail = ?, tel = ?, mdp = ?, adresse = ?, codePostal = ?, ville = ?, pays = ?, img = ?, imgFond = ? WHERE mail = ?', [$nom, $prenom, $mail, $tel, $mdp, $adresse, $codePostal, $ville, $pays, $img, $imgFond, $mail]);
         $this->session->addMessage('info',"ton compte à bien été modifé");
     }
 
