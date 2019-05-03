@@ -5,25 +5,24 @@ if( !$logged) {
   Site::redirection('connexion.php');
 }
 
-$db = Site::getDatabase();
-
 $user = Session::getSession()->read("user");
 
 if(!empty($_POST)) { // si on recoi des données
-	echo 'test';
+	$erreurs = array();
+  	$db = Site::getDatabase();
 }
 
 ?>
 
 <div class="row mw-100">
-	<div class="col bg-info" id="banniere"> <!--placeholder SQL-->
+	<div class="col bg-info" id="banniere">
 		<div class="row">
 			<div class="col-sm-2 text-white" id="NomPrenom">
 				<?php echo $user->nom.' '.$user->prenom; ?>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-1" id="iconUser" style="padding : 0 0 3em 5em"> <!--placeholder SQL-->
+			<div class="col-sm-1" id="iconUser">
 				<i class="far fa-user-circle fa-6x" style="color :white;"></i>
 			</div>
 		</div>
@@ -60,20 +59,38 @@ if(!empty($_POST)) { // si on recoi des données
 			</div>
 		</div>
 
-
-		<div class="col-sm-8">
-			<div class="row">
-				<div class="col-sm-4">
-					<select class="custom-select" id="carac">
-						<option selected>Caractéristiques</option>
-						<option value="taille">Taille</option>
-						<option value="couleur">Couleur</option>
-						<!-- placeholder SQL-->
-					</select>
+		<div class="form-group row">
+			<div class="input-group col-sm-4">
+				<select class="custom-select" id="carac">
+					<option selected>Caractéristiques</option>
+					<option value="taille">Taille</option>
+					<option value="couleur">Couleur</option>
+					<!-- placeholder SQL-->
+				</select>
+				<div class="input-group-append">
+					<button class="btn btn-outline-secondary" type="button">Button</button>
 				</div>
 			</div>
-			<div class="row mt-4 justify-content-center">
-				<div class="input-group mb-3 col-sm-3"> <!--placeholder SQL-->
+		</div>
+		
+		<div class="form-group row col-sm-8 offset-sm-2">
+			<div class="input-group col-sm-3"> <!--placeholder SQL-->
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="inputGroupSelect01">Taille</label> <!--placeholder SQL-->
+				</div>
+				<select class="custom-select" id="inputGroupSelect01">
+					<option selected>...</option>
+					<option value="S">S</option>
+					<option value="M">M</option>
+					<option value="L">L</option>
+				</select>
+			</div>
+
+		</div>
+
+		<div class="col-sm-8">
+			<div class="row mt-1 justify-content-center">
+				<div class="input-group mb-1 col-sm-3"> <!--placeholder SQL-->
 					<div class="input-group-prepend">
 						<label class="input-group-text" for="inputGroupSelect01">Taille</label> <!--placeholder SQL-->
 					</div>
@@ -100,41 +117,6 @@ if(!empty($_POST)) { // si on recoi des données
 						<label class="input-group-text" for="inputGroupSelect03">Genre</label> <!--placeholder SQL-->
 					</div>
 					<select class="custom-select col-sm-9" id="inputGroupSelect03">
-						<option selected>...</option>
-						<option value="rap">Rap</option>
-						<option value="jazz">Jazz</option>
-						<option value="classique">Classique</option>
-					</select>
-				</div>
-			</div>
-			<div class="row mt-4 justify-content-center"><!--placeholderSQL-->
-				<div class="input-group mb-3 col-sm-3" style="visibility: hidden;"> <!--placeholder SQL-->
-					<div class="input-group-prepend">
-						<label class="input-group-text" for="inputGroupSelect11">Taille</label> <!--placeholder SQL-->
-					</div>
-					<select class="custom-select col-9" id="inputGroupSelect11">
-						<option selected>...</option>
-						<option value="S">S</option>
-						<option value="M">M</option>
-						<option value="L">L</option>
-					</select>
-				</div>
-				<div class="input-group mb-3 col-sm-3" style="visibility: hidden;"> <!--placeholder SQL-->
-					<div class="input-group-prepend">
-						<label class="input-group-text" for="inputGroupSelect22">Couleur</label> <!--placeholder SQL-->
-					</div>
-					<select class="custom-select col-sm-9" id="inputGroupSelect22">
-						<option selected>...</option>
-						<option value="R">Rouge</option>
-						<option value="B">Bleu</option>
-						<option value="J">Jaune</option>
-					</select>
-				</div>
-				<div class="input-group mb-3 col-sm-3" style="visibility: hidden;"> <!--placeholder SQL-->
-					<div class="input-group-prepend">
-						<label class="input-group-text" for="inputGroupSelect33">Genre</label> <!--placeholder SQL-->
-					</div>
-					<select class="custom-select col-sm-9" id="inputGroupSelect33">
 						<option selected>...</option>
 						<option value="rap">Rap</option>
 						<option value="jazz">Jazz</option>

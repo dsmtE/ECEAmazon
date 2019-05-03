@@ -59,7 +59,7 @@
             <a class="nav-link" href="produit.php">Produits</a> <!-- placeholder link -->
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fas fa-shopping-basket"></i></a>  <!-- placeholder link -->
+            <a class="nav-link" href="panier.php"><i class="fas fa-shopping-basket"></i></a>  <!-- placeholder link -->
           </li>
           <?php if(!$logged) { ?>
           <li class="nav-item">
