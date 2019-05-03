@@ -3,7 +3,7 @@ include "header.php";
 $session = Session::getSession();
 
 if($logged) {
-  $this->session->addMessage('info', 'tu es  déjà connecté');
+  $session->addMessage('info', 'tu es  déjà connecté');
   Site::redirection('index.php');
 }
 

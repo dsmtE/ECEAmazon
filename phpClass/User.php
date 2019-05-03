@@ -29,7 +29,7 @@ class User {
     }
 
     public function confirmationInscription($idUser, $strValidation) { 
-        $user = $this->db->getUser($idUser);
+        $user = $this->db->getUserById($idUser);
         if($user && $user->strValidation == $strValidation) {// si la chaine est la même 
             // on met à jout la base de donné 
             $this->db->requete('UPDATE Utilisateurs SET strValidation = NULL, dateInscription = NOW() WHERE idUser = ?', [$idUser]);
