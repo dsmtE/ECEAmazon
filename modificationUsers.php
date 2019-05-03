@@ -15,8 +15,8 @@ if(!empty($_POST)) { // si on recoi des données
 $utilisateurs = $db->requete('SELECT * FROM Utilisateurs');
 
 
-if(isset($_POST['selectedUser'])) {
-	$idSelected = $_POST['selectedUser'];
+if(isset($_GET['selectedUser'])) {
+	$idSelected = $_GET['selectedUser'];
 	$option = $db->requete('SELECT * FROM Utilisateurs WHERE idUser = ?',[$idSelected]);
 	$userSelected = $option->fetch();
 
@@ -31,11 +31,14 @@ else{
 	<div class="col-sm-6">
 		<h1 class="row offset-2 mt-4 mb-5" style="color: rgb(23,162,184);" >Utilisateurs <i class="fas fa-users ml-3 mt-2 text-secondary"></i></h1>
 		<div class="row justify-content-center">
-			<select class="custom-select col-sm-8" style="height : 8em;" name="selectedUser" multiple>
-				<option class="text-secondary" style="font-weight : bold;" selected>Sélectionner l'utilisateur désiré</option>
+			<select class="custom-select col-sm-8" style="height : 4em;" id="selectedUser">
+				<option class="text-secondary" style="font-weight : bold;">Sélectionner l'utilisateur à modifier</option>
 				<?php
 				while($user = $utilisateurs->fetch()){
-					echo'<option value="'.$user->idUser.'">'.$user->nom.' '.$user->prenom.'</option>';
+					if($user == $userSelected){
+						echo'<option value="'.$user->idUser.'" selected>'.$user->prenom.' '.$user->nom.'</option>';}
+					else{
+					echo'<option value="'.$user->idUser.'" >'.$user->prenom.' '.$user->nom.'</option>';}
 				} ?>
 			</select>
 		</div>
@@ -81,7 +84,7 @@ else{
 				<div class="col-sm-8">
 					<input type="text" class="form-control" id="adresse" 
 					<?php if($userSelected){ 
-						if($userSelected->addresse)
+						if($userSelected->adresse)
 							{echo'placeholder="'.$userSelected->adresse.'"';}} 
 						echo'placeholder = "Adresse"'; ?>>
 					</div>

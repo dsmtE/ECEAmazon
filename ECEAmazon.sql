@@ -13,7 +13,7 @@ CREATE TABLE `Utilisateurs`
   `strValidation` varchar(255),
   `adresse` varchar(255) DEFAULT NULL,
   `codePostal` int DEFAULT NULL,
-  `ville` int DEFAULT NULL,
+  `ville` varchar(255) DEFAULT NULL,
   `pays` varchar(255) DEFAULT NULL
 );
 
@@ -111,7 +111,7 @@ INSERT INTO CaraChoix (idCara, nom) VALUES
  (1, 'XS'), (1, 'S'), (1, 'M'), (1, 'L'), (1, 'XL'),
  (2, 'bleu'), (2, 'rouge'), (2, 'vert'), (2, 'noir'), (2, 'jaune'), (2, 'blanc'),
  (3, 'poche'), (3, 'brochet'),
- (4, 'gallimard '), (4, 'flammarion '), (4, 'milan'), (4, 'Hachette'),
+ (4, 'gallimard'), (4, 'flammarion'), (4, 'milan'), (4, 'Hachette'),
  (5, 'jazz'), (5, 'rock'), (5, 'electro'), (5, 'rap'), (5, 'classique'), (5, 'funk'),
  (6, 'homme'), (6, 'femme'), (6, 'enfant');
 

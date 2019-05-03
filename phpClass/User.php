@@ -22,6 +22,8 @@ class User {
 
         // on récupère son id puis on envoi un mail pour la confirmation
         $idUser = $this->db->getLastInsertId();
+
+        
         //mail($mail, "confirmation d\'inscription", "pour confirmer votre inscription cliquez sur ce lien : \n http://localhost:14/ECEAmazon/confirmationInscription.php?id=".$idUser.'&str='.$strValidation, "From: desmet.enguerrand@gmail.com");
         $this->session->addMessage('info',"pour confirmer votre inscription cliquez sur ce lien : \n http://localhost:14/ECEAmazon/confirmationInscription.php?id=".$idUser.'&str='.$strValidation );
     }

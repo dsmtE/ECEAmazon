@@ -95,7 +95,7 @@ Site::getUser()->modificationCompte( $_POST['nom'], $_POST['prenom'], $_POST['ma
   Session::getSession()->addMessages('danger', $erreurs);
 }
 
-}
+
 
 ?>
 
