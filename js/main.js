@@ -31,5 +31,8 @@ $(function() { // Shorthand for $(document).ready() with jQuery
 
     });
     
+    $('#typePaiement').change(function() {
+        $(location).attr("href", "http://localhost/ECEAmazon/commande.php?typePaiement="+$(this).val());
+    });
 
 });
