@@ -1,4 +1,11 @@
-<?php include "header.php" ?>
+<?php include "header.php";
+
+if( !$admin) {
+  $this->session->addMessage('danger', 'tu n\'es pas administrateur');
+  Site::redirection('connexion.php');
+}
+
+?>
 
 <div class="row justify-content-center" style="max-width: 100%">
 	<div class="col-sm-6">
