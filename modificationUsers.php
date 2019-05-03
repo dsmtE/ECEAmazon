@@ -66,6 +66,9 @@
 					<input type="text" class="form-control" id="pays" placeholder="Pays">
 				</div>
 			</div>
+			<div class="row">
+				<button type="submit" class="btn btn-primary offset-4 col-4 offset-md-9 mr-auto col-md-3">Modifier</button>
+			</div>
 		</form>
 	</div>
 </div>
