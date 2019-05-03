@@ -10,8 +10,45 @@ $user = Session::getSession()->read("user");
 if(!empty($_POST)) { // si on recoi des données
 	$erreurs = array();
   	$db = Site::getDatabase();
-
   	print_r($_POST);
+
+  	if( !isset($_POST['productName']) || empty($_POST['productName']) ) {
+    array_push($erreurs, "tu n\'a pas rentré de nom de produit");
+  	} else {
+	    if( !Validation::isAlphanumeric($_POST['productName']) ) {
+	      array_push($erreurs, "ton nom n'est pas valide");
+	    }
+  	}
+
+  	if( !isset($_POST['categorie']) || empty($_POST['categorie']) ) {
+    array_push($erreurs, "tu n\'a pas choisi de catégorie");
+  	}
+
+  	if( !isset($_POST['description']) || empty($_POST['description']) ) {
+    array_push($erreurs, "tu n\'a pas ecrit de description");
+  	}
+
+  	if( !isset($_POST['price']) || empty($_POST['price']) ) {
+    array_push($erreurs, "tu n\'a pas rentré de prix");
+  	}
+
+  	if( !isset($_POST['img']) || empty($_POST['img']) ) {
+    array_push($erreurs, "tu n\'a pas selectionné d'image pour le produit");
+  	}
+
+  	
+
+if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription
+	
+
+	//ajout du produit
+	$db->requete("INSERT INTO Produits (nom, categorie, idVendeur, description, prix) VALUES ('".$_POST['productName'].'", '
+
+	Session::getSession()->addMessage('success', "Ton produit à bien été crée");
+
+}else {
+	Session::getSession()->addMessages('danger', $erreurs);
+}
 }
 
 ?>
@@ -35,17 +72,17 @@ if(!empty($_POST)) { // si on recoi des données
 	<form action="" method="POST" class="p-2 w-75">
 
 		<div class="form-group row">
-			<label for="inputProductName" class="col-sm-4 col-form-label">Nom du produit :</label>
+			<label for="productName" class="col-sm-4 col-form-label">Nom du produit :</label>
 			<div class="col-sm-8">
-				<input type="text" class="form-control" id="inputProductName" name="inputProductName" placeholder="Nom">
+				<input type="text" class="form-control" id="productName" name="productName" placeholder="Nom">
 			</div>
 		</div>
 
 		<div class="form-group row">
-			<label for="inputCategorie" class="col-sm-4 col-form-label">Catégorie :</label>
+			<label for="categorie" class="col-sm-4 col-form-label">Catégorie :</label>
 			<div class="col-sm-8">
-				<select class="custom-select" id="inputCategorie" name="inputCategorie">
-					<option selected>Choisir la catégorie</option>
+				<select class="custom-select" id="categorie" name="categorie">
+					<option disabled selected value> choisi une catégorie</option>
 					<option value="livres">Livres</option>
 					<option value="musique">Musique</option>
 					<option value="mode">Vêtements</option>
@@ -55,9 +92,9 @@ if(!empty($_POST)) { // si on recoi des données
 		</div>
 
 		<div class="form-group row">
-			<label for="inputDescription" class="col-sm-4 col-form-label">Description :</label>
+			<label for="description" class="col-sm-4 col-form-label">Description :</label>
 			<div class="col-sm-8">
-				<textarea class="form-control" id="inputDescription" name="inputDescription"></textarea>
+				<textarea class="form-control" id="description" name="description"></textarea>
 			</div>
 		</div>
 
@@ -82,26 +119,19 @@ if(!empty($_POST)) { // si on recoi des données
 		</div>
 		
 		<div class="form-group row col-sm-12">
-			
 			<?php foreach (Site::getDatabase()->requete("SELECT * FROM Carateristiques") as $cara) { ?>
 			<div class="input-group col-sm-3 mb-1 br-1" id="caraChoix_<?php echo $cara->nom; ?>" style="display: none;">
-				<div class="input-group-prepend">
-					<?php echo '<label class="input-group-text">'.$cara->nom.'</label>'; ?>
+				<div class="dropdown">
+					<button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $cara->nom;?></button>
+					<div class="dropdown-menu">
+					<?php 	
+						foreach (Site::getDatabase()->requete("SELECT choix.nom FROM CaraChoix as choix JOIN Carateristiques AS cara ON choix.idCara = cara.idCara  WHERE  cara.idCara = ?", [$cara->idCara]) as $choix) {
+							echo '<a class="dropdown-item"><input type="checkbox" name="'.$cara->nom.'_'.$choix->nom.'" value="'.$choix->nom.'">'.$choix->nom.'</a>';
+						}	
+					?>
+				  </div>
+					</ul>
 				</div>
-				<select class="custom-select" multiple="multiple">
-
-				<?php 
-					foreach (Site::getDatabase()->requete("SELECT choix.nom FROM CaraChoix as choix JOIN Carateristiques AS cara ON choix.idCara = cara.idCara  WHERE  cara.idCara = ?", [$cara->idCara]) as $choix) { 
-						echo '<option value="'.$choix->nom.'">'.$choix->nom.'</option>';
-					}
-
-				?>
-<!-- 				
-					<option selected>...</option>
-					<option value="S">S</option>
-					<option value="M">M</option>
-					<option value="L">L</option> -->
-				</select>
 			</div>
 			
 			<?php } ?>
@@ -110,7 +140,7 @@ if(!empty($_POST)) { // si on recoi des données
 		<div class="form-group row">
 			<label for="price" class="col-sm-4 col-form-label">Prix :</label>
 			<div class="col-sm-8">
-				<input type="text" class="form-control" id="price" name="price" placeholder="--,--">
+				<input type="number" step="0.01" class="form-control" id="price" name="price" placeholder="--,--">
 			</div>
 		</div>
 
