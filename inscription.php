@@ -53,9 +53,9 @@ if(!empty($_POST)) { // si on recoi des données
     if( !Validation::isphoneNumber($_POST['telephone']) ) {
       array_push($erreurs, "Ton numero de telephone n'est pas valide");
     } else {
-$_POST['telephone'] = preg_replace('/[\/\- ,]/', '', $_POST['telephone']);// on converti le numero de tel
-}
-}
+      $_POST['telephone'] = preg_replace('/[\/\- ,]/', '', $_POST['telephone']);// on converti le numero de tel
+    }
+  }
 
 // test img
 if( !isset($_POST['img']) || empty($_POST['img']) ) {
@@ -81,43 +81,43 @@ $session->addMessage('success', "Ton compte à bien été crée, un mail de conf
 
 include "header.php";
 ?>
-  <h3 class="text-center mb-4 mt-1" style="">Inscription</h3>
+  <h3 class="text-center mb-4 mt-1">Inscription</h3>
 <!-- <div class="row justify-content-center"> -->
   <div class="w-100 d-flex justify-content-center">
     <form action="" method="POST" class="p-2 w-75">
       <div class="form-group row">
-        <label for="nom" class="col-sm-4 col-form-label">Nom</label>
-        <div class="col-sm-8">
+        <label for="nom" class="col-sm-3 col-form-label">Nom</label>
+        <div class="col-sm-8 offset-sm-1">
           <input type="text" name="nom"class="form-control" id="nom" placeholder="Nom">
         </div>
       </div>
       <div class="form-group row">
-        <label for="prenom" class="col-sm-4 col-form-label">Prénom</label>
-        <div class="col-sm-8">
+        <label for="prenom" class="col-sm-3 col-form-label">Prénom</label>
+        <div class="col-sm-8 offset-sm-1">
           <input type="text" name="prenom" class="form-control" id="prenom" placeholder="Prénom">
         </div>
       </div>
       <div class="form-group row">
-        <label for="mail" class="col-sm-4 col-form-label">Email</label>
-        <div class="col-sm-8">
+        <label for="mail" class="col-sm-3 col-form-label">Email</label>
+        <div class="col-sm-8 offset-sm-1">
           <input type="email" name="mail" class="form-control" id="mail" placeholder="Email">
         </div>
       </div>
       <div class="form-group row">
-        <label for="mdp" class="col-sm-4 col-form-label">Mot de passe</label>
-        <div class="col-sm-8">
+        <label for="mdp" class="col-sm-3 col-form-label">Mot de passe</label>
+        <div class="col-sm-8 offset-sm-1">
           <input type="password" name="mdp" class="form-control" id="mdp" placeholder="Mot de passe">
         </div>
       </div>
       <div class="form-group row">
-        <label for="mdpConfirm" class="col-sm-4 col-form-label">Confirmation</label>
-        <div class="col-sm-8">
+        <label for="mdpConfirm" class="col-sm-3 col-form-label">Confirmation</label>
+        <div class="col-sm-8 offset-sm-1">
           <input type="password" name="mdpConfirm" class="form-control" id="mdpConfirm" placeholder="Veuillez confirmer le mot de passe">
         </div>
       </div>
       <div class="form-group row">
-        <label for="telephone" class="col-sm-4 col-form-label">Téléphone</label>
-        <div class="col-sm-8">
+        <label for="telephone" class="col-sm-3 col-form-label">Téléphone</label>
+        <div class="col-sm-8 offset-sm-1">
           <input type="text" name="telephone" class="form-control" id="telephone" placeholder="00 00 00 00 00">
         </div>
       </div>

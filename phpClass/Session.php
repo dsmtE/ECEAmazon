@@ -1,5 +1,6 @@
 <?php
 // source: https://apprendre-php.com/tutoriels/tutoriel-45-singleton-instance-unique-d-une-classe.html
+// source: https://www.php.net/manual/fr/reserved.variables.session.php
 class Session {
 
     private static $instance = null; // variable static de l'instance session singleton
