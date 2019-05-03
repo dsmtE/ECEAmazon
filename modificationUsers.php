@@ -2,10 +2,10 @@
 
 <div class="row justify-content-center" style="max-width: 100%">
 	<div class="col-sm-6">
-		<h1 class="row offset-2 mt-3 mb-3">Utilisateurs</h1>
+		<h1 class="row offset-2 mt-4 mb-5" style="color: rgb(23,162,184);" >Utilisateurs <i class="fas fa-users ml-3 mt-2 text-secondary"></i></h1>
 		<div class="row justify-content-center">
-			<select class="custom-select col-sm-8 mt-6" multiple>
-				<option selected>Sélectionner l'utilisateur désiré</option>
+			<select class="custom-select col-sm-8" style="height : 8em;" multiple>
+				<option class="text-secondary" style="font-weight : bold;" selected>Sélectionner l'utilisateur désiré</option>
 				<option value="id1">Jean Dupont</option> <!--placeholder SQL-->
 				<option value="id2">Etienne Marcel</option> <!--placeholder SQL-->
 				<option value="id3">Marc Henri</option> <!--placeholder SQL-->
