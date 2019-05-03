@@ -1,12 +1,6 @@
 <?php
 include "header.php";
-
-include "home.php";
-
-include "footer.php";
 ?>
-
-
 
   <form style="padding: 40px;">
     <div class="row"> 
@@ -75,9 +69,7 @@ include "footer.php";
       </div>
     </div>
 
-
-
-
-
   </form>
+
+<?php include "footer.php"; ?>
 
