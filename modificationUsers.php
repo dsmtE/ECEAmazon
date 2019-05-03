@@ -5,6 +5,11 @@ if( !$admin) {
   Site::redirection('connexion.php');
 }
 
+$db = Site::getDatabase();
+
+if(!empty($_POST)) { // si on recoi des données
+	echo 'test';
+}
 ?>
 
 <div class="row justify-content-center" style="max-width: 100%">
@@ -13,9 +18,9 @@ if( !$admin) {
 		<div class="row justify-content-center">
 			<select class="custom-select col-sm-8" style="height : 8em;" multiple>
 				<option class="text-secondary" style="font-weight : bold;" selected>Sélectionner l'utilisateur désiré</option>
-				<option value="id1">Jean Dupont</option> <!--placeholder SQL-->
-				<option value="id2">Etienne Marcel</option> <!--placeholder SQL-->
-				<option value="id3">Marc Henri</option> <!--placeholder SQL-->
+				<option value="id1"></option> <!--placeholder SQL-->
+				<option value="id2"></option> <!--placeholder SQL-->
+				<option value="id3"></option> <!--placeholder SQL-->
 			</select>
 		</div>
 	</div>
