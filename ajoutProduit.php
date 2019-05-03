@@ -83,17 +83,14 @@ if(!empty($_POST)) { // si on recoi des données
 		
 		<div class="form-group row col-sm-12">
 			
-			<?php foreach (Site::getDatabase()->requete("SELECT * FROM Carateristiques") as $cara) { 
-				print_r(Site::getDatabase()->requete("SELECT * FROM CaraChoix WHERE idCara = ?", [$cara->idCara])->fetchAll());
-			?>
+			<?php foreach (Site::getDatabase()->requete("SELECT * FROM Carateristiques") as $cara) { ?>
 			<div class="input-group col-sm-3 mb-1 br-1" id="caraChoix_<?php echo $cara->nom; ?>" style="display: none;">
 				<div class="input-group-prepend">
 					<?php echo '<label class="input-group-text">'.$cara->nom.'</label>'; ?>
 				</div>
-				<select class="custom-select" id="inputGroupSelect01">
+				<select class="custom-select" multiple="multiple">
 
 				<?php 
-
 					foreach (Site::getDatabase()->requete("SELECT choix.nom FROM CaraChoix as choix JOIN Carateristiques AS cara ON choix.idCara = cara.idCara  WHERE  cara.idCara = ?", [$cara->idCara]) as $choix) { 
 						echo '<option value="'.$choix->nom.'">'.$choix->nom.'</option>';
 					}
