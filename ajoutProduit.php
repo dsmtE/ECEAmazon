@@ -61,71 +61,45 @@ if(!empty($_POST)) { // si on recoi des données
 
 		<div class="form-group row">
 			<div class="input-group col-sm-4">
+				<div class="input-group-prepend">
+    				<label class="input-group-text">Caractéristiques</label>
+  				</div>
 				<select class="custom-select" id="carac">
-					<option selected>Caractéristiques</option>
-					<option value="taille">Taille</option>
-					<option value="couleur">Couleur</option>
-					<!-- placeholder SQL-->
+					<option selected></option>
+					<?php foreach (Site::getDatabase()->requete("SELECT * FROM Carateristiques") as $cara) { 
+						echo '<option value="'.$cara->nom.'">'.$cara->nom.'</option>';
+					}?>
 				</select>
 				<div class="input-group-append">
-					<button class="btn btn-outline-secondary" type="button">Button</button>
+					<button class="btn btn-outline-secondary caraAdd" type="button"><i class="fas fa-plus-circle"></i></button>
 				</div>
 			</div>
 		</div>
 		
 		<div class="form-group row col-sm-8 offset-sm-2">
-			<div class="input-group col-sm-3"> <!--placeholder SQL-->
+			
+			<?php foreach (Site::getDatabase()->requete("SELECT * FROM Carateristiques") as $cara) { ?>
+			<div class="input-group col-sm-3 mb-1" style="visibility: show;">
 				<div class="input-group-prepend">
-					<label class="input-group-text" for="inputGroupSelect01">Taille</label> <!--placeholder SQL-->
+					<?php echo '<label class="input-group-text" for="inputGroup_'.$cara->nom.'">'.$cara->nom.'</label>'; ?>
 				</div>
 				<select class="custom-select" id="inputGroupSelect01">
+
+				<?php 
+				//foreach (Site::getDatabase()->requete("SELECT * FROM Carateristiques") as $choix) { 
+				//}
+
+				?>
+				
 					<option selected>...</option>
 					<option value="S">S</option>
 					<option value="M">M</option>
 					<option value="L">L</option>
 				</select>
 			</div>
-
+			
+			<?php } ?>
 		</div>
-
-		<div class="col-sm-8">
-			<div class="row mt-1 justify-content-center">
-				<div class="input-group mb-1 col-sm-3"> <!--placeholder SQL-->
-					<div class="input-group-prepend">
-						<label class="input-group-text" for="inputGroupSelect01">Taille</label> <!--placeholder SQL-->
-					</div>
-					<select class="custom-select col-sm-9" id="inputGroupSelect01">
-						<option selected>...</option>
-						<option value="S">S</option>
-						<option value="M">M</option>
-						<option value="L">L</option>
-					</select>
-				</div>
-				<div class="input-group mb-3 col-sm-3" style="visibility: hidden;"> <!--placeholder SQL-->
-					<div class="input-group-prepend">
-						<label class="input-group-text" for="inputGroupSelect02">Couleur</label> <!--placeholder SQL-->
-					</div>
-					<select class="custom-select col-sm-9" id="inputGroupSelect02">
-						<option selected>...</option>
-						<option value="R">Rouge</option>
-						<option value="B">Bleu</option>
-						<option value="J">Jaune</option>
-					</select>
-				</div>
-				<div class="input-group mb-3 col-sm-3" style="visibility: hidden;"> <!--placeholder SQL-->
-					<div class="input-group-prepend">
-						<label class="input-group-text" for="inputGroupSelect03">Genre</label> <!--placeholder SQL-->
-					</div>
-					<select class="custom-select col-sm-9" id="inputGroupSelect03">
-						<option selected>...</option>
-						<option value="rap">Rap</option>
-						<option value="jazz">Jazz</option>
-						<option value="classique">Classique</option>
-					</select>
-				</div>
-			</div>
-		</div>
-
 
 		<div class="form-group row">
 			<label for="price" class="col-sm-4 col-form-label">Prix :</label>

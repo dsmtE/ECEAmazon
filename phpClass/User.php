@@ -24,8 +24,12 @@ class User {
         $idUser = $this->db->getLastInsertId();
         //mail($mail, "confirmation d\'inscription", "pour confirmer votre inscription cliquez sur ce lien : \n http://localhost:14/ECEAmazon/confirmationInscription.php?id=".$idUser.'&str='.$strValidation, "From: desmet.enguerrand@gmail.com");
         $this->session->addMessage('info',"pour confirmer votre inscription cliquez sur ce lien : \n http://localhost:14/ECEAmazon/confirmationInscription.php?id=".$idUser.'&str='.$strValidation );
+    }
 
-
+    public function modificationCompte($nom, $prenom, $mail, $tel, $mdp, $adresse, $codePostal, $ville, $pays, $img, $imgFond) {
+        
+        // 
+        $this->session->addMessage('info',"ton compte à bien été modifé");
     }
 
     public function confirmationInscription($idUser, $strValidation) { 
