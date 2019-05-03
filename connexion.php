@@ -64,12 +64,12 @@ include "header.php";
 
 <div class="container-fluid col">
 	<div class="row justify-content-center m-1"> <!--Bloc global-->
-		<div class=" col-5  align-self-center ">
+		<div class=" col-sm-5  align-self-center offset-sm-1 ">
 			<div class="row"><!-- Sous bloc logo/titre-->
-				<div class="col-3"><!-- Sous colonne logo-->
-					<i alt="LogoECEAmazon" class="fab fa-artstation fa-7x" style="float:left; margin :10px;"></i>
+				<div class="col-sm-3 mt-2"><!-- Sous colonne logo-->
+					<i alt="LogoECEAmazon" class="fab fa-artstation fa-7x" style="float:right;"></i>
 				</div>
-				<div class="col-8" style="top: 1em;"><!-- Sous colonne titre/sous-titres-->
+				<div class="col-sm-7" style="top: 1em;"><!-- Sous colonne titre/sous-titres-->
 					<div class="row"><!--sous bloc titre-->
 						<div class="col">
 							<h1 class="text-center" style="font-size:3em; font-style : bold;color: rgb(23,162,184); ">ECEAmazon</h1>
