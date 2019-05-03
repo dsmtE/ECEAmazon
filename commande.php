@@ -1,14 +1,29 @@
-<?php include "header.php"?>
+<?php include "header.php";
+
+if(!$logged) {
+	$this->session->addMessage('danger', 'tu n\'es pas connecté');
+	Site::redirection('connexion.php');
+}
+$user = Session::getSession()->read("user");
+
+if(!empty($_POST)) { // si on recoi des données
+	$erreurs = array();
+	$db = Site::getDatabase();
+
+	print_r($_POST);
+}
+
+?>
 
 <div class="row">
 	<div class="col bg-info" id="banniere"> <!--placeholder SQL-->
-		<div class="r2w">
-			<div class="col-2 text-white" id="NomPrenom" style="padding : 1.5em 0 1em 3em;">
-				Nom Prénom <!--placeholder SQL-->
+		<div class="row">
+			<div class="col-2 text-white" id="NomPrenom" style="padding : 1.5em 0 1em 3em; font-size : 1.3em;">
+				<?php echo $user->nom.' '.$user->prenom; ?>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-lg-1" id="iconUser" style="padding : 0 0 3em 5em"> <!--placeholder SQL-->
+			<div class="col-lg-1" id="iconUser" style="padding : 0 0 2em 5em"> <!--placeholder SQL-->
 				<i class="far fa-user-circle fa-6x" style="color :white;"></i>
 			</div>
 		</div>
@@ -23,7 +38,11 @@
 			<div class="form-group row">
 				<label for="inputAddress" class="col-sm-2 col-form-label">Adresse :</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="inputAddress" placeholder="Adresse">
+					<input type="text" class="form-control" id="inputAddress" <?php if($user->adresse){
+						echo 'placeholder="'.$user->adresse.'">';}
+						else{
+							echo 'placeholder="Adresse"';
+						}?>>
 				</div>
 			</div>
 			<div class="form-group row">
@@ -34,19 +53,34 @@
 			<div class="form-group row">
 				<label for="inputPostal" class="col-sm-2 col-form-label">Code postal : </label>
 				<div class="col-sm-6">
-					<input type="number" class="form-control" id="inputPostal" placeholder="00000">
+					<input type="number" class="form-control" id="inputPostal" 
+						<?php if($user->codePostal){
+						echo 'placeholder="'.$user->codePostal.'">';}
+						else{
+							echo 'placeholder="00000"';}?>
+					>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="inputCity" class="col-sm-2 col-form-label">Ville :</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="inputCity" placeholder="Ville">
+					<input type="text" class="form-control" id="inputCity" 
+						<?php if($user->ville){
+						echo'placholder="'.$user->ville.'">';}
+						else{
+							echo 'placeholder="Ville"';}?> 
+					>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="inputCountry" class="col-sm-2 col-form-label">Pays :</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="inputCountry" placeholder="France">
+					<input type="text" class="form-control" id="inputCountry" 
+						<?php if($user->pays){
+							echo'placholder="'.$user->pays.'">';}
+							else{
+								echo 'placeholder="France"';}?>
+					>
 				</div>
 			</div>
 		</form>
@@ -58,19 +92,7 @@
 		<h2 style="text-align: center; color: #1EC4E9">Informations de paiement</h2>
 	</div>
 	<div class="col-sm-2 mt-3 mr-1">
-		<!--<div class="dropdown"> 
-			<button class="btn btn-secondary dropdown-toggle" type="button" id="typePaiement" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				Modes de paiement
-			</button>
-			<div class="dropdown-menu" aria-labelledby="typePaiement">
-				<a class="dropdown-item" id="visa" href="#">Visa</a>
-				<a class="dropdown-item" id="master" href="#">MasterCard</a>
-				<a class="dropdown-item" id="american" href="#">AmericanExpress</a>
-				<a class="dropdown-item" id="paypal" href="#">PayPal</a>
-				<a class="dropdown-item" id="chqCadeau" href="#">Chèque cadeau</a>
-			</div>
-		</div>-->
-		<div class="input-group mb-3"> <!--Meilleure option ??-->
+		<div class="input-group mb-3">
 			<select class="custom-select" id="typePaiement">
 				<option selected>Mode de paiement</option>
 				<option value="blockCard"  href="#">Carte bancaire</option>
@@ -161,6 +183,5 @@
 		</div>
 	</div>
 </div>
-
 
 <?php include "footer.php"?>
