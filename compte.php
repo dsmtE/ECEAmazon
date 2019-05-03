@@ -7,84 +7,95 @@ if( !$logged) {
 }
 
 $user = Session::getSession()->read("user");
-print_r($user);
 
 if(!empty($_POST)) { // si on recoi des données
 
   $erreurs = array();
   $db = Site::getDatabase();
 
-// test nom
-  if( isset($_POST['nom']) && !Validation::isAlphanumeric($_POST['nom']) ) {
-      array_push($erreurs, "le nouveau nom n'est pas valide");
-  }
 
+  isset($_POST['nom']) && !empty($_POST['nom']) ? $_POST['nom'] :  $_POST['nom'] = $user->nom;
+  isset($_POST['prenom']) && !empty($_POST['prenom']) ? $_POST['prenom'] : $_POST['prenom'] = $user->prenom;
+  isset($_POST['mail']) && !empty($_POST['mail']) ? $_POST['mail'] : $_POST['mail'] = $user->mail;
+  isset($_POST['telephone']) && !empty($_POST['telephone']) ? $_POST['telephone'] : $_POST['telephone'] = $user->tel;
+  isset($_POST['mdp']) && !empty($_POST['mdp']) ? $_POST['mdp'] =  password_hash($_POST['mdp'], PASSWORD_BCRYPT) : $_POST['mdp'] = $user->mdp;
+  isset($_POST['adresse']) && !empty($_POST['adresse']) ? $_POST['adresse'] : $_POST['adresse'] = $user->adresse || " ";
+  isset($_POST['codePostal']) && !empty($_POST['codePostal']) ? $_POST['codePostal'] : $_POST['codePostal'] = $user->codePostal || " ";
+  isset($_POST['ville']) && !empty($_POST['ville']) ? $_POST['ville'] :  $_POST['ville'] = $user->ville || " ";
+  isset($_POST['pays']) && !empty($_POST['pays']) ? $_POST['pays'] : $_POST['pays'] = $user->pays || " ";
+  isset($_POST['img']) && !empty($_POST['img']) ? $_POST['img'] : $_POST['img'] = $user->img;
+  isset($_POST['imgFond']) && !empty($_POST['imgFond']) ? $_POST['imgFond'] : $_POST['imgFond'] = $user->imgFond;
+
+  print_r($_POST);
+
+// test nom
+  if(!Validation::isAlphanumeric($_POST['nom']) ) {
+    array_push($erreurs, "le nouveau nom n'est pas valide");
+  }else{
+    print_r($_POST['nom']);
+  }
 // test prénom
-  if( isset($_POST['prenom']) && !Validation::isAlphanumeric($_POST['prenom']) ) {
-      array_push($erreurs, "le nouveau prenom n'est pas valide");
+  if(!Validation::isAlphanumeric($_POST['prenom']) ) {
+    array_push($erreurs, "le nouveau prenom n'est pas valide");
   }  
 
 // test mail
-  if( isset($_POST['mail']) && !Validation::isMail($_POST['mail']) ) {
-      array_push($erreurs, "le nouvel mail n'est pas valide");
-    } 
-
-// test tel
-  if( isset($_POST['telephone']) && !Validation::isphoneNumer($_POST['telephone']) ) {
-      array_push($erreurs, "le nouveau telephone n'est pas valide");
-  }       
-
-
-// test mot de passe
-  if( isset($_POST['mdp']) && !Validation::isAlphanumeric($_POST['mdp']) ) {
-      array_push($erreurs, "le nouveau mdp n'est pas valide");
+  if(!Validation::isMail($_POST['mail']) ) {
+    array_push($erreurs, "le nouvel mail n'est pas valide");
   } 
 
+// test tel
+  /*
+  if(!Validation::isphoneNumber($_POST['telephone']) ) {
+    array_push($erreurs, "le nouveau telephone n'est pas valide");
+  } 
+  */
+
+/*
+// test mot de passe
+  if(!Validation::isAlphanumeric($_POST['mdp']) ) {
+    array_push($erreurs, "le nouveau mdp n'est pas valide");
+  } 
+    
+    */
 // test adresse
-  if( isset($_POST['adresse']) && !Validation::isAlphanumeric($_POST['adresse']) ) {
-      array_push($erreurs, "la nouvelle adresse n'est pas valide");
+  
+  if(!Validation::isAlphanumeric($_POST['adresse']) ) {
+    array_push($erreurs, "la nouvelle adresse n'est pas valide");
   }   
 
  // test code postal
-  if( isset($_POST['codePostal']) && !Validation::isAlphanumeric($_POST['codePostal']) ) {
-      array_push($erreurs, "le nouveau code postal n'est pas valide");
+  if(!Validation::isAlphanumeric($_POST['codePostal']) ) {
+    array_push($erreurs, "le nouveau code postal n'est pas valide");
   }      
 
  // test ville
-  if( isset($_POST['ville']) && !Validation::isAlphanumeric($_POST['ville']) ) {
-      array_push($erreurs, "la nouvelle ville n'est pas valide");
+  if(!Validation::isAlphanumeric($_POST['ville']) ) {
+    array_push($erreurs, "la nouvelle ville n'est pas valide");
   }      
 
  // test pays
-  if( isset($_POST['pays']) && !Validation::isAlphanumeric($_POST['pays']) ) {
-      array_push($erreurs, "le nouveau pays n'est pas valide");
+  if(!Validation::isAlphanumeric($_POST['pays']) ) {
+    array_push($erreurs, "le nouveau pays n'est pas valide");
   }    
+  
 
-  // test img
-if( isset($_POST['img']) && !empty($_POST['img']) ) {
-  array_push($erreurs, "tu n'as pas choisi d'image");
-}
-
-// test imgFond
-if( isset($_POST['imgFond']) && !empty($_POST['imgFond']) ) {
-  array_push($erreurs, "tu n'as pas choisi d'image de fond");
-}  
-
+    print_r($erreurs);
 
 if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription
 
-Site::getUser()->modificationCompte( $_POST['nom'],$_POST['prenom'], $_POST['mail'], $_POST['telephone'], $_POST['mdp'], $_POST['adresse'], $_POST['codePostal'], $_POST['ville'], $_POST['pays'], $_POST['img'], $_POST['imgFond']);
+Site::getUser()->modificationCompte( $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['telephone'], $_POST['mdp'], $_POST['adresse'], $_POST['codePostal'], $_POST['ville'], $_POST['pays'], $_POST['img'], $_POST['imgFond']);
+    Session::getSession()->addMessage('info', "test");
+
+    Session::getSession()->write('user', $db->getUserById($user->idUser));
+
+    Site::redirection("index.php");
 
 }else {
   Session::getSession()->addMessages('danger', $erreurs);
 }
 
 }
-
-
-
-
-
 
 ?>
 
@@ -97,55 +108,55 @@ Site::getUser()->modificationCompte( $_POST['nom'],$_POST['prenom'], $_POST['mai
   <div class="form-group row">
     <label for="nom" class="col-sm-3 col-form-label">Nom</label>
     <div class="col-sm-8 offset-sm-1">
-      <input type="text" class="form-control" id="nom" placeholder=<?php echo '"'.$user->nom.'"'; ?>>
+      <input type="text" class="form-control" name="nom" placeholder=<?php echo '"'.$user->nom.'"'; ?>>
     </div>
   </div>
   <div class="form-group row">
     <label for="prenom" class="col-sm-3 col-form-label">Prénom</label>
     <div class="col-sm-8 offset-sm-1">
-      <input type="text" class="form-control" id="prenom" placeholder=<?php echo '"'.$user->prenom.'"'; ?>>
+      <input type="text" class="form-control" name="prenom" placeholder=<?php echo '"'.$user->prenom.'"'; ?>>
     </div>
   </div>
   <div class="form-group row">
     <label for="email" class="col-sm-3 col-form-label">Email</label>
     <div class="col-sm-8 offset-sm-1">
-      <input type="email" class="form-control" id="email" placeholder=<?php echo '"'.$user->mail.'"'; ?>>
+      <input type="email" class="form-control" name="mail" placeholder=<?php echo '"'.$user->mail.'"'; ?>>
     </div>
   </div>
   <div class="form-group row">
     <label for="telephone" class="col-sm-3 col-form-label">Téléphone</label>
     <div class="col-sm-8 offset-sm-1">
-      <input type="text" class="form-control" id="telephone" placeholder=<?php echo '"'.$user->tel.'"'; ?>>
+      <input type="text" class="form-control" name="telephone" placeholder=<?php echo '"'.$user->tel.'"'; ?>>
     </div>
   </div>
   <div class="form-group row">
     <label for="mot de passe" class="col-sm-3 col-form-label">Mot de passe</label>
     <div class="col-sm-8 offset-sm-1">
-      <input type="password" class="form-control" id="mot de passe" placeholder="********">
+      <input type="password" class="form-control" name="mdp" placeholder="********">
     </div>
   </div>
   <div class="form-group row">
     <label for="adresse" class="col-sm-3 col-form-label">Adresse</label>
     <div class="col-sm-8 offset-sm-1">
-      <input type="text" class="form-control" id="adresse" placeholder=<?php echo '"'.$user->adresse.'"'; ?>>
+      <input type="text" class="form-control" name="adresse" placeholder=<?php echo '"'.$user->adresse.'"'; ?>>
     </div>
   </div>
   <div class="form-group row">
     <label for="code postal" class="col-sm-3 col-form-label">Code postal</label>
     <div class="col-sm-8 offset-sm-1">
-      <input type="text" class="form-control" id="code postal" placeholder=<?php echo '"'.$user->codePostal.'"'; ?>>
+      <input type="text" class="form-control" name="codePostal" placeholder=<?php echo '"'.$user->codePostal.'"'; ?>>
     </div>
   </div>
   <div class="form-group row">
     <label for="ville" class="col-sm-3 col-form-label">Ville</label>
     <div class="col-sm-8 offset-sm-1">
-      <input type="text" class="form-control" id="ville" placeholder=<?php echo '"'.$user->ville.'"'; ?>>
+      <input type="text" class="form-control" name="ville" placeholder=<?php echo '"'.$user->ville.'"'; ?>>
     </div>
   </div>
   <div class="form-group row">
     <label for="pays" class="col-sm-3 col-form-label">Pays</label>
     <div class="col-sm-8 offset-sm-1">
-      <input type="text" class="form-control" id="pays" placeholder=<?php echo '"'.$user->pays.'"'; ?>>
+      <input type="text" class="form-control" name="pays" placeholder=<?php echo '"'.$user->pays.'"'; ?>>
     </div>
   </div>
       <div class="form-group row">
