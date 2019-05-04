@@ -1,4 +1,14 @@
-<?php include "header.php" ?>
+<?php 
+  include "header.php"; 
+  
+  if(isset($_GET['admin']) && $_GET['admin'] == 1 && $admin) {
+
+    
+
+  } 
+
+
+?>
 
 
 

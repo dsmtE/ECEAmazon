@@ -1,6 +1,22 @@
-<?php include "header.php" 
-require_once 'phpClass/autoloader.php';
-$session = Session::getSession();
+<?php 
+include "header.php";
+
+
+if(isset($_GET['id'] && !empty($_GET['id']))) {
+  $product = Site::getDatabase()->requete('SELECT * FROM Produits WHERE idProduit = ?', [$_GET['id']]);
+} else {
+  Session::getSession()->addMessage("info", "cet id ne correspond à aucun produit");
+  Site::redirection('produit.php');
+  exit();
+}
+
+if(!$admin && $product->idVendeur != $user->idUser ) {
+  Session::getSession()->addMessage("danger", "Tu n'as pas les autorisations pour modifer ce produit");
+  Site::redirection('produit.php');
+}
+
+  // TODO
+
 ?>
   <body>
 
@@ -58,14 +74,13 @@ $session = Session::getSession();
     <div class="col-sm-8">
       <input type="text" class="form-control" id="prix" name="prix" placeholder="€">
     </div>
-</div>
 
-  
-    
-      
-      <button type="submit" class="btn btn-primary">Valider les modifications</button>
 
-</form>
+
+
+    <button type="submit" class="btn btn-primary">Valider les modifications</button>
+
+  </form>
 
 
 
