@@ -59,7 +59,7 @@
             <a class="nav-link" href="produit.php">Produits</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="panier.php"><i class="fas fa-shopping-basket"></i></a>  <!-- placeholder link -->
+            <a class="nav-link" href="panier.php"><i class="fas fa-shopping-basket"></i></a>
           </li>
           <?php if(!$logged) { ?>
           <li class="nav-item">
@@ -69,11 +69,11 @@
             <a class="nav-link" href="inscription.php">S'inscrire</a> 
           </li>
           <?php }else{ ?>
-          <li class="nav-item disabled">
-            <a class="nav-link" href="compte.php">Mon compte</a>  <!-- placeholder link -->
+          <li class="nav-item ">
+            <a class="nav-link" href="compte.php">Mon compte</a>
           </li>
-          <li class="nav-item disabled">
-            <a class="nav-link" href=produit.php">Vendre</a>  <!-- placeholder link-->
+          <li class="nav-item ">
+            <a class="nav-link" href="modificationDesProduits.php">Vendre</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="deconnection.php">Se déconnecter</a>

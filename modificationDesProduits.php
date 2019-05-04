@@ -3,7 +3,7 @@ include "header.php";
 
 
 if(!$admin) {
-  $products = Site::getDatabase()->requete('SELECT * FROM Produits WHERE idVendeur = '.$user->idUser);
+  $products = Site::getDatabase()->requete('SELECT * FROM Produits WHERE idVendeur = '.Session::getSession()->read('user')->idUser);
 }else { //sinon on recupere tout en tnt qu'admin
   $products = Site::getDatabase()->requete('SELECT * FROM Produits');
 }
@@ -12,82 +12,32 @@ if(!$admin) {
 
 <div class="row m-4"> 
 
-  <div class="col-sm-4">
-
-    <h1 class="text-left mb-4">Préférences</h1>
-
-    <form class="p-2 w-75" action="" method="POST" enctype="multipart/form-data">
-      <div class="row">
-        <?php foreach (Site::getDatabase()->requete("SELECT * FROM Carateristiques") as $cara) { ?>
-          <div class="input-group col-sm-6 mb-4" id="caraChoix_<?php echo $cara->nom; ?>">
-            <div class="dropdown">
-              <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $cara->nom;?></button>
-              <div class="dropdown-menu">
-                <?php   
-                foreach (Site::getDatabase()->requete("SELECT choix.nom FROM CaraChoix as choix JOIN Carateristiques AS cara ON choix.idCara = cara.idCara  WHERE  cara.idCara = ?", [$cara->idCara]) as $choix) {
-                  echo '<a class="dropdown-item"><input type="checkbox" name="'.$cara->nom.'_'.$choix->nom.'" value="'.$choix->nom.'">'.$choix->nom.'</a>';
-                }
-                ?>
-              </div>
-            </div>
-          </div>
-        <?php } ?>
-      </div>
-
-      <button type="submit" class="btn btn-primary ">Valider les préférences</button>
-    </form>
-  </div>
-
-
-  <div class="col-sm-8 rounded">
-    <h1 class="text-left mt-2 mb-4">Produits disponibles</h1>
+  <div class="col-sm-8 offset-sm-2 rounded">
+    <h1 class="text-left mt-2 mb-4">Produits mis à la vente</h1>
     <div class="px-4" style=" overflow-y: scroll; max-height: 450px;" >
+    
 
-      <div class="row mb-2" style="border-style: solid; border-width: 0.1em; border-color: #ddd;">
-        <div class="col-sm-4">
-          <img src="..." alt="..." class="img-thumbnail">
-          <p class="text-left"> Quantité : </p>
-          <p class="text-left"> Vendu par </p>
+      <?php foreach ($products as $produit) {//pour chaques produits
 
+        $vendeurInfos = Site::getDatabase()->requete('SELECT * FROM Utilisateurs WHERE idUser = '.$produit->idVendeur)->fetch();
+
+        ?>
+        <div class="row mb-3" style="border-style: solid; border-width: 0.1em; border-color: #ddd;">
+          <div class="col-sm-4 mt-3">
+            <?php echo '<img style="width: 50px; height: 50px;" src="data:image/jpeg;base64,'.base64_encode( $produit->img ).'"/>'; ?>
+            <p class="text-left"> Quantité dispo : <?php echo $produit->quantity; ?> </p>
+            <p class="text-left" id="idVendeur"> Vendu par : <?php echo $vendeurInfos->nom.' '.$vendeurInfos->prenom; ?> </p>
+
+          </div>
+          <div class="col-sm-8 mt-3">
+            <p class="text-left" id="nomproduit"> </p>
+            <p class="form-control" id="description" rows="3"> Prix <?php echo $produit->description; ?> </p>
+            <p class="text-right" id="prix">Prix <?php echo $produit->prix; ?> </p>
+            <button type="submit" class="btn btn-primary float-right mb-3">Supprimer</button>
+          </div>
         </div>
-        <div class="col-sm-8">
-          <p class="text-left" id="nomproduit">Nom du produit</p>
-          <textarea class="form-control" id="description" rows="3"></textarea>
-          <p class="text-right" id="prix">Prix</p>
-          <button type="submit" class="btn btn-primary float-right mb-3">Panier</button> <!-- modification if admin -->
-        </div>
-      </div>
-
-      <div class="row mb-2" style="border-style: solid; border-width: 0.1em; border-color: #ddd;">
-        <div class="col-sm-4">
-          <img src="..." alt="..." class="img-thumbnail">
-          <p class="text-left"> Quantité : </p>
-          <p class="text-left"> Vendu par </p>
-
-        </div>
-        <div class="col-sm-8">
-          <p class="text-left" id="nomproduit">Nom du produit</p>
-          <textarea class="form-control" id="description" rows="3"></textarea>
-          <p class="text-right" id="prix">Prix</p>
-          <button type="submit" class="btn btn-primary float-right mb-3">Panier</button> <!-- modification if admin -->
-        </div>
-      </div>
-
-      <div class="row mb-2" style="border-style: solid; border-width: 0.1em; border-color: #ddd;">
-        <div class="col-sm-4">
-          <img src="..." alt="..." class="img-thumbnail">
-          <p class="text-left"> Quantité : </p>
-          <p class="text-left"> Vendu par </p>
-
-        </div>
-        <div class="col-sm-8">
-          <p class="text-left" id="nomproduit">Nom du produit</p>
-          <textarea class="form-control" id="description" rows="3"></textarea>
-          <p class="text-right" id="prix">Prix</p>
-          <button type="submit" class="btn btn-primary float-right mb-3">Panier</button> <!-- modification if admin -->
-        </div>
-      </div>
-
+      <?php } ?>
+  
     </div>
   </div>
 

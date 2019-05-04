@@ -25,21 +25,20 @@ if(!empty($_POST)) { // si on recoi des données pour le filtrage
   }
   $subReq1 = substr("$subReq1", 0, -2);
 
-  $subReq2 = 'SELECT CDP.idProduit FROM ChoixDispoProduits as CDP JOIN ('.$subReq1.') AS CC ON CC.idChoix = CDP.idChoix ';
+  $subReq2 = 'SELECT DISTINCT CDP.idProduit FROM ChoixDispoProduits as CDP JOIN ('.$subReq1.') AS CC ON CC.idChoix = CDP.idChoix ';
 
   $reqMaster = 'SELECT * FROM Produits AS P JOIN ('.$subReq2.') as CDP ON P.idProduit = CDP.idProduit';
 
+  // echo "<pre>";
+  // print($subReq1);
+  // print_r(Site::getDatabase()->requete($subReq1)->fetchAll());
+  // echo "</pre>";
+  // echo "\n";
 
-  echo "<pre>";
-  print($subReq1);
-  print_r(Site::getDatabase()->requete($subReq1)->fetchAll());
-  echo "</pre>";
-  echo "\n";
-
-  echo "<pre>";
-  print($subReq2);
-  print_r(Site::getDatabase()->requete($subReq2)->fetchAll());
-  echo "</pre>";
+  // echo "<pre>";
+  // print($subReq2);
+  // print_r(Site::getDatabase()->requete($subReq2)->fetchAll());
+  // echo "</pre>";
 
   // echo "<pre>";
   // print_r(Site::getDatabase()->requete($reqMaster)->fetchAll());
