@@ -29,8 +29,6 @@ if(!empty($_POST)) { // si on recoi des données
 // test nom
   if(!Validation::isAlphanumeric($_POST['nom']) ) {
     array_push($erreurs, "le nouveau nom n'est pas valide");
-  }else{
-    print_r($_POST['nom']);
   }
 // test prénom
   if(!Validation::isAlphanumeric($_POST['prenom']) ) {
