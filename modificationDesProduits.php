@@ -8,11 +8,6 @@ if(!$admin) {
   $products = Site::getDatabase()->requete('SELECT * FROM Produits');
 }
 
-
-//'SELECT * FROM Produits AS P JOIN ChoixDispoProduit as CDP ON P.idProduit = CDP.idProduit';
-// 'SELECT CDP.idProduit FROM ChoixDispoProduit as CDP JOIN CaraChoix AS CC ON CC.idChoix = CDP.idChoix WHERE CC.nom == $selected  && ..';
-// 'SELECT * FROM CaraChoix AS CC JOIN Carateristiques AS C ON CC.idCara = C.idCara WHERE C.nom = $caraSelected';
-
 ?>
 
 <div class="row m-4"> 
