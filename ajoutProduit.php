@@ -45,12 +45,12 @@ if(!empty($_POST)) { // si on recoi des données
   	}
 
 
-  	//print_r($erreurs);
+  	//print_r($_POST);
 
 	if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription
 
 		//ajout du produit
-		 Site::getDatabase()->requete('INSERT INTO Produits (nom, categorie, idVendeur, description, prix, quantity, img) 
+		Site::getDatabase()->requete('INSERT INTO Produits (nom, categorie, idVendeur, description, prix, quantity, img) 
 			VALUES ("'.
 			$_POST['productName'].'", "'.
 			$_POST['categorie'].'", '.
@@ -59,6 +59,18 @@ if(!empty($_POST)) { // si on recoi des données
 			$_POST['price'].", ".
 			$_POST['quantity'].', "'.
 			addslashes(file_get_contents($img)).'")');
+
+		print_r($_POST);
+		$idProduct = Site::getDatabase()->getLastInsertId();
+		//ajout choix dispo produits
+		foreach (Site::getDatabase()->requete("SELECT * FROM Carateristiques") as $cara) { 
+		 	foreach (Site::getDatabase()->requete("SELECT choix.idChoix, choix.nom FROM CaraChoix as choix JOIN Carateristiques AS cara ON choix.idCara = cara.idCara  WHERE  cara.idCara = ?", [$cara->idCara]) as $choix) {
+
+		 		if(isset($_POST[$cara->nom."_".$choix->nom])) {
+		 			Site::getDatabase()->requete('INSERT INTO ChoixDispoProduits (idProduit, idChoix) VALUES ('.$idProduct.', '.$choix->idChoix.')');
+		 		}
+		 	}
+		}
 
 		Session::getSession()->addMessage('success', "Ton produit à bien été crée");
 		Site::redirection('ajoutProduit.php');
