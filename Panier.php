@@ -1,4 +1,6 @@
 <?php
+
+//sources: https://stackoverflow.com/questions/20556773/php-display-image-blob-from-mysql
 include "header.php";
 ?>
 

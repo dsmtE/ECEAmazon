@@ -1,9 +1,8 @@
 <?php 
 include "header.php";
 
-
-if(isset($_GET['id'] && !empty($_GET['id']))) {
-  $product = Site::getDatabase()->requete('SELECT * FROM Produits WHERE idProduit = ?', [$_GET['id']]);
+if(isset($_GET['id']) && !empty($_GET['id'])) {
+  $product = Site::getDatabase()->requete('SELECT * FROM Produits WHERE idProduit = ?', [$_GET['id']])->fetch();
 } else {
   Session::getSession()->addMessage("info", "cet id ne correspond à aucun produit");
   Site::redirection('produit.php');

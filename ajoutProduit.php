@@ -62,6 +62,7 @@ if(!empty($_POST)) { // si on recoi des données
 
 		print_r($_POST);
 		$idProduct = Site::getDatabase()->getLastInsertId();
+
 		//ajout choix dispo produits
 		foreach (Site::getDatabase()->requete("SELECT * FROM Carateristiques") as $cara) { 
 		 	foreach (Site::getDatabase()->requete("SELECT choix.idChoix, choix.nom FROM CaraChoix as choix JOIN Carateristiques AS cara ON choix.idCara = cara.idCara  WHERE  cara.idCara = ?", [$cara->idCara]) as $choix) {
@@ -160,7 +161,6 @@ if(!empty($_POST)) { // si on recoi des données
 						}	
 					?>
 				  </div>
-					</ul>
 				</div>
 			</div>
 			
