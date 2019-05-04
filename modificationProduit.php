@@ -9,7 +9,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
   exit();
 }
 
-if(!$admin && $product->idVendeur != $user->idUser ) {
+if(!$admin && $product->idVendeur != $user->idUser) {
   Session::getSession()->addMessage("danger", "Tu n'as pas les autorisations pour modifer ce produit");
   Site::redirection('produit.php');
 }
@@ -78,7 +78,7 @@ if(!empty($_POST)) { // si on reçoit des données
     Site::getUser()->modificationCompte( $_POST['nom'], $_POST['categorie'], $_POST['description'], $_POST['quantity'], $_POST['taille'], $_POST['couleur'], $_POST['modele'], $_POST['prix']);
 
     //rechergement des informations utilisateur dans la sesion
-    Session::getSession()->write('produit', $db->getProduitById($product->idProduct));
+    Session::getSession()->write('produit', $db->getProductById($product->idProduct));
 
     Site::redirection("index.php");
 
