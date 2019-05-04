@@ -45,9 +45,9 @@ if(!$admin && $product->idVendeur != $user->idUser ) {
 </div>
 
   <div class="form-group row">
-    <label for="quantité" class="col-sm-2 col-form-label">Quantité</label>
+    <label for="quantité" class="col-sm-2 col-form-label">Quantite</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="quantité" name="quantité" placeholder="XX">
+      <input type="text" class="form-control" id="quantité" name="quantite" placeholder="XX">
     </div>
 </div>
 <div class="form-group row">
@@ -63,7 +63,7 @@ if(!$admin && $product->idVendeur != $user->idUser ) {
     </div>
 </div>
 <div class="form-group row">
-    <label for="modele" class="col-sm-2 col-form-label">Modèle</label>
+    <label for="modele" class="col-sm-2 col-form-label">Modele</label>
     <div class="col-sm-8">
       <input type="text" class="form-control" id="modele" name="modele" placeholder="Homme,femme">
     </div>

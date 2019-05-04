@@ -26,46 +26,36 @@ include "header.php";
           <div style=" overflow-y: scroll; " class="col-sm-12 rounded px-5">
 
 
+            <?php foreach (Session::getSession()->getPanierElems() as $produit) {
+            $produitInfos = Site::getDatabase()->requete('SELECT * FROM Produits WHERE idProduit = '.$produit['idProduit'])->fetch();
+            $vendeurInfos = Site::getDatabase()->requete('SELECT * FROM Utilisateurs WHERE idVendeur = '.$produitInfos->idVendeur)->fetch();
 
+
+            ?>
             <div class="row mb-3" style="border-style: solid; border-width: 0.1em; border-color: #ddd;">
               <div class="col-sm-4 mt-3">
-                <img src="..." alt="..." class="img-thumbnail">
-                <p class="text-left" id="quantite">Quantité : </p>
-                <p class="text-left" id="vendeur">Vendeur</p>
+                <?php echo '<img style="width: 50px; height: 50px;" src="data:image/jpeg;base64,'.base64_encode( $produitInfos->img ).'"/>'; ?>
+                <p class="text-left"> Quantité : <?php echo $produit['quantity']; ?> </p>
+                <p class="text-left" id="idVendeur"> <?php echo $vendeurInfos->nom.' '.$vendeurInfos->prenom; ?> </p>
 
               </div>
               <div class="col-sm-8 mt-3">
-                <p class="text-left" id="nomproduit">Nom du produit</p>
-                <textarea class="form-control" id="description" rows="3"></textarea>
-                <p class="text-right" id="prix">Prix</p>
-                <button type="submit" class="btn btn-primary float-right mb-3">Panier</button>
+                <p class="text-left" id="nomproduit"> </p>
+                <textarea class="form-control" id="description" rows="3"> Prix <?php echo $produitInfos->description; ?> </textarea>
+                <p class="text-right" id="prix">Prix <?php echo $produitInfos->prix; ?> </p>
+                <button type="submit" class="btn btn-primary float-right mb-3">Supprimer</button>
               </div>
             </div>
-
-            <div class="row mb-3" style="border-style: solid; border-width: 0.1em; border-color: #ddd;">
-              <div class="col-sm-4 mt-3">
-                <img src="..." alt="..." class="img-thumbnail">
-                <p class="text-left" id="quantite">Quantité : </p>
-                <p class="text-left" id="vendeur">Vendeur</p>
-
-              </div>
-              <div class="col-sm-8 mt-3">
-                <p class="text-left" id="nomproduit">Nom du produit</p>
-                <textarea class="form-control" id="description" rows="3"></textarea>
-                <p class="text-right" id="prix">Prix</p>
-                <button type="submit" class="btn btn-primary float-right mb-3">Panier</button>
-              </div>
-            </div>
+          <?php } ?>
 
             
           </div>
 
           <div class="col-sm-12 mt-3">
             <div class="dropdown-divider"></div>
-            <p class="text-left" id="nomproduit">TOTAL</p>
-            <button type="submit" class="btn btn-primary float-right mb-3">Passer la commande</button>
+            <p class="text-left" >TOTAL : <?php Session::getSession()->panierTotal(Site::getDatabase())?> </p>
+            <a href="commande.php" class="btn btn-primary float-right mb-3">Passer la commande</a>
           </div>
-
 
         </div>
       </div>

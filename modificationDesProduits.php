@@ -1,60 +1,12 @@
 <?php 
 include "header.php"; 
 
-if(!empty($_POST)) { // si on recoi des données pour le filtrage
 
-  $caraSelected = array();
-  $choixSelected = array();
-
-  foreach( $_POST as $key => $postValue) {
-    $caraSelected[explode('_', $key)[0]] = 1;
-    $choixSelected[explode('_', $key)[1]] = 1;
-  }
-
-
-  //'SELECT * FROM Produits AS P JOIN ChoixDispoProduit as CDP ON P.idProduit = CDP.idProduit';
-// 'SELECT CDP.idProduit FROM ChoixDispoProduit as CDP JOIN CaraChoix AS CC ON CC.idChoix = CDP.idChoix WHERE CC.nom == $selected  && ..';
-// 'SELECT * FROM CaraChoix AS CC JOIN Carateristiques AS C ON CC.idCara = C.idCara WHERE C.nom = $caraSelected';
-
-
-  $subReq1 = 'SELECT CC.idChoix, C.nom FROM CaraChoix AS CC JOIN Carateristiques AS C ON CC.idCara = C.idCara WHERE';
-
-  foreach ($caraSelected as $key => $c) {
-    $subReq1 .= ' C.nom = "'.$key.'" OR';
-  }
-  $subReq1 = substr("$subReq1", 0, -2);
-
-  $subReq2 = 'SELECT CDP.idProduit, CC.nom FROM ChoixDispoProduits as CDP JOIN ('.$subReq1.') AS CC ON CC.idChoix = CDP.idChoix WHERE';
-
-  foreach ($choixSelected as $key => $c) {
-    $subReq2 .= ' CC.nom = "'.$key.'" OR';
-  }
-  $subReq2 = substr("$subReq2", 0, -2);
-
-  $reqMaster = 'SELECT * FROM Produits AS P JOIN ('.$subReq2.') as CDP ON P.idProduit = CDP.idProduit';
-
-  // echo "<pre>";
-  // print_r($subReq1);
-  // echo "</pre>";
-
-  // echo "<pre>";
-  // print_r($subReq2);
-  // echo "</pre>";
-
-  // echo "<pre>";
-  // print_r($reqMaster);
-  // echo "</pre>";
-
-  $products = Site::getDatabase()->requete($reqMaster);
-
-}else { //sinon on recupere tout
+if(!$admin) {
+  $products = Site::getDatabase()->requete('SELECT * FROM Produits WHERE idVendeur = '.$user->idUser);
+}else { //sinon on recupere tout en tnt qu'admin
   $products = Site::getDatabase()->requete('SELECT * FROM Produits');
 }
-
-
-//'SELECT * FROM Produits AS P JOIN ChoixDispoProduit as CDP ON P.idProduit = CDP.idProduit';
-// 'SELECT CDP.idProduit FROM ChoixDispoProduit as CDP JOIN CaraChoix AS CC ON CC.idChoix = CDP.idChoix WHERE CC.nom == $selected  && ..';
-// 'SELECT * FROM CaraChoix AS CC JOIN Carateristiques AS C ON CC.idCara = C.idCara WHERE C.nom = $caraSelected';
 
 ?>
 

@@ -82,9 +82,14 @@ class Session {
     }
 
     public function getPanierElems() {// permet de recuperer les produits
-        $panier = $_SESSION["panier"];
-        //unset($_SESSION["panier"]);
-        return $panier;
+        if(!isset($_SESSION["panier"])) {
+            $_SESSION["panier"] = array();
+        }
+        return $_SESSION["panier"];
+    }
+
+    public function viderPanier() {
+        unset($_SESSION["panier"]);
     }
 
     public function write($key, $value) { // accesseur qui permet d'ecrire une valeur de session
