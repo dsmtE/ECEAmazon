@@ -43,24 +43,45 @@ class Session {
     }
 
     //----------  gestion du panier ----------
-    public function addToPAnier($idProduit, $quantity = 1) {// permet dun produit au panier
+    public function addToPAnier($idProduit, $quantity = 1, $option) {// permet dun produit au panier
         if(!isset($_SESSION["panier"])) {
             $_SESSION["panier"] = array();
         }
-        array_push ($_SESSION["panier"], [$idProduit, $quantity]);
+        array_push ($_SESSION["panier"], array ('idProduit' => $idProduit, 'quantity' => $quantity, 'option' => $option) );
     }
 
     public function panierIsEmpty() {// permet de savoir si il y a des elements dans le panier
         return isset($_SESSION["panier"]);
     }
 
-    // public function besketChangeQuantity($idProduit, $newQuantity) {
-    //     if(!isset($_SESSION["panier"])) {
-    //         $_SESSION["panier"] = array();
-    //     }
-    // }
+    public function panierChangeQuantity($idProduit, $variationQuantity) {
+        if(!empty($_SESSION["panier"])) {
+            foreach ($_SESSION["panier"] as $key => $product) {
+                if($product['idProduit'] == $idProduit ) {
+                    $_SESSION["panier"]['quantity'] += variationQuantity;
+                    if($_SESSION["panier"]['quantity'] <= 0) {
+                        unset($_SESSION["panier"][$key]);
+                        $this->addMessage('danger', 'l\'élément à été supprimer du panier');
+                    }
+                    break;
+                }
+            }
+        }else{
+            $this->addMessage('info', 'ton panier est vide');
+        }
+    }
 
-    public function getPAnierElems() {// permet de recuperer les produits du panier
+
+    public function panierTotal($db) {
+        $total = 0;
+        foreach ($_SESSION["panier"] as $product) {
+            $dbProduct = $db->requete("SELECT * FROM PRoduits WHERE idProduit == ? ", [$product['idProduit']]);
+            $total += $dbProduct->prix*$product['quantity'];
+        }
+        return $total;
+    }
+
+    public function getPAnierElems() {// permet de recuperer les produits
         $panier = $_SESSION["panier"];
         unset($_SESSION["panier"]);
         return $panier;
