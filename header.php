@@ -47,10 +47,10 @@
         <ul class="navbar-nav ml-auto">
           <?php if($admin) { ?>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle disabled" href="http://example.com" id="dropdownAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdownAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
             <div class="dropdown-menu" aria-labelledby="dropdownAdmin">
               <a class="dropdown-item" href="modificationUsers.php">Modifier les utilisateur</a>
-              <a class="dropdown-item" href="#">Modifier les produits</a>  <!-- placeholder link -->
+              <a class="dropdown-item" href="produit.php?admin=1">Modifier les produits</a>  <!-- placeholder link -->
             </div>
           </li>
           <?php } ?>
@@ -73,7 +73,7 @@
             <a class="nav-link" href="compte.php">Mon compte</a>  <!-- placeholder link -->
           </li>
           <li class="nav-item disabled">
-            <a class="nav-link" href="#">Vendre</a>  <!-- placeholder link-->
+            <a class="nav-link" href=produit.php">Vendre</a>  <!-- placeholder link-->
           </li>
           <li class="nav-item">
             <a class="nav-link" href="deconnection.php">Se déconnecter</a>
