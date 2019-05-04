@@ -14,21 +14,21 @@ if(!$admin && $product->idVendeur != $user->idUser ) {
   Site::redirection('produit.php');
 }
 
-$user = Session::getSession()->read("produit");
+$product = Session::getSession()->read("produit");
 
 if(!empty($_POST)) { // si on reçoit des données
 
   $erreurs = array();
   $db = Site::getDatabase();
 
-  !isset($_POST['nom']) || empty($_POST['nom']) ? $_POST['nom']                      = $produit->nom :"";
-  !isset($_POST['categorie']) || empty($_POST['categorie']) ?$_POST['categorie']              = $produit->categorie :"";
-  !isset($_POST['description']) || empty($_POST['description']) ? $_POST['description']    = $produit->description :"";
-  !isset($_POST['quantity']) || empty($_POST['quantity']) ? $_POST['quantity']          = $produit->adresse :"";
-  !isset($_POST['taille']) || empty($_POST['taille']) ? $_POST['taille']          = $produit->taille :"";
-  !isset($_POST['couleur']) || empty($_POST['couleur']) ? $_POST['couleur']          = $produit->couleur :"";
-  !isset($_POST['modele']) || empty($_POST['modele']) ? $_POST['modele']          = $produit->modele :"";
-  !isset($_POST['prix']) || empty($_POST['prix']) ? $_POST['prix']          = $produit->adresse :"";
+  !isset($_POST['nom']) || empty($_POST['nom']) ? $_POST['nom']                      = $product->nom :"";
+  !isset($_POST['categorie']) || empty($_POST['categorie']) ?$_POST['categorie']              = $product->categorie :"";
+  !isset($_POST['description']) || empty($_POST['description']) ? $_POST['description']    = $product->description :"";
+  !isset($_POST['quantity']) || empty($_POST['quantity']) ? $_POST['quantity']          = $product->adresse :"";
+  !isset($_POST['taille']) || empty($_POST['taille']) ? $_POST['taille']          = $product->taille :"";
+  !isset($_POST['couleur']) || empty($_POST['couleur']) ? $_POST['couleur']          = $product->couleur :"";
+  !isset($_POST['modele']) || empty($_POST['modele']) ? $_POST['modele']          = $product->modele :"";
+  !isset($_POST['prix']) || empty($_POST['prix']) ? $_POST['prix']          = $product->prix :"";
 
 
 
@@ -78,7 +78,7 @@ if(!empty($_POST)) { // si on reçoit des données
     Site::getUser()->modificationCompte( $_POST['nom'], $_POST['categorie'], $_POST['description'], $_POST['quantity'], $_POST['taille'], $_POST['couleur'], $_POST['modele'], $_POST['prix']);
 
     //rechergement des informations utilisateur dans la sesion
-    Session::getSession()->write('produit', $db->getProduitById($produit->idProduit));
+    Session::getSession()->write('produit', $db->getProduitById($product->idProduct));
 
     Site::redirection("index.php");
 
