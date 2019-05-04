@@ -13,9 +13,9 @@ if(!empty($_POST)) { // si on recoi des données
   	if( !isset($_POST['productName']) || empty($_POST['productName']) ) {
     	array_push($erreurs, "tu n\'a pas rentré de nom de produit");
   	} else {
-	    if( !Validation::isAlphanumeric($_POST['productName']) ) {
+	    /*if( !Validation::isAlphanumeric($_POST['productName']) ) {
 	      array_push($erreurs, "ton nom n'est pas valide");
-	    }
+	    }*/
   	}
 
   	if( !isset($_POST['categorie']) || empty($_POST['categorie']) ) {
@@ -32,8 +32,6 @@ if(!empty($_POST)) { // si on recoi des données
 
   	!isset($_POST['quantity']) || empty($_POST['quantity']) ? $_POST['quantity'] = 1 : "";
 
-  	print_r($_FILES);
-
   	$img = $_FILES['img']['tmp_name'];
 // test img
   	if(!isset($img) || empty($img) )  {
@@ -43,9 +41,6 @@ if(!empty($_POST)) { // si on recoi des données
   			array_push($erreurs, "le fichier choisi n'est pas une image");
   		}
   	}
-
-
-  	//print_r($_POST);
 
 	if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription
 
@@ -60,7 +55,6 @@ if(!empty($_POST)) { // si on recoi des données
 			$_POST['quantity'].', "'.
 			addslashes(file_get_contents($img)).'")');
 
-		print_r($_POST);
 		$idProduct = Site::getDatabase()->getLastInsertId();
 
 		//ajout choix dispo produits
@@ -116,8 +110,8 @@ if(!empty($_POST)) { // si on recoi des données
 					<option disabled selected value> choisi une catégorie</option>
 					<option value="livres">Livres</option>
 					<option value="musique">Musique</option>
-					<option value="mode">Vêtements</option>
-					<option value="sports">Sports et loisirs</option>
+					<option value="vetements">Vêtements</option>
+					<option value="sport">Sports et loisirs</option>
 				</select>
 			</div>
 		</div>
