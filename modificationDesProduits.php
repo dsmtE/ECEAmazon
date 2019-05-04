@@ -33,7 +33,7 @@ if(!$admin) {
             <p class="text-left" id="nomproduit"> </p>
             <p class="form-control" id="description" rows="3"> Prix <?php echo $produit->description; ?> </p>
             <p class="text-right" id="prix">Prix <?php echo $produit->prix; ?> </p>
-            <button type="submit" class="btn btn-primary float-right mb-3">Supprimer</button>
+            <a <?php echo 'href="modificationProduit.php?id='.$produit->idProduit.'"'; ?> class="btn btn-primary float-right mb-3 ">Modifier</a>
           </div>
         </div>
       <?php } ?>

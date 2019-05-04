@@ -9,12 +9,12 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
   exit();
 }
 
-if(!$admin && $product->idVendeur != $user->idUser) {
+if(!$admin) {
+  if($product->idVendeur != Session::getSession()->read('user')->idUser) {
   Session::getSession()->addMessage("danger", "Tu n'as pas les autorisations pour modifer ce produit");
   Site::redirection('produit.php');
+  }
 }
-
-$product = Session::getSession()->read("produit");
 
 if(!empty($_POST)) { // si on reçoit des données
 
