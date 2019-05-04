@@ -7,6 +7,7 @@ if(!$logged) {
 	Site::redirection('connexion.php');
 }
 $user = Session::getSession()->read("user");
+$db = Site::getDatabase();
 
 if(!empty($_POST)){
 
@@ -21,11 +22,15 @@ if(!empty($_POST)){
   
   if($_POST['adresse'] != null && !Validation::isAlphanumeric($_POST['adresse']) ) {
     array_push($erreurs, "L'adresse n'est pas valide ou définie");
+    Site::redirection('compte.php');
+    exit();
   }   
 
  // test code postal
   if($_POST['codePostal'] != null && !Validation::isAlphanumeric($_POST['codePostal']) ) {
     array_push($erreurs, "Le code postal n'est pas valide ou définie");
+    Site::redirection('compte.php');
+    exit();
   }      
 
  // test ville
@@ -37,34 +42,24 @@ if(!empty($_POST)){
   if($_POST['pays'] != null && !Validation::isAlphanumeric($_POST['pays']) ) {
     array_push($erreurs, "Le pays n'est pas valide ou définie");
   }
+  if(empty($erreurs)) {
+  	
+  	$session->addMessage('success', "Le paiement a été effectué. Votre commande sera bientôt expédiée.");
+  	Site::redirection('index.php');
+  	exit();
+  }
   else {
     Session::getSession()->addMessages('danger', $erreurs);
-    Site::redirection("compte.php");
+    Site::redirection('commmande.php');
   }
-  switch($paiement){
-  	case "blockCard":
-  		if($_POST[''])
-  }    
+  
 }
 
 
 
-if(isset($_GET['typePaiement'])){
 	$paiement = $_GET['typePaiement'];
-	switch($paiement){
-		case "blockCard" : $popUpCB = " "; $popUpPaypal = "hidden"; $popUpChq = "hidden"; break;
-		case "paypal" : $popUpPaypal = " "; $popUpCB = "hidden"; $popUpChq = "hidden"; break;
-		case "chqCadeau" : $popUpChq = " "; $popUpCB = "hidden"; $popUpPaypal = "hidden"; break;
-		case "modePaiement" : $popUpChq = "hidden"; $popUpCB = "hidden"; $popUpPaypal = "hidden"; break;
-	}
-
-}
-else{
-	$popUpCB = "hidden";
-	$popUpPaypal = "hidden";
-	$popUpChq = "hidden";
-}
-
+	$option = $db->requete('SELECT * FROM CartesBancaires WHERE idUser = ?',[$user->idUser]);
+	$userPaiement = $option->fetch();
 
 
 ?>
@@ -156,47 +151,47 @@ else{
 		</div>
 	</div>
 	<div class="col-sm formulaire">
-		<div class="blockCard col-sm" style="visibility:<?php echo $popUpCB ?> ; position: absolute;"> <!-- Bloc pour les CB-->
+		<div id="blockCard" class="col-sm" style="display:none ; position: absolute;"> <!-- Bloc pour les CB-->
 			<h3 class="pt-3"style="font-size : 1.5em; text-align: center;">Carte bancaire</h3>
-			<form>
+			<form action="traitementPaiement.php?typePaiement=blockCard" method="POST">
 				<div class="form-group row mt-3">
 					<label for="inputCard" class="col-sm-2 col-form-label mt-3">Numéro de carte :</label>
 					<div class="col-sm-4">
-						<input type="text" class="form-control mt-3" id="inputCard" placeholder="XXXX-XXXX-XXXX-XXXX">
+						<input type="number" class="form-control mt-3" id="inputCard" placeholder=<?php if($userPaiement){echo $user->numero;} else{echo 'XXXX-XXXX-XXXX-XXXX';} ?>>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label for="dateCard" class="col-sm-4 col-form-label mt-3">Date d'expiration :</label>
-							<input class="form-control col-6" type="month" value="2019-05" id="example-month-input" style="display: inline-block;">
+							<input class="form-control col-6" type="month" id="example-month-input" style="display: inline-block;" value= <?php if($userPaiement){echo $userPaiement->dateExpiration;} else{echo '2019-05';}?>>
 						</div>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="nameCard" class="col-sm-2 col-form-label">Nom du titulaire :</label>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" id="nameCard">
+						<input type="text" class="form-control" id="nameCard" placeholder=<?php echo '"'.$user->nom.' '.$user->prenom.'"';?>>
 					</div>
 					<div class="input-group col-4 offset-1">
 						<select class="custom-select" id="typeCarte">
-							<option selected>Type de carte</option>
-							<option value="visa"  href="#">Visa</option>
-							<option value="american" href="#">AmericanExpress</option>
-							<option value="master" href="#">MasterCard</option>
+							<option <?php if($userPaiement){ if($userPaiement->type == null){echo 'selected';}}?>>Type de carte</option>
+							<option value="visa"  href="#" <?php if($userPaiement){ if($userPaiement->type == "Visa"){echo 'selected';}}?> >Visa</option>
+							<option value="american" href="#" <?php if($userPaiement){ if($userPaiement->type == "AmericanExpress"){echo 'selected';}}?> >AmericanExpress</option>
+							<option value="master" href="#" <?php if($userPaiement){ if($userPaiement->type == "MasterCard"){echo 'selected';}}?> >MasterCard</option>
 						</select>
 					</div>
 				</div>
 				<div class="form-group row mt-4">
 					<label for="securityCode" class="col-sm-2 col-form-label">Code de sécurité:</label>
 					<div class="col-2">
-						<input type="text" class="form-control" name="securityCode"placeholder="***">
+						<input type="number" class="form-control" name="securityCode" placeholder=<?php if($userPaiement){ if($userPaiement->codeSecurite){echo $userPaiement->codeSecurite ;}} echo '***' ;?>>
 					</div>
 					<div class="col-5 ml-auto">
-						<button type="button" class="btn btn-success" style=" width : 8em;" id="validerCB">Valider</button> <!--placeholder SQL-->
+						<button type="submit" class="btn btn-success" style=" width : 8em;" id="validerCB">Valider</button> <!--placeholder SQL-->
 					</div>
 				</div>
 			</form>
 		</div>
-		<div id="paypal" style="visibility:<?php echo $popUpPaypal; ?>; position: absolute; width : 50em; "> <!--Bloc Paypal-->
+		<div id="paypal" style="display:none; position: absolute; width : 50em; "> <!--Bloc Paypal-->
 			<h3 class="pt-3"style="font-size : 1.5em; text-align: center;">PayPal</h3>
 			<div class="col-sm mt-3">
 				<p style="text-align:center; font-size: 1.3em;">Connexion au compte Paypal</p>
@@ -217,14 +212,14 @@ else{
 				</form>
 			</div>
 		</div>
-		<div id="chqCadeau" style="visibility: <?php echo $popUpChq; ?> ;">
+		<div id="chqCadeau" style="display:none ;">
 			<h3 class="pt-3 pb-3"style="font-size : 1.5em; text-align: center;">Chèque cadeau</h3>
 			<div class="col-sm mt-3">
 				<form>
 					<div class="form-group row justify-content-center">
 						<label for="numChq" class="col-sm-4 col-form-label mb-2"> Veuillez entrer le code chèque cadeau :</label>
 						<div class="col-sm-4">
-							<input type="text" id="numChq" class="form-control" placeholder="123456">
+							<input type="number" id="numChq" class="form-control" placeholder="123456">
 						</div>
 					</div>
 					<div class="row justify-content-center">
