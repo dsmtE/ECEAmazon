@@ -14,7 +14,79 @@ if(!$admin && $product->idVendeur != $user->idUser ) {
   Site::redirection('produit.php');
 }
 
-  // TODO
+$user = Session::getSession()->read("produit");
+
+if(!empty($_POST)) { // si on reçoit des données
+
+  $erreurs = array();
+  $db = Site::getDatabase();
+
+  !isset($_POST['nom']) || empty($_POST['nom']) ? $_POST['nom']                      = $produit->nom :"";
+  !isset($_POST['categorie']) || empty($_POST['categorie']) ?$_POST['categorie']              = $produit->categorie :"";
+  !isset($_POST['description']) || empty($_POST['description']) ? $_POST['description']    = $produit->description :"";
+  !isset($_POST['quantity']) || empty($_POST['quantity']) ? $_POST['quantity']          = $produit->adresse :"";
+  !isset($_POST['taille']) || empty($_POST['taille']) ? $_POST['taille']          = $produit->taille :"";
+  !isset($_POST['couleur']) || empty($_POST['couleur']) ? $_POST['couleur']          = $produit->couleur :"";
+  !isset($_POST['modele']) || empty($_POST['modele']) ? $_POST['modele']          = $produit->modele :"";
+  !isset($_POST['prix']) || empty($_POST['prix']) ? $_POST['prix']          = $produit->adresse :"";
+
+
+
+// test nom
+  if(!Validation::isAlphanumeric($_POST['nom']) ) {
+    array_push($erreurs, "le nouveau nom n'est pas valide");
+  }
+// test catégorie
+  if(!Validation::isAlphanumeric($_POST['categorie']) ) {
+    array_push($erreurs, "la nouvelle categorie n'est pas valide");
+  }  
+
+// test description
+  if(!Validation::isAlphanumeric($_POST['description']) ) {
+    array_push($erreurs, "la nouvelle description n'est pas valide");
+  } 
+
+// test qauntité
+  if(!Validation::isAlphanumeric($_POST['quantity']) ) {
+    array_push($erreurs, "la nouvelle qauntité n'est pas valide");
+  } 
+
+// test taille
+  if(!Validation::isAlphanumeric($_POST['taille']) ) {
+    array_push($erreurs, "la nouvelle taille n'est pas valide");
+  } 
+
+// test couleur
+  if(!Validation::isAlphanumeric($_POST['couleur']) ) {
+    array_push($erreurs, "la nouvelle couleur n'est pas valide");
+  } 
+
+// test modele
+  if(!Validation::isAlphanumeric($_POST['modele']) ) {
+    array_push($erreurs, "le nouveau modele n'est pas valide");
+  } 
+
+// test prix
+  if(!Validation::isAlphanumeric($_POST['prix']) ) {
+    array_push($erreurs, "le nouveau prix n'est pas valide");
+  } 
+
+ 
+
+  if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription
+
+    Site::getUser()->modificationCompte( $_POST['nom'], $_POST['categorie'], $_POST['description'], $_POST['quantity'], $_POST['taille'], $_POST['couleur'], $_POST['modele'], $_POST['prix']);
+
+    //rechergement des informations utilisateur dans la sesion
+    Session::getSession()->write('produit', $db->getProduitById($produit->idProduit));
+
+    Site::redirection("index.php");
+
+  }else {
+    Session::getSession()->addMessages('danger', $erreurs);
+    Site::rechargerPage();
+  }
+}
 
 ?>
   <body>
@@ -27,7 +99,7 @@ if(!$admin && $product->idVendeur != $user->idUser ) {
   <div class="form-group row">
     <label for="nom produit" class="col-sm-2 col-form-label">Nom Produit</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="nomProduit" name="nomProduit" placeholder="Nom Produit">
+      <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom Produit">
     </div>
   </div>
   <div class="form-group row">
@@ -47,7 +119,7 @@ if(!$admin && $product->idVendeur != $user->idUser ) {
   <div class="form-group row">
     <label for="quantité" class="col-sm-2 col-form-label">Quantite</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="quantité" name="quantite" placeholder="XX">
+      <input type="text" class="form-control" id="quantity" name="quantity" placeholder="XX">
     </div>
 </div>
 <div class="form-group row">
