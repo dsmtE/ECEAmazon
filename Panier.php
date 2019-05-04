@@ -7,14 +7,9 @@ include "header.php";
   <form style="padding: 40px;">
     <div class="row"> 
 
-
-
-
-
       <div class="col-sm-4">
 
         <h1 class="text-left mb-5">Mon panier</h1>
-
 
       </div>
 
