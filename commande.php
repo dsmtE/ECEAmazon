@@ -11,53 +11,23 @@ $db = Site::getDatabase();
 
 if(!empty($_POST)){
 
-	$erreurs = array();
-	$db = Site::getDatabase();
 	!isset($_POST['adresse']) || empty($_POST['adresse']) ? $_POST['adresse']          = isset($user->adresse) ? $user->adresse : null :"";
 	!isset($_POST['codePostal']) || empty($_POST['codePostal']) ? $_POST['codePostal'] = isset($user->codePostal) ? $user->codePostal : null :"";
 	!isset($_POST['ville']) || empty($_POST['ville']) ? $ $_POST['ville']              = isset($user->ville) ? $user->ville : null  :"";
 	!isset($_POST['pays']) || empty($_POST['pays']) ? $_POST['pays']                   = isset($user->pays) ? $user->pays : null  :"";
 
-	// test adresse
-  
-  if($_POST['adresse'] != null && !Validation::isAlphanumeric($_POST['adresse']) ) {
-    array_push($erreurs, "L'adresse n'est pas valide ou définie");
-    Site::redirection('compte.php');
-    exit();
-  }   
 
- // test code postal
-  if($_POST['codePostal'] != null && !Validation::isAlphanumeric($_POST['codePostal']) ) {
-    array_push($erreurs, "Le code postal n'est pas valide ou définie");
-    Site::redirection('compte.php');
-    exit();
-  }      
-
- // test ville
-  if($_POST['ville'] != null && !Validation::isAlphanumeric($_POST['ville']) ) {
-    array_push($erreurs, "La ville n'est pas valide ou définie");
-  }      
-
- // test pays
-  if($_POST['pays'] != null && !Validation::isAlphanumeric($_POST['pays']) ) {
-    array_push($erreurs, "Le pays n'est pas valide ou définie");
-  }
-  if(empty($erreurs)) {
-  	
-  	$session->addMessage('success', "Le paiement a été effectué. Votre commande sera bientôt expédiée.");
-  	Site::redirection('index.php');
-  	exit();
-  }
-  else {
-    Session::getSession()->addMessages('danger', $erreurs);
-    Site::redirection('commmande.php');
-  }
-  
 }
 
 
 
+
+if(!isset($_GET['typePaiement'])){
+	$paiement = "modePaiement";
+}
+else{
 	$paiement = $_GET['typePaiement'];
+}
 	$option = $db->requete('SELECT * FROM CartesBancaires WHERE idUser = ?',[$user->idUser]);
 	$userPaiement = $option->fetch();
 
@@ -83,7 +53,7 @@ if(!empty($_POST)){
 		<h2 style="text-align: center; color: #1EC4E9">Informations de livraison</h2>
 	</div>
 	<div class="col-sm-9">
-		<form>
+		<form action="traitementPaiement.php" method="POST">
 			<div class="form-group row">
 				<label for="inputAddress" class="col-sm-2 col-form-label">Adresse :</label>
 				<div class="col-sm-6">
@@ -102,7 +72,7 @@ if(!empty($_POST)){
 			<div class="form-group row">
 				<label for="inputPostal" class="col-sm-2 col-form-label">Code postal : </label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="inputPostal" 
+					<input type="number" class="form-control" id="inputPostal" 
 						<?php if($user->codePostal){
 						echo 'placeholder="'.$user->codePostal.'"';}
 						else{
@@ -153,7 +123,7 @@ if(!empty($_POST)){
 	<div class="col-sm formulaire">
 		<div id="blockCard" class="col-sm" style="display:none ; position: absolute;"> <!-- Bloc pour les CB-->
 			<h3 class="pt-3"style="font-size : 1.5em; text-align: center;">Carte bancaire</h3>
-			<form action="traitementPaiement.php?typePaiement=blockCard" method="POST">
+			<form action="traitementPaiement.php" method="POST">
 				<div class="form-group row mt-3">
 					<label for="inputCard" class="col-sm-2 col-form-label mt-3">Numéro de carte :</label>
 					<div class="col-sm-4">
@@ -162,7 +132,7 @@ if(!empty($_POST)){
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label for="dateCard" class="col-sm-4 col-form-label mt-3">Date d'expiration :</label>
-							<input class="form-control col-6" type="month" id="example-month-input" style="display: inline-block;" value= <?php if($userPaiement){echo $userPaiement->dateExpiration;} else{echo '2019-05';}?>>
+							<input class="form-control col-6" type="month" id="dateCard" style="display: inline-block;" value= <?php if($userPaiement){echo $userPaiement->dateExpiration;} else{echo '2019-05';}?>>
 						</div>
 					</div>
 				</div>
@@ -186,8 +156,9 @@ if(!empty($_POST)){
 						<input type="number" class="form-control" name="securityCode" placeholder=<?php if($userPaiement){ if($userPaiement->codeSecurite){echo $userPaiement->codeSecurite ;}} echo '***' ;?>>
 					</div>
 					<div class="col-5 ml-auto">
-						<button type="submit" class="btn btn-success" style=" width : 8em;" id="validerCB">Valider</button> <!--placeholder SQL-->
+						<button type="submit" class="btn btn-success" style=" width : 8em;" id="validerCB">Valider</button>
 					</div>
+					<input name="typePaiement" value="blockCard" type="hidden">
 				</div>
 			</form>
 		</div>
@@ -195,7 +166,7 @@ if(!empty($_POST)){
 			<h3 class="pt-3"style="font-size : 1.5em; text-align: center;">PayPal</h3>
 			<div class="col-sm mt-3">
 				<p style="text-align:center; font-size: 1.3em;">Connexion au compte Paypal</p>
-				<form>
+				<form action="traitementPaiement.php" method="POST">
 					<div class="form-group row">
 						<label for="inputEmailPP" class="col-sm-3 col-form-label">Adresse mail :</label>
 						<div class="col-sm-9">
@@ -208,14 +179,15 @@ if(!empty($_POST)){
 							<input type="password" class="form-control" id="inputPasswordPP" placeholder="*******">
 						</div>
 					</div>
-					<button type="button" class="btn btn-success" style="float: right; width : 8em;" id="validerPaypal">Valider</button> <!--placeholder SQL-->
+					<button type="submit" class="btn btn-success" style="float: right; width : 8em;" id="validerPaypal">Valider</button>
+					<input name="typePaiement" value="paypal" type="hidden">
 				</form>
 			</div>
 		</div>
 		<div id="chqCadeau" style="display:none ;">
 			<h3 class="pt-3 pb-3"style="font-size : 1.5em; text-align: center;">Chèque cadeau</h3>
 			<div class="col-sm mt-3">
-				<form>
+				<form action="typePaiement" method="POST">
 					<div class="form-group row justify-content-center">
 						<label for="numChq" class="col-sm-4 col-form-label mb-2"> Veuillez entrer le code chèque cadeau :</label>
 						<div class="col-sm-4">
@@ -227,6 +199,7 @@ if(!empty($_POST)){
 							<button type="submit" class="btn btn-success" id="validerChq">Valider</button>
 						</div>
 					</div>
+					<input name="typePaiement" value="blockCard" type="hidden">
 				</form>
 			</div>
 		</div>
