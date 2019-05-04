@@ -34,7 +34,7 @@ include "header.php";
             ?>
             <div class="row mb-3" style="border-style: solid; border-width: 0.1em; border-color: #ddd;">
               <div class="col-sm-4 mt-3">
-                <img src="..." alt="..." class="img-thumbnail">
+                <?php echo '<img style="width: 50px; height: 50px;" src="data:image/jpeg;base64,'.base64_encode( $produitInfos->img ).'"/>'; ?>
                 <p class="text-left"> Quantité : <?php echo $produit['quantity']; ?> </p>
                 <p class="text-left" id="idVendeur"> <?php echo $vendeurInfos->nom.' '.$vendeurInfos->prenom; ?> </p>
 
@@ -53,11 +53,9 @@ include "header.php";
 
           <div class="col-sm-12 mt-3">
             <div class="dropdown-divider"></div>
-            <p class="text-left" >TOTAL : <?php Session::getSession()->panierTotal()?> </p>
-            <button type="submit" class="btn btn-primary float-right mb-3">Passer la commande</button>
+            <p class="text-left" >TOTAL : <?php Session::getSession()->panierTotal(Site::getDatabase())?> </p>
+            <a href="commande.php" class="btn btn-primary float-right mb-3">Passer la commande</a>
           </div>
-
-<?php Site::redirection("commande.php"); ?>
 
         </div>
       </div>
