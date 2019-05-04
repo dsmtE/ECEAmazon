@@ -82,7 +82,7 @@ ALTER TABLE `Achats` ADD FOREIGN KEY (`idAcheteur`) REFERENCES `Utilisateurs` (`
 
 ALTER TABLE `Achats` ADD FOREIGN KEY (`idProduit`) REFERENCES `Produits` (`idProduit`);
 
-ALTER TABLE `CartesBanaires` ADD FOREIGN KEY (`idUser`) REFERENCES `Utilisateurs` (`idUser`);
+ALTER TABLE `CartesBancaires` ADD FOREIGN KEY (`idUser`) REFERENCES `Utilisateurs` (`idUser`);
 
 ALTER TABLE `CaraProduits` ADD FOREIGN KEY (`idCara`) REFERENCES `Carateristiques` (`idCara`);
 
