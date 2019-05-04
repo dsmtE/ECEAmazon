@@ -32,7 +32,29 @@ $(function() { // Shorthand for $(document).ready() with jQuery
     });
     
     $('#typePaiement').change(function() {
-        $(location).attr("href", "http://localhost/ECEAmazon/commande.php?typePaiement="+$(this).val());
+        var paiementSelect = $( "#typePaiement").val();
+        console.log(paiementSelect);
+        switch(paiementSelect){
+            case "modePaiement":
+            $('#blockCard').hide();
+            $('#paypal').hide();
+            $('#chqCadeau').hide();
+            break;
+            case "blockCard":
+            $('#blockCard').show();
+            $('#paypal').hide();
+            $('#chqCadeau').hide();
+            break;
+            case "paypal":
+            $('#blockCard').hide();
+            $('#paypal').show();
+            $('#chqCadeau').hide();
+            break;
+            case "chqCadeau":
+            $('#blockCard').hide();
+            $('#paypal').hide();
+            $('#chqCadeau').show();
+            break;}
     });
 
 });
