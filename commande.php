@@ -1,26 +1,71 @@
 <?php include "header.php";
 
+$session = Session::getSession();
+
 if(!$logged) {
-	$this->session->addMessage('danger', 'tu n\'es pas connecté');
+	$session->addMessage('danger', 'tu n\'es pas connecté');
 	Site::redirection('connexion.php');
 }
 $user = Session::getSession()->read("user");
+
+if(!empty($_POST)){
+
+	$erreurs = array();
+	$db = Site::getDatabase();
+	!isset($_POST['adresse']) || empty($_POST['adresse']) ? $_POST['adresse']          = isset($user->adresse) ? $user->adresse : null :"";
+	!isset($_POST['codePostal']) || empty($_POST['codePostal']) ? $_POST['codePostal'] = isset($user->codePostal) ? $user->codePostal : null :"";
+	!isset($_POST['ville']) || empty($_POST['ville']) ? $ $_POST['ville']              = isset($user->ville) ? $user->ville : null  :"";
+	!isset($_POST['pays']) || empty($_POST['pays']) ? $_POST['pays']                   = isset($user->pays) ? $user->pays : null  :"";
+
+	// test adresse
+  
+  if($_POST['adresse'] != null && !Validation::isAlphanumeric($_POST['adresse']) ) {
+    array_push($erreurs, "L'adresse n'est pas valide ou définie");
+  }   
+
+ // test code postal
+  if($_POST['codePostal'] != null && !Validation::isAlphanumeric($_POST['codePostal']) ) {
+    array_push($erreurs, "Le code postal n'est pas valide ou définie");
+  }      
+
+ // test ville
+  if($_POST['ville'] != null && !Validation::isAlphanumeric($_POST['ville']) ) {
+    array_push($erreurs, "La ville n'est pas valide ou définie");
+  }      
+
+ // test pays
+  if($_POST['pays'] != null && !Validation::isAlphanumeric($_POST['pays']) ) {
+    array_push($erreurs, "Le pays n'est pas valide ou définie");
+  }
+  else {
+    Session::getSession()->addMessages('danger', $erreurs);
+    Site::redirection("compte.php");
+  }
+  switch($paiement){
+  	case "blockCard":
+  		if($_POST[''])
+  }    
+}
+
 
 
 if(isset($_GET['typePaiement'])){
 	$paiement = $_GET['typePaiement'];
 	switch($paiement){
-		case "blockCard" : $popUpCB = " "; break;
-		case "paypal" : $popUPPaypal = " "; break;
-		case "chqCadeau" : $popUpChq = " "; break;
+		case "blockCard" : $popUpCB = " "; $popUpPaypal = "hidden"; $popUpChq = "hidden"; break;
+		case "paypal" : $popUpPaypal = " "; $popUpCB = "hidden"; $popUpChq = "hidden"; break;
+		case "chqCadeau" : $popUpChq = " "; $popUpCB = "hidden"; $popUpPaypal = "hidden"; break;
+		case "modePaiement" : $popUpChq = "hidden"; $popUpCB = "hidden"; $popUpPaypal = "hidden"; break;
 	}
-	print_r($_GET);
+
 }
 else{
 	$popUpCB = "hidden";
 	$popUpPaypal = "hidden";
 	$popUpChq = "hidden";
 }
+
+
 
 ?>
 
@@ -62,7 +107,7 @@ else{
 			<div class="form-group row">
 				<label for="inputPostal" class="col-sm-2 col-form-label">Code postal : </label>
 				<div class="col-sm-6">
-					<input type="number" class="form-control" id="inputPostal" 
+					<input type="text" class="form-control" id="inputPostal" 
 						<?php if($user->codePostal){
 						echo 'placeholder="'.$user->codePostal.'"';}
 						else{
@@ -75,7 +120,7 @@ else{
 				<div class="col-sm-6">
 					<input type="text" class="form-control" id="inputCity" 
 						<?php if($user->ville){
-						echo'placholder="'.$user->ville.'"';}
+						echo'placeholder="'.$user->ville.'"';}
 						else{
 							echo 'placeholder="Ville"';}?> 
 					>
@@ -85,8 +130,8 @@ else{
 				<label for="inputCountry" class="col-sm-2 col-form-label">Pays :</label>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" id="inputCountry" 
-						<?php if($user->pays){
-							echo'placholder="'.$user->pays.'"';}
+						<?php if($user->pays  != ""){
+							echo'placeholder="'.$user->pays.'"';}
 							else{
 								echo 'placeholder="France"';}?>
 					>
@@ -103,10 +148,10 @@ else{
 	<div class="col-sm-2 mt-3 mr-1">
 		<div class="input-group mb-3">
 			<select class="custom-select" id="typePaiement">
-				<option selected>Mode de paiement</option>
-				<option value="blockCard"  href="#">Carte bancaire</option>
-				<option value="paypal"  href="#">PayPal</option>
-				<option value="chqCadeau" href="#">Chèque cadeau</option>
+				<option value="modePaiement" <?php if ($paiement == "modePaiement"){echo "selected";} ?>>Mode de paiement</option>
+				<option value="blockCard"  href="#"  <?php if ($paiement == "blockCard"){echo "selected";} ?>>Carte bancaire</option>
+				<option value="paypal"  href="#"  <?php if ($paiement == "paypal"){echo "selected";} ?>>PayPal</option>
+				<option value="chqCadeau" href="#"  <?php if ($paiement == "chqCadeau"){echo "selected";} ?>>Chèque cadeau</option>
 			</select>
 		</div>
 	</div>
@@ -184,7 +229,7 @@ else{
 					</div>
 					<div class="row justify-content-center">
 						<div class="col-md-2">
-							<button type="button" class="btn btn-success" id="validerChq">Valider</button>
+							<button type="submit" class="btn btn-success" id="validerChq">Valider</button>
 						</div>
 					</div>
 				</form>

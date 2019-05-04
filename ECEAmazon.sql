@@ -39,7 +39,7 @@ CREATE TABLE `Achats`
   `caraSelect` varchar(255) NOT NULL
 );
 
-CREATE TABLE `CartesBanaires`
+CREATE TABLE `CartesBancaires`
 (
   `idUser` int NOT NULL AUTO_INCREMENT,
   `numero` int NOT NULL,
