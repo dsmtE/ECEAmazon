@@ -26,6 +26,8 @@ if(!empty($_POST)) { // si on recoi des données
   !isset($_POST['imgFond']) || empty($_POST['imgFond']) ? $_POST['imgFond']          = $user->imgFond :"";
 
 
+  //print_r($_POST);
+
 // test nom
   if(!Validation::isAlphanumeric($_POST['nom']) ) {
     array_push($erreurs, "le nouveau nom n'est pas valide");
@@ -54,11 +56,6 @@ if(!empty($_POST)) { // si on recoi des données
   } 
     
     */
-// test adresse
-  
-  if($_POST['adresse'] != null && !Validation::isAlphanumeric($_POST['adresse']) ) {
-    array_push($erreurs, "la nouvelle adresse n'est pas valide");
-  }   
 
  // test code postal
   if($_POST['codePostal'] != null && !Validation::isAlphanumeric($_POST['codePostal']) ) {
@@ -79,9 +76,6 @@ if(!empty($_POST)) { // si on recoi des données
   if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription
 
     Site::getUser()->modificationCompte( $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['telephone'], $_POST['mdp'], $_POST['adresse'], $_POST['codePostal'], $_POST['ville'], $_POST['pays'], $_POST['img'], $_POST['imgFond']);
-
-    //rechergement des informations utilisateur dans la sesion
-    Session::getSession()->write('user', $db->getUserById($user->idUser));
 
     Site::redirection("index.php");
 
@@ -129,7 +123,7 @@ if(!empty($_POST)) { // si on recoi des données
   <div class="form-group row">
     <label for="adresse" class="col-sm-3 col-form-label">Adresse</label>
     <div class="col-sm-8 offset-sm-1">
-      <input type="text" class="form-control" name="adresse" placeholder=<?php echo '"'.isset($user->adresse) ? $user->adresse : null.'"'; ?>>
+      <input type="text" class="form-control" name="adresse" placeholder=<?php echo isset($user->adresse) ? "'".$user->adresse."'" : null; ?>>
     </div>
   </div>
   <div class="form-group row">

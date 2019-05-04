@@ -24,24 +24,30 @@ if(!$admin) {
         ?>
         <div class="row mb-3" style="border-style: solid; border-width: 0.1em; border-color: #ddd;">
           <div class="col-sm-4 mt-3">
-            <?php echo '<img style="width: 50px; height: 50px;" src="data:image/jpeg;base64,'.base64_encode( $produit->img ).'"/>'; ?>
+            <?php echo '<img style="max-width: 100px; max-height: 100px;" src="data:image/jpeg;base64,'.base64_encode( $produit->img ).'"/>'; ?>
             <p class="text-left"> Quantité dispo : <?php echo $produit->quantity; ?> </p>
-            <p class="text-left" id="idVendeur"> Vendu par : <?php echo $vendeurInfos->nom.' '.$vendeurInfos->prenom; ?> </p>
+            <p class="text-left"> Vendu par : <?php echo $vendeurInfos->nom.' '.$vendeurInfos->prenom; ?> </p>
 
           </div>
           <div class="col-sm-8 mt-3">
-            <p class="text-left" id="nomproduit"> </p>
-            <p class="form-control" id="description" rows="3"> Prix <?php echo $produit->description; ?> </p>
-            <p class="text-right" id="prix">Prix <?php echo $produit->prix; ?> </p>
+            <p class='font-weight-bold'> <?php echo $produit->nom; ?> </p>
+            <div class="dropdown-divider"></div>
+            <p id="description" rows="3"> <?php echo $produit->description; ?> </p>
+            <p class="text-right" id="prix">Prix <?php echo $produit->prix; ?>€</p>
             <a <?php echo 'href="modificationProduit.php?id='.$produit->idProduit.'"'; ?> class="btn btn-primary float-right mb-3 ">Modifier</a>
           </div>
         </div>
       <?php } ?>
-  
+
+
+
+      
+      
     </div>
   </div>
 
 </div>
 
 
-<?php include "footer.php" ?>
+<?php 
+include "footer.php" ?>

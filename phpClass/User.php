@@ -25,14 +25,22 @@ class User {
         // on récupère son id puis on envoi un mail pour la confirmation
         $idUser = $this->db->getLastInsertId();
 
-        
-        //mail($mail, "confirmation d\'inscription", "pour confirmer votre inscription cliquez sur ce lien : \n http://localhost:14/ECEAmazon/confirmationInscription.php?id=".$idUser.'&str='.$strValidation, "From: desmet.enguerrand@gmail.com");
+
+        // $message = "pour confirmer votre inscription cliquez sur ce lien : \r\n http://localhost:14/ECEAmazon/confirmationInscription.php?id=".$idUser.'&str='.$strValidation;
+        // $headers = 'From: ECEAmazon@ecommerce.com' . "\r\n" .
+        // 'X-Mailer: PHP/' . phpversion();
+
+        // mail($mail,  "confirmation d'inscription", $message, $headers);
+
         $this->session->addMessage('info',"pour confirmer votre inscription cliquez sur ce lien : \n http://localhost:14/ECEAmazon/confirmationInscription.php?id=".$idUser.'&str='.$strValidation );
     }
 
     public function modificationCompte($nom, $prenom, $mail, $tel, $mdp, $adresse, $codePostal, $ville, $pays, $img, $imgFond) {
-        
+
         $this->db->requete('UPDATE Utilisateurs SET nom = ?, prenom = ?, mail = ?, tel = ?, mdp = ?, adresse = ?, codePostal = ?, ville = ?, pays = ?, img = ?, imgFond = ? WHERE mail = ?', [$nom, $prenom, $mail, $tel, $mdp, $adresse, $codePostal, $ville, $pays, $img, $imgFond, $mail]);
+
+        //rechargement de la session en conséquence 
+        $this->session->write('user', $this->db->getUserById($this->session->read('user')->idUser));
 
         $this->session->addMessage('info',"ton compte à bien été modifé");
     }

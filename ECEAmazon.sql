@@ -42,7 +42,7 @@ CREATE TABLE `Achats`
 CREATE TABLE `CartesBancaires`
 (
   `idUser` int NOT NULL AUTO_INCREMENT,
-  `numero` int NOT NULL,
+  `numero` bigint NOT NULL,
   `codeSecurite` int NOT NULL,
   `dateExpiration` date NOT NULL,
   `type` varchar(255) NOT NULL,

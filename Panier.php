@@ -6,7 +6,7 @@ include "header.php";
 if(!empty($_GET) && isset($_GET['id']) && isset($_GET['variationQuantity'])) {
 
   Session::getSession()->panierChangeQuantity(Site::getDatabase(), $_GET['id'], $_GET['variationQuantity']);
-  Session::getSession()->addMessage('info', 'le produit à été mis à jour');
+  Session::getSession()->addMessage('info', 'le panier à été mit à jour');
   Site::redirection('panier.php');
 }
 
@@ -27,14 +27,15 @@ if(!empty($_GET) && isset($_GET['id']) && isset($_GET['variationQuantity'])) {
 
           <h1 class="text-left mt-2 mb-5">Mes Produits</h1>
           <div style=" overflow-y: scroll; " class="col-sm-12 rounded px-5">
+    
+            
 
-      
-            <?php foreach (Session::getSession()->getPanierElems() as $produit) {
+            <?php 
+            foreach (Session::getSession()->getPanierElems() as $produit) {
 
             $produitInfos = Site::getDatabase()->requete('SELECT * FROM Produits WHERE idProduit = ?', [ $produit['idProduit'] ])->fetch();
 
             $vendeurInfos = Site::getDatabase()->requete('SELECT * FROM Utilisateurs WHERE idUser = '.$produitInfos->idVendeur)->fetch();
-
 
             ?>
             <div class="row mb-3" style="border-style: solid; border-width: 0.1em; border-color: #ddd;">
@@ -59,7 +60,9 @@ if(!empty($_GET) && isset($_GET['id']) && isset($_GET['variationQuantity'])) {
                 <!-- <a class="btn btn-primary float-right mb-3">supprimer</a> -->
               </div>
             </div>
-          <?php } ?>
+          <?php 
+          } 
+          ?>
             
           </div>
 

@@ -59,7 +59,6 @@ if(!empty($_POST)) { // si on recoi des données
       $_POST['telephone'] = preg_replace('/[\/\- ,]/', '', $_POST['telephone']);// on converti le numero de tel
     }
   }
-  print_r($_POST['telephone']);
 
 //source: https://www.php.net/manual/fr/reserved.variables.files.php
   $img = $_FILES['img']['tmp_name'];

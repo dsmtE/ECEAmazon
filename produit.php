@@ -101,18 +101,25 @@ print_r($option);
           <div class="col-sm-4 mt-3">
             <?php echo '<img style="max-width: 100px; max-height: 100px;" src="data:image/jpeg;base64,'.base64_encode( $produit->img ).'"/>'; ?>
             <p class="text-left"> Quantité dispo : <?php echo $produit->quantity; ?> </p>
-            <p class="text-left" id="idVendeur"> Vendu par : <?php echo $vendeurInfos->nom.' '.$vendeurInfos->prenom; ?> </p>
+            <p class="text-left"> Vendu par : <?php echo $vendeurInfos->nom.' '.$vendeurInfos->prenom; ?> </p>
 
           </div>
           <div class="col-sm-8 mt-3">
-            <p class="text-left" id="nomproduit"> </p>
+            <p class='font-weight-bold'> <?php echo $produit->nom; ?> </p>
+          <div class="dropdown-divider"></div>
             <p id="description" rows="3"> <?php echo $produit->description; ?> </p>
             <p class="text-right" id="prix">Prix <?php echo $produit->prix; ?>€</p>
             <a <?php echo 'href="produit.php?id='.$produit->idProduit.'&option=\''.$option.'\'"'; ?>  class="btn btn-primary float-right mb-3">ajouter au panier</a>
           </div>
         </div>
-      <?php } ?>
-  
+      <?php } 
+          if(empty(Session::getSession()->getPanierElems())){
+            echo '<h1 class="text-left mt-2 mb-5">pas encore de produits</h1>';
+          }
+      ?>
+
+      </div>
+
     </div>
   </div>
 

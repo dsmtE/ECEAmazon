@@ -95,7 +95,7 @@ class Session {
 
     public function panierTotal($db) {
         $total = 0;
-        foreach ($_SESSION["panier"] as $product) {
+        foreach ($this->getPanierElems() as $product) {
             $produitInfos = $db->requete('SELECT * FROM Produits WHERE idProduit = '.$product['idProduit'])->fetch();
             $total += $produitInfos->prix*$product['quantity'];
         }
@@ -111,6 +111,21 @@ class Session {
 
     public function viderPanier() {
         unset($_SESSION["panier"]);
+    }
+
+    public function passerCommande($db){
+        foreach ($this->getPanierElems() as $produit) {
+            
+            $db->requete('INSERT INTO achats (idAcheteur, idProduit, quantity, dateAchat, caraSelect) VALUES ("'.$_SESSION['user']->idUser.'", '.$produit['idProduit'].','.$produit['quantity'].', NOW(),"'.$produit['option'].'")');
+
+            $quantiteActuelle = $db->requete('SELECT quantity FROM Produits WHERE idProduit = '.$produit['idProduit'])->fetch()->quantity;
+            $panierTot = $this->panierTotal($db);
+
+            $db->requete('UPDATE Produits SET quantity = '.($quantiteActuelle - $produit['quantity']).' WHERE idProduit = '.$produit['idProduit']);
+
+        $this->addMessage('success', 'tu as bien passé commande pour un total de '.$panierTot);
+        $this->viderPanier();
+        }
     }
 
     public function write($key, $value) { // accesseur qui permet d'ecrire une valeur de session

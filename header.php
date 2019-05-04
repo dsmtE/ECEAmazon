@@ -104,7 +104,7 @@
                 $type = explode(Session::$msgSeparator, $message)[0];
                 $text = explode(Session::$msgSeparator, $message)[1];
                echo ' <div class="alert alert-'.$type.'" role="alert">
-                        <strong>Warning!</strong> '.$text.'
+                        <strong>'.$type.' :</strong> '.$text.'
                       </div> ';
               }
 
