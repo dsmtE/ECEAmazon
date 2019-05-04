@@ -33,28 +33,15 @@ $(function() { // Shorthand for $(document).ready() with jQuery
     
     $('#typePaiement').change(function() {
         var paiementSelect = $( "#typePaiement").val();
+
+        $("#typePaiementValue").attr('value', paiementSelect);
+
+        $(".subForm").hide();
+
+        $("."+paiementSelect).show();
+
         console.log(paiementSelect);
-        switch(paiementSelect){
-            case "modePaiement":
-            $('#blockCard').hide();
-            $('#paypal').hide();
-            $('#chqCadeau').hide();
-            break;
-            case "blockCard":
-            $('#blockCard').show();
-            $('#paypal').hide();
-            $('#chqCadeau').hide();
-            break;
-            case "paypal":
-            $('#blockCard').hide();
-            $('#paypal').show();
-            $('#chqCadeau').hide();
-            break;
-            case "chqCadeau":
-            $('#blockCard').hide();
-            $('#paypal').hide();
-            $('#chqCadeau').show();
-            break;}
+
     });
 
 });
