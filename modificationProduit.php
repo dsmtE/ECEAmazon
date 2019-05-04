@@ -28,7 +28,7 @@ if(!empty($_POST)) { // si on reçoit des données
   !isset($_POST['taille']) || empty($_POST['taille']) ? $_POST['taille']          = $produit->taille :"";
   !isset($_POST['couleur']) || empty($_POST['couleur']) ? $_POST['couleur']          = $produit->couleur :"";
   !isset($_POST['modele']) || empty($_POST['modele']) ? $_POST['modele']          = $produit->modele :"";
-  !isset($_POST['prix']) || empty($_POST['prix']) ? $_POST['prix']          = $produit->adresse :"";
+  !isset($_POST['prix']) || empty($_POST['prix']) ? $_POST['prix']          = $produit->prix :"";
 
 
 
