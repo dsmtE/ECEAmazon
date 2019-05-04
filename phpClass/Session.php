@@ -42,27 +42,48 @@ class Session {
         return $messages;
     }
 
-    //----------  gestion du panier ----------
+    //----------  gestionaddToPanier du panier ----------
     public function addToPanier($idProduit, $option, $quantity = 1) {// permet dun produit au panier
         if(!isset($_SESSION["panier"])) {
             $_SESSION["panier"] = array();
         }
-        array_push ($_SESSION["panier"], array ('idProduit' => $idProduit, 'quantity' => $quantity, 'option' => $option) );
+
+        $exist = false;
+        foreach ($_SESSION["panier"] as $key => $product) {
+            if($product['idProduit'] == $idProduit ) {
+            $exist = true;
+            break;
+            }
+        }
+        if(!$exist){
+            array_push ($_SESSION["panier"], array ('idProduit' => $idProduit, 'quantity' => $quantity, 'option' => $option) );
+        }
+        return !$exist;
     }
 
     public function panierIsEmpty() {// permet de savoir si il y a des elements dans le panier
         return isset($_SESSION["panier"]);
     }
 
-    public function panierChangeQuantity($idProduit, $variationQuantity) {
+    public function panierChangeQuantity($db, $idProduit, $variationQuantity) {
         if(!empty($_SESSION["panier"])) {
             foreach ($_SESSION["panier"] as $key => $product) {
                 if($product['idProduit'] == $idProduit ) {
-                    $_SESSION["panier"]['quantity'] += variationQuantity;
-                    if($_SESSION["panier"]['quantity'] <= 0) {
+                    $_SESSION["panier"][$key]['quantity'] += $variationQuantity;
+
+                    if($_SESSION["panier"][$key]['quantity'] <= 0) {
                         unset($_SESSION["panier"][$key]);
                         $this->addMessage('danger', 'l\'élément à été supprimer du panier');
+                    }else {
+
+                        $quantityDispo = $db->requete('SELECT * FROM Produits WHERE idProduit = ?', [ $product['idProduit'] ])->fetch()->quantity;
+
+                        if($_SESSION["panier"][$key]['quantity'] >  $quantityDispo) {
+                            $_SESSION["panier"][$key]['quantity'] = $quantityDispo;
+                            $this->addMessage('danger', 'tu ne peut pas acheter plus de '.$quantityDispo.' fois cet article');
+                        }
                     }
+
                     break;
                 }
             }
@@ -75,8 +96,8 @@ class Session {
     public function panierTotal($db) {
         $total = 0;
         foreach ($_SESSION["panier"] as $product) {
-            $dbProduct = $db->requete("SELECT * FROM PRoduits WHERE idProduit == ? ", [$product['idProduit']]);
-            $total += $dbProduct->prix*$product['quantity'];
+            $produitInfos = $db->requete('SELECT * FROM Produits WHERE idProduit = '.$product['idProduit'])->fetch();
+            $total += $produitInfos->prix*$product['quantity'];
         }
         return $total;
     }
