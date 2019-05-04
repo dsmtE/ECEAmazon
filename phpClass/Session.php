@@ -43,7 +43,7 @@ class Session {
     }
 
     //----------  gestion du panier ----------
-    public function addToPAnier($idProduit, $quantity = 1, $option) {// permet dun produit au panier
+    public function addToPanier($idProduit, $option, $quantity = 1) {// permet dun produit au panier
         if(!isset($_SESSION["panier"])) {
             $_SESSION["panier"] = array();
         }
@@ -81,9 +81,9 @@ class Session {
         return $total;
     }
 
-    public function getPAnierElems() {// permet de recuperer les produits
+    public function getPanierElems() {// permet de recuperer les produits
         $panier = $_SESSION["panier"];
-        unset($_SESSION["panier"]);
+        //unset($_SESSION["panier"]);
         return $panier;
     }
 
