@@ -53,10 +53,11 @@ include "header.php";
 
           <div class="col-sm-12 mt-3">
             <div class="dropdown-divider"></div>
-            <p class="text-left" >TOTAL</p>
+            <p class="text-left" >TOTAL : <?php Session::getSession()->panierTotal()?> </p>
             <button type="submit" class="btn btn-primary float-right mb-3">Passer la commande</button>
           </div>
 
+<?php Site::redirection("commande.php"); ?>
 
         </div>
       </div>
