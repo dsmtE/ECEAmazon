@@ -3,7 +3,7 @@
 	$session = Session::getSession();
 		
 	if (Site::getUser()->isConnected()) {
-		$session->addMessage('info', "tu es déjà connecté");
+		$session->addMessage('info', "Tu es déjà connecté");
 		Site::redirection('index.php');
 	}
 	if(!empty($_POST)) { // si on recoi des données
@@ -13,19 +13,19 @@
 
 		// test mail
 		if( !isset($_POST['mail']) || empty($_POST['mail']) ) {
-			array_push($erreurs, "tu n\'a pas rentré de mail");
+			array_push($erreurs, "Tu n\'a pas rentré de mail");
 		} else {
 			if( !Validation::isMail($_POST['mail']) ) {
-				array_push($erreurs, "ton mail n'est pas valide");
+				array_push($erreurs, "Ton mail n'est pas valide");
 			}	
 		}
 
 		// test mdp
 		if( !isset($_POST['mdp']) || empty($_POST['mdp']) ) {
-			array_push($erreurs, "tu n\'a pas rentré de mot de passe");
+			array_push($erreurs, "Tu n\'a pas rentré de mot de passe");
 		} else {
 			if( !Validation::isAlphanumeric($_POST['mdp']) ) {
-				array_push($erreurs, "ton mdp n'est pas valide il doit être composé uniquement de caractères alpha numérique");
+				array_push($erreurs, "Ton mdp n'est pas valide, il doit être composé uniquement de caractères alphanumériques");
 			}	
 		}
 		
@@ -39,13 +39,13 @@
 					if (password_verify($_POST['mdp'], $user->mdp)) {
 					//if (password_verify($_POST['mdp'], $user->mdp)) {
 						Site::getUser()->connectionUser($user->idUser);
-						$session->addMessage('success', "tu es bien connecté");
+						$session->addMessage('success', "Tu es bien connecté");
 						Site::redirection('index.php');
 					}else {
-						$session->addMessage('danger', "ton mot de passe est invalide");
+						$session->addMessage('danger', "Ton mot de passe est invalide");
 					}
 				} else {
-						$session->addMessage('info', "ton compte n'a pas été validé");	
+						$session->addMessage('info', "Ton compte n'a pas été validé");	
 				}
 			} else {
 				$session->addMessage('danger', "Ce compte n'existe pas");

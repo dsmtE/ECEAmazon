@@ -6,7 +6,7 @@ include "header.php";
 if(!empty($_GET) && isset($_GET['id']) && isset($_GET['variationQuantity'])) {
 
   Session::getSession()->panierChangeQuantity(Site::getDatabase(), $_GET['id'], $_GET['variationQuantity']);
-  Session::getSession()->addMessage('info', 'le panier à été mit à jour');
+  Session::getSession()->addMessage('info', 'Le panier a été mis à jour');
   Site::redirection('panier.php');
 }
 
@@ -42,7 +42,7 @@ if(!empty($_GET) && isset($_GET['id']) && isset($_GET['variationQuantity'])) {
                 <?php echo '<img style="max-width: 100px; max-height: 100px;" src="data:image/jpeg;base64,'.base64_encode( $produitInfos->img ).'"/>'; ?>
                 <p class="text-left"> Quantité à acheter : <?php echo $produit['quantity']; ?> </p>
                 <p class="text-left"> Vendu part :<?php echo $vendeurInfos->nom.' '.$vendeurInfos->prenom; ?> </p>
-                <p class="text-left"> options selectionné : <?php echo $produit['option']; ?> </p>
+                <p class="text-left"> Options selectionnées : <?php echo $produit['option']; ?> </p>
 
               </div>
               <div class="col-sm-8 mt-1">

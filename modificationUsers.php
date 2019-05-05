@@ -3,7 +3,7 @@ include "header.php";
 $session = Session::getSession();
 
 if(!$admin) {
-	$session->addMessage('danger', 'tu n\'es pas administrateur');
+	$session->addMessage('danger', 'Tu n\'es pas administrateur');
 	Site::redirection('connexion.php');
 }
 
@@ -16,7 +16,7 @@ if(isset($_GET['selectedUser'])) {
 	$userSelected = $db->requete('SELECT * FROM Utilisateurs WHERE idUser = ?',[$idSelected])->fetch();
 	
 	if(empty($userSelected)) {
-		$session->addMessage('danger', 'Cet id ne correspond à aucun Utilisateurs');
+		$session->addMessage('danger', 'Cet id ne correspond à aucun utilisateur');
 		Site::redirection('modificationUsers.php');
 	}
 }
@@ -41,38 +41,38 @@ if(!empty($_POST) && $userSelected != null) { // si on recoi des données
 
 	// test nom
 	if(!Validation::isAlphanumeric($_POST['nom']) ) {
-		array_push($erreurs, "le nouveau nom n'est pas valide");
+		array_push($erreurs, "Le nouveau nom n'est pas valide");
 	}
 	// test prénom
 	if(!Validation::isAlphanumeric($_POST['prenom']) ) {
-		array_push($erreurs, "le nouveau prenom n'est pas valide");
+		array_push($erreurs, "Le nouveau prenom n'est pas valide");
 	}  
 
 	// test mail
 	if(!Validation::isMail($_POST['mail']) ) {
-		array_push($erreurs, "le nouvel mail n'est pas valide");
+		array_push($erreurs, "Le nouvel mail n'est pas valide");
 	} 
 
  	// test code postal
 	if($_POST['codePostal'] != null && !Validation::isAlphanumeric($_POST['codePostal']) ) {
-		array_push($erreurs, "le nouveau code postal n'est pas valide");
+		array_push($erreurs, "Le nouveau code postal n'est pas valide");
 	}      
 
  	// test ville
 	if($_POST['ville'] != null && !Validation::isAlphanumeric($_POST['ville']) ) {
-		array_push($erreurs, "la nouvelle ville n'est pas valide");
+		array_push($erreurs, "La nouvelle ville n'est pas valide");
 	}      
 
  	// test pays
 	if($_POST['pays'] != null && !Validation::isAlphanumeric($_POST['pays']) ) {
-		array_push($erreurs, "le nouveau pays n'est pas valide");
+		array_push($erreurs, "Le nouveau pays n'est pas valide");
 	}    
 
 	if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription
 
     	$db->requete('UPDATE Utilisateurs SET nom = ?, prenom = ?, mail = ?, tel = ?, mdp = ?, adresse = ?, codePostal = ?, ville = ?, pays = ? WHERE idUser = ?', [$_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['telephone'], $_POST['mdp'], $_POST['adresse'], $_POST['codePostal'], $_POST['ville'], $_POST['pays'],  $userSelected->idUser]);
 
-    	Session::getSession()->addMessage('success', 'modification de l\'utilisateur efectuée');
+    	Session::getSession()->addMessage('success', 'Modification de l\'utilisateur effectuée');
     	Site::redirection("index.php");
 
   }else {
