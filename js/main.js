@@ -27,7 +27,7 @@ $(function() { // Shorthand for $(document).ready() with jQuery
     });
 
     $('#selectedUser').change(function() {
-        $(location).attr("href","http://localhost/ECEAmazon/modificationUsers.php?selectedUser="+$(this).val());
+        $(location).attr("href","modificationUsers.php?selectedUser="+$(this).val());
 
     });
     

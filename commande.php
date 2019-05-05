@@ -65,7 +65,7 @@ if(!empty($_POST)) {
 				Site::redirection('commande.php');
 			}else {
 				//on suppose que l'on verifie à ce moment si ce sont les bon identifiant
-				$session->addMessage('sucess', 'identifant PayPal validé');
+				$session->addMessage('success', 'identifant PayPal validé');
 			}
 			break;
 		case 'chqCadeau':
@@ -74,7 +74,7 @@ if(!empty($_POST)) {
 				Site::redirection('commande.php');
 			}else {
 				//on suppose que l'on verifie à ce moment si le cheque cadeau est valide
-				$session->addMessage('sucess', 'cheque cadeau valide');
+				$session->addMessage('success', 'cheque cadeau valide');
 			}
 			break;
 

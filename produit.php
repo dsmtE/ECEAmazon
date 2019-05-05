@@ -3,6 +3,12 @@ include "header.php";
 
 if(!empty($_GET) && isset($_GET['id']) && isset($_GET['option'])) {
 
+  $productsInfos = Site::getDatabase()->requete('SELECT * FROM Utilisateurs WHERE idProduit = '.$_GET['id'])->fetch();
+
+  if($productsInfos) {
+
+  }
+
   Session::getSession()->addToPanier($_GET['id'], $_GET['option']);
   Session::getSession()->addMessage('info', 'le produit à été ajouté au panier');
   Site::redirection('panier.php');
@@ -56,13 +62,12 @@ if(!empty($_POST)) { // si on recoi des données pour le filtrage
   $products = Site::getDatabase()->requete('SELECT * FROM Produits')->fetchAll();
 }
 
-
-print_r($option);
-
 ?>
 <div class="row m-4"> 
   <div class="col-sm-4">
-    <h1 class="text-left mb-4">Préférences</h1>
+    <h1 class="text-left mb-2">Préférences</h1>
+    <p >tu as selectionné les options suivante : </p>
+    <p class="font-weight-bold"><?php echo $option; ?> </p>
 
     <form class="p-2 w-75" action="" method="POST" enctype="multipart/form-data">
       <div class="row">
@@ -91,7 +96,6 @@ print_r($option);
   <div class="col-sm-8 rounded">
     <h1 class="text-left mt-2 mb-4">Produits disponibles</h1>
     <div class="px-4" style=" overflow-y: scroll; max-height: 450px;" >
-    
 
       <?php foreach ($products as $produit) {//pour chaques produits
 
@@ -113,7 +117,7 @@ print_r($option);
           </div>
         </div>
       <?php } 
-          if(empty(Session::getSession()->getPanierElems())){
+          if(empty($products)){
             echo '<h1 class="text-left mt-2 mb-5">pas encore de produits</h1>';
           }
       ?>

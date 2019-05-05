@@ -18,8 +18,6 @@ class User {
         $strValidation = substr(str_shuffle(str_repeat('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 60)), 0, 60);
 
         // on ajout l'utilisateur à la base de donnée
-        //$this->db->requete('INSERT INTO Utilisateurs SET nom = ?, prenom = ?, mail = ?, tel = ?, mdp = ?, img = ?, imgFond = ?, strValidation = ?', [$nom, $prenom, $mail, $tel, $mdp, $img, $imgFond, $strValidation]);
-
         $this->db->requete('INSERT INTO Utilisateurs (nom, prenom, mail, tel, mdp, img, imgFond, strValidation ) VALUES ("'.$nom.'", "'.$prenom.'", "'.$mail.'", '.$tel.', "'.$mdp.'", "'.$img.'", "'.$imgFond.'", "'.$strValidation.'")');
 
         // on récupère son id puis on envoi un mail pour la confirmation
@@ -29,7 +27,6 @@ class User {
         // $message = "pour confirmer votre inscription cliquez sur ce lien : \r\n http://localhost:14/ECEAmazon/confirmationInscription.php?id=".$idUser.'&str='.$strValidation;
         // $headers = 'From: ECEAmazon@ecommerce.com' . "\r\n" .
         // 'X-Mailer: PHP/' . phpversion();
-
         // mail($mail,  "confirmation d'inscription", $message, $headers);
 
         $this->session->addMessage('info',"pour confirmer votre inscription cliquez sur ce lien : \n http://localhost:14/ECEAmazon/confirmationInscription.php?id=".$idUser.'&str='.$strValidation );

@@ -1,6 +1,6 @@
     <footer class="footer fixed-bottom">
       <div class="container">
-        <span class="text-muted float-right">&copy; 2019 ECEAmazon</span>
+        <span class="text-muted float-left">&copy; 2019 ECEAmazon</span>
       </div>
     </footer>
 

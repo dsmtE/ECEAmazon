@@ -17,8 +17,12 @@ $utilisateurs = $db->requete('SELECT * FROM Utilisateurs');
 
 if(isset($_GET['selectedUser'])) {
 	$idSelected = $_GET['selectedUser'];
-	$option = $db->requete('SELECT * FROM Utilisateurs WHERE idUser = ?',[$idSelected]);
-	$userSelected = $option->fetch();
+	$userSelected = $db->requete('SELECT * FROM Utilisateurs WHERE idUser = ?',[$idSelected])->fetch();
+	
+	if(empty($userSelected)) {
+		$session->addMessage('danger', 'tu n\'es pas administrateur');
+		redirection('modificationUsers.php');
+	}
 
 }
 else{
