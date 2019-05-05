@@ -122,10 +122,9 @@ class Session {
             $panierTot = $this->panierTotal($db);
 
             $db->requete('UPDATE Produits SET quantity = '.($quantiteActuelle - $produit['quantity']).' WHERE idProduit = '.$produit['idProduit']);
-
+        }
         $this->addMessage('success', 'tu as bien passé commande pour un total de '.$panierTot);
         $this->viderPanier();
-        }
     }
 
     public function write($key, $value) { // accesseur qui permet d'ecrire une valeur de session
