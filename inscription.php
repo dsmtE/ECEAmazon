@@ -80,24 +80,20 @@ if(!empty($_POST)) { // si on recoi des données
       array_push($erreurs, "le fichier choisi n'est pas une image");
     }
   }
-
-
 if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription
 
-  //Site::getUser()->inscription( $_POST['nom'],$_POST['prenom'], $_POST['mail'], $_POST['telephone'], $_POST['mdp'], $_POST['img'], $_POST['imgFond']);
-
-  Site::getUser()->inscription( $_POST['nom'],$_POST['prenom'], $_POST['mail'], $_POST['telephone'], $_POST['mdp'], addslashes(file_get_contents($img)) , addslashes(file_get_contents($imgFond)));
+  Site::getUser()->inscription( $_POST['nom'],$_POST['prenom'], $_POST['mail'], $_POST['telephone'], $_POST['mdp'], 
+    addslashes(file_get_contents($img)) , addslashes(file_get_contents($imgFond)));
 
   $session->addMessage('success', "Ton compte à bien été crée, un mail de confirmation t'a été envoyé.");
   Site::redirection('index.php');
   exit();
 
-
-}else {
-  $session->addMessages('danger', $erreurs);
-  Site::redirection('inscription.php');
-  exit();
-}
+  }else {
+    $session->addMessages('danger', $erreurs);
+    Site::redirection('inscription.php');
+    exit();
+  }
 
 }
 
