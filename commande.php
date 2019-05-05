@@ -1,7 +1,7 @@
 <?php include "header.php";
 
 if(!$logged) {
-	$session->addMessage('danger', 'tu n\'es pas connecté');
+	$session->addMessage('danger', 'Tu n\'es pas connecté');
 	Site::redirection('connexion.php');
 }
 
@@ -11,7 +11,7 @@ $db = Site::getDatabase();
 $userCB = $db->requete('SELECT * FROM CartesBancaires WHERE idUser = ?',[$user->idUser])->fetch();
 
 if(empty(Session::getSession()->getPanierElems())){
-    $session->addMessage('danger', 'tu n\'a aucun article dan ton panier');
+    $session->addMessage('danger', 'Tu n\'a aucun article dans ton panier');
 	Site::redirection('produit.php');
 }
 
@@ -26,7 +26,7 @@ if(!empty($_POST)) {
 	// si l'un des champ est toujours null
 	if( $user->adresse == null || $user->codePostal == null || $user->ville == null || $user->pays == null) {
 
-		$session->addMessage('danger', 'tu n\'a pas completé  les champs de ton adresse');
+		$session->addMessage('danger', 'Tu n\'a pas complété  les champs de ton adresse');
 		Site::redirection('compte.php');
 	}
 
@@ -48,12 +48,12 @@ if(!empty($_POST)) {
 
 			// si l'un des champ est toujours null
 			if( empty($_POST['cardNumber']) || empty($_POST['date']) || empty($_POST['securityCode']) || empty($_POST['typeCarte']) || empty($_POST['nameCard'])) {
-				$session->addMessage('danger', 'tu n\'a pas completé tous les champ de la carte bancaire');
+				$session->addMessage('danger', 'Tu n\'a pas complété tous les champ de la carte bancaire');
 				Site::redirection('commande.php');
 			}else {
 				if(!$userCB) {
 					$db->requete('INSERT INTO CartesBancaires (idUser, numero, codeSecurite, dateExpiration, type) VALUES ('.$user->idUser.', '.$_POST['cardNumber'].', '.$_POST['securityCode'].', "'.$_POST['date'].'-00", "'.$_POST['typeCarte'].'")');
-					$session->addMessage('info', 'la carte à été ajouté à la base de donnée');
+					$session->addMessage('info', 'La carte a été ajoutée à la base de données');
 				}
 				
 			}
@@ -61,7 +61,7 @@ if(!empty($_POST)) {
 			break;
 		case 'paypal':
 			if( empty($_POST['inputEmailPP']) || empty($_POST['inputPasswordPP'])) {
-				$session->addMessage('danger', 'tu n\'a pas completé tous les champs pour te connecter à paypal');
+				$session->addMessage('danger', 'Tu n\'a pas complété tous les champs pour te connecter à paypal');
 				Site::redirection('commande.php');
 			}else {
 				//on suppose que l'on verifie à ce moment si ce sont les bon identifiant
@@ -70,11 +70,11 @@ if(!empty($_POST)) {
 			break;
 		case 'chqCadeau':
 			if( empty($_POST['numChq'])) {
-				$session->addMessage('danger', 'tu n\'a pas renseigné de code cheque cadeau');
+				$session->addMessage('danger', 'Tu n\'a pas renseigné de code chèque cadeau');
 				Site::redirection('commande.php');
 			}else {
 				//on suppose que l'on verifie à ce moment si le cheque cadeau est valide
-				$session->addMessage('success', 'cheque cadeau valide');
+				$session->addMessage('success', 'Chèque cadeau valide');
 			}
 			break;
 

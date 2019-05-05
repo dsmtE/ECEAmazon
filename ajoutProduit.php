@@ -1,7 +1,7 @@
 <?php include "header.php";
 
 if( !$logged) {
-  Session::getSession()->addMessage('danger', 'tu n\'est pas connecté');
+  Session::getSession()->addMessage('danger', 'Tu n\'es pas connecté');
   Site::redirection('connexion.php');
 }
 
@@ -11,7 +11,7 @@ if(!empty($_POST)) { // si on recoi des données
 	$erreurs = array();
 
   	if( !isset($_POST['productName']) || empty($_POST['productName']) ) {
-    	array_push($erreurs, "tu n\'a pas rentré de nom de produit");
+    	array_push($erreurs, "Tu n\'a pas rentré de nom de produit");
   	} else {
 	    /*if( !Validation::isAlphanumeric($_POST['productName']) ) {
 	      array_push($erreurs, "ton nom n'est pas valide");
@@ -19,15 +19,15 @@ if(!empty($_POST)) { // si on recoi des données
   	}
 
   	if( !isset($_POST['categorie']) || empty($_POST['categorie']) ) {
-    	array_push($erreurs, "tu n\'a pas choisi de catégorie");
+    	array_push($erreurs, "Tu n\'a pas choisi de catégorie");
   	}
 
   	if( !isset($_POST['description']) || empty($_POST['description']) ) {
-    	array_push($erreurs, "tu n\'a pas ecrit de description");
+    	array_push($erreurs, "Tu n\'a pas ecrit de description");
   	}
 
   	if( !isset($_POST['price']) || empty($_POST['price']) ) {
-    	array_push($erreurs, "tu n\'a pas rentré de prix");
+    	array_push($erreurs, "Tu n\'a pas rentré de prix");
   	}
 
   	!isset($_POST['quantity']) || empty($_POST['quantity']) ? $_POST['quantity'] = 1 : "";
@@ -35,10 +35,10 @@ if(!empty($_POST)) { // si on recoi des données
   	$img = $_FILES['img']['tmp_name'];
 // test img
   	if(!isset($img) || empty($img) )  {
-  		array_push($erreurs, "tu n'a pas selectionné d'image pour le produit");
+  		array_push($erreurs, "Tu n'a pas selectionné d'image pour le produit");
   	}else {
   		if( !getimagesize( $img )) {
-  			array_push($erreurs, "le fichier choisi n'est pas une image");
+  			array_push($erreurs, "Le fichier choisi n'est pas une image");
   		}
   	}
 
@@ -67,7 +67,7 @@ if(!empty($_POST)) { // si on recoi des données
 		 	}
 		}
 
-		Session::getSession()->addMessage('success', "Ton produit à bien été crée");
+		Session::getSession()->addMessage('success', "Ton produit a bien été créé");
 		Site::redirection('ajoutProduit.php');
 
 	}else {

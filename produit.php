@@ -10,7 +10,7 @@ if(!empty($_GET) && isset($_GET['id']) && isset($_GET['option'])) {
   }
 
   Session::getSession()->addToPanier($_GET['id'], $_GET['option']);
-  Session::getSession()->addMessage('info', 'le produit à été ajouté au panier');
+  Session::getSession()->addMessage('info', 'Le produit a été ajouté au panier');
   Site::redirection('panier.php');
 }
 
@@ -66,7 +66,7 @@ if(!empty($_POST)) { // si on recoi des données pour le filtrage
 <div class="row m-4"> 
   <div class="col-sm-4">
     <h1 class="text-left mb-2">Préférences</h1>
-    <p >tu as selectionné les options suivante : </p>
+    <p >Tu as sélectionné les options suivantes : </p>
     <p class="font-weight-bold"><?php echo $option; ?> </p>
 
     <form class="p-2 w-75" action="" method="POST" enctype="multipart/form-data">
@@ -118,7 +118,7 @@ if(!empty($_POST)) { // si on recoi des données pour le filtrage
         </div>
       <?php } 
           if(empty($products)){
-            echo '<h1 class="text-left mt-2 mb-5">pas encore de produits</h1>';
+            echo '<h1 class="text-left mt-2 mb-5">Pas encore de produits</h1>';
           }
       ?>
 

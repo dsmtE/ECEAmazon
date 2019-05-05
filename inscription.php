@@ -4,7 +4,7 @@ include "header.php";
 $session = Session::getSession();
 
 if($logged) {
-  $session->addMessage('info', 'tu es  déjà connecté');
+  $session->addMessage('info', 'Tu es  déjà connecté');
   Site::redirection('index.php');
 }
 
@@ -16,19 +16,19 @@ if(!empty($_POST)) { // si on recoi des données
 
 // test nom
   if( !isset($_POST['nom']) || empty($_POST['nom']) ) {
-    array_push($erreurs, "tu n\'a pas rentré de nom");
+    array_push($erreurs, "Tu n\'a pas rentré de nom");
   } else {
     if( !Validation::isAlphanumeric($_POST['nom']) ) {
-      array_push($erreurs, "ton nom n'est pas valide");
+      array_push($erreurs, "Ton nom n'est pas valide");
     }
   }
 
 // test mail
   if( !isset($_POST['mail']) || empty($_POST['mail']) ) {
-    array_push($erreurs, "tu n\'a pas rentré de mail");
+    array_push($erreurs, "Tu n\'a pas rentré de mail");
   } else {
     if( !Validation::isMail($_POST['mail']) ) {
-      array_push($erreurs, "ton mail n'est pas valide");
+      array_push($erreurs, "Ton mail n'est pas valide");
     } else {
       if( Site::getUser()->compteExistantbyMail($_POST['mail']) ) {
         array_push($erreurs, "Un compte avec cette adresse existe déjà");
@@ -38,23 +38,23 @@ if(!empty($_POST)) { // si on recoi des données
 
 // test mdp
   if( !isset($_POST['mdp']) || empty($_POST['mdp']) ) {
-    array_push($erreurs, "tu n\'a pas rentré de mot de passe");
+    array_push($erreurs, "Tu n\'a pas rentré de mot de passe");
   } else {
     if( !Validation::isAlphanumeric($_POST['mdp']) ) {
-      array_push($erreurs, "ton mdp n'est pas valide il doit être composé uniquement de caractères alpha numérique");
+      array_push($erreurs, "Ton mdp n'est pas valide, il doit être composé uniquement de caractères alphanumériques");
     } else {
       if( $_POST['mdp'] != $_POST['mdpConfirm']) {
-        array_push($erreurs, "la confirmation du mot de passe n'est pas valide");
+        array_push($erreurs, "La confirmation du mot de passe n'est pas valide");
       }
     }
   }
 
   // test tel
   if( !isset($_POST['telephone']) || empty($_POST['telephone']) ) {
-    array_push($erreurs, "tu n\'a pas rentré de numero de telephone");
+    array_push($erreurs, "Tu n\'a pas rentré de numéro de téléphone");
   } else {
     if( !Validation::isphoneNumber($_POST['telephone']) ) {
-      array_push($erreurs, "Ton numero de telephone n'est pas valide");
+      array_push($erreurs, "Ton numéro de téléphone n'est pas valide");
     } else {
       $_POST['telephone'] = preg_replace('/[\/\- ,]/', '', $_POST['telephone']);// on converti le numero de tel
     }
@@ -64,20 +64,20 @@ if(!empty($_POST)) { // si on recoi des données
   $img = $_FILES['img']['tmp_name'];
   // test img
   if(!isset($img) || empty($img) )  {
-    array_push($erreurs, "tu n'as pas choisi d'image");
+    array_push($erreurs, "Tu n'as pas choisi d'image");
   }else {
     if( !getimagesize( $img )) {
-      array_push($erreurs, "le fichier choisi n'est pas une image");
+      array_push($erreurs, "Le fichier choisi n'est pas une image");
     }
   }
 
   $imgFond = $_FILES['imgFond']['tmp_name'];
   // test imgFond
   if(!isset($imgFond) || empty($imgFond))  {
-    array_push($erreurs, "tu n'as pas choisi d'image");
+    array_push($erreurs, "Tu n'as pas choisi d'image");
   }else {
     if( !getimagesize( $imgFond )) {
-      array_push($erreurs, "le fichier choisi n'est pas une image");
+      array_push($erreurs, "Le fichier choisi n'est pas une image");
     }
   }
 if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription
@@ -85,7 +85,7 @@ if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription
   Site::getUser()->inscription( $_POST['nom'],$_POST['prenom'], $_POST['mail'], $_POST['telephone'], $_POST['mdp'], 
     addslashes(file_get_contents($img)) , addslashes(file_get_contents($imgFond)));
 
-  $session->addMessage('success', "Ton compte à bien été crée, un mail de confirmation t'a été envoyé.");
+  $session->addMessage('success', "Ton compte a bien été crée, un mail de confirmation t'a été envoyé.");
   Site::redirection('index.php');
   exit();
 

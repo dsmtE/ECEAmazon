@@ -2,7 +2,7 @@
 include "header.php";
 
 if( !$logged) {
-  Session::getSession()->addMessage('danger', 'tu n\'es pas connecté');
+  Session::getSession()->addMessage('danger', 'Tu n\'es pas connecté');
   Site::redirection('index.php');
 }
 
@@ -29,16 +29,16 @@ if(!empty($_POST)) { // si on recoi des données
 
 // test nom
   if(!Validation::isAlphanumeric($_POST['nom']) ) {
-    array_push($erreurs, "le nouveau nom n'est pas valide");
+    array_push($erreurs, "Le nouveau nom n'est pas valide");
   }
 // test prénom
   if(!Validation::isAlphanumeric($_POST['prenom']) ) {
-    array_push($erreurs, "le nouveau prenom n'est pas valide");
+    array_push($erreurs, "Le nouveau prenom n'est pas valide");
   }  
 
 // test mail
   if(!Validation::isMail($_POST['mail']) ) {
-    array_push($erreurs, "le nouvel mail n'est pas valide");
+    array_push($erreurs, "Le nouvel mail n'est pas valide");
   } 
 
 // test tel
@@ -58,17 +58,17 @@ if(!empty($_POST)) { // si on recoi des données
 
  // test code postal
   if($_POST['codePostal'] != null && !Validation::isAlphanumeric($_POST['codePostal']) ) {
-    array_push($erreurs, "le nouveau code postal n'est pas valide");
+    array_push($erreurs, "Le nouveau code postal n'est pas valide");
   }      
 
  // test ville
   if($_POST['ville'] != null && !Validation::isAlphanumeric($_POST['ville']) ) {
-    array_push($erreurs, "la nouvelle ville n'est pas valide");
+    array_push($erreurs, "La nouvelle ville n'est pas valide");
   }      
 
  // test pays
   if($_POST['pays'] != null && !Validation::isAlphanumeric($_POST['pays']) ) {
-    array_push($erreurs, "le nouveau pays n'est pas valide");
+    array_push($erreurs, "Le nouveau pays n'est pas valide");
   }    
 
 

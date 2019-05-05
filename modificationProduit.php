@@ -4,14 +4,14 @@ include "header.php";
 if(isset($_GET['id']) && !empty($_GET['id'])) {
   $product = Site::getDatabase()->requete('SELECT * FROM Produits WHERE idProduit = ?', [$_GET['id']])->fetch();
 } else {
-  Session::getSession()->addMessage("info", "cet id ne correspond à aucun produit");
+  Session::getSession()->addMessage("info", "Cet id ne correspond à aucun produit");
   Site::redirection('produit.php');
   exit();
 }
 
 if(!$admin) {
   if($product->idVendeur != Session::getSession()->read('user')->idUser) {
-  Session::getSession()->addMessage("danger", "Tu n'as pas les autorisations pour modifer ce produit");
+  Session::getSession()->addMessage("danger", "Tu n'as pas les autorisations pour modifeer ce produit");
   Site::redirection('produit.php');
   }
 }
@@ -30,19 +30,19 @@ if(!empty($_POST)) { // si on reçoit des données
   $erreurs = array();
 
   if( !isset($_POST['productName']) || empty($_POST['productName']) ) {
-    array_push($erreurs, "tu n\'a pas rentré de nom de produit");
+    array_push($erreurs, "Tu n\'a pas rentré de nom de produit");
   }
 
   if( !isset($_POST['categorie']) || empty($_POST['categorie']) ) {
-    array_push($erreurs, "tu n\'a pas choisi de catégorie");
+    array_push($erreurs, "Tu n\'a pas choisi de catégorie");
   }
 
   if( !isset($_POST['description']) || empty($_POST['description']) ) {
-    array_push($erreurs, "tu n\'a pas ecrit de description");
+    array_push($erreurs, "Tu n\'a pas écrit de description");
   }
 
   if( !isset($_POST['price']) || empty($_POST['price']) ) {
-    array_push($erreurs, "tu n\'a pas rentré de prix");
+    array_push($erreurs, "Tu n\'a pas rentré de prix");
   }
 
   if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à la modification
@@ -64,7 +64,7 @@ if(!empty($_POST)) { // si on reçoit des données
     }
 
     //redirection
-    Session::getSession()->addMessage('info',' le produit à été mis à jour');
+    Session::getSession()->addMessage('info',' Le produit a été mis à jour');
     Site::redirection("modificationDesProduits.php");
 
   }else {
