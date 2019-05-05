@@ -3,11 +3,7 @@ include "header.php";
 
 if(!empty($_GET) && isset($_GET['id']) && isset($_GET['option'])) {
 
-  $productsInfos = Site::getDatabase()->requete('SELECT * FROM Utilisateurs WHERE idProduit = '.$_GET['id'])->fetch();
-
-  if($productsInfos) {
-
-  }
+  $productsInfos = Site::getDatabase()->requete('SELECT * FROM Produits WHERE idProduit = '.$_GET['id'])->fetch();
 
   Session::getSession()->addToPanier($_GET['id'], $_GET['option']);
   Session::getSession()->addMessage('info', 'Le produit a été ajouté au panier');
