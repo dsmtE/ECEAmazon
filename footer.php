@@ -1,6 +1,8 @@
-    <div id="footer">
-        <p>&copy; 2019 ECEAmazon </p>
-    </div>
+    <footer class="footer fixed-bottom">
+      <div class="container">
+        <span class="text-muted float-right">&copy; 2019 ECEAmazon</span>
+      </div>
+    </footer>
 
     <!-- JavaScript placed at the end of the document (body) for optimized loading -->
 

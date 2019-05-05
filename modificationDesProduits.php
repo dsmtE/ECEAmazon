@@ -13,7 +13,15 @@ if(!$admin) {
 <div class="row m-4"> 
 
   <div class="col-sm-8 offset-sm-2 rounded">
-    <h1 class="text-left mt-2 mb-4">Produits mis à la vente</h1>
+    <div class="row">
+      <div class="col-sm-6">
+        <h1 class="text-left mt-2 mb-4">Produits mis à la vente</h1> 
+      </div>
+      <div class="col-sm-6">
+        <a href="ajoutProduit.php" class="btn btn-success float-right">Ajouter un produit</a>
+      </div>
+    </div>
+
     <div class="px-4" style=" overflow-y: scroll; max-height: 450px;" >
     
 
@@ -39,13 +47,9 @@ if(!$admin) {
         </div>
       <?php } ?>
 
-
-
-      
-      
     </div>
   </div>
-
+  
 </div>
 
 
