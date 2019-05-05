@@ -26,7 +26,6 @@ if(!empty($_POST)) { // si on recoi des données
   !isset($_POST['imgFond']) || empty($_POST['imgFond']) ? $_POST['imgFond']          = $user->imgFond :"";
 
 
-  //print_r($_POST);
 
 // test nom
   if(!Validation::isAlphanumeric($_POST['nom']) ) {

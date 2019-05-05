@@ -17,8 +17,7 @@ if(!empty($_GET) && isset($_GET['id']) && isset($_GET['variationQuantity'])) {
 
       <div class="col-sm-4">
 
-        <h1 class="text-left mb-5">Mon panier</h1>
-
+        <h1 class="text-left mb-5">Mon panier<i class="fas fa-shopping-basket ml-3 mt-2"></i></h1>
       </div>
 
       <div class="col-sm-8">
