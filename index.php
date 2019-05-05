@@ -9,6 +9,22 @@ $produit3ID = Site::getDatabase()->requete('SELECT Achats.idProduit FROM Achats 
 
 $produit4ID = Site::getDatabase()->requete('SELECT Achats.idProduit FROM Achats JOIN Produits ON Achats.idProduit = Produits.idProduit WHERE Produits.categorie = "sport" GROUP BY Achats.idProduit ORDER BY(Achats.quantity) DESC LIMIT 1')->fetch();
 
+if(empty($produit1ID)){
+  $produit1ID = Site::getDatabase()->requete('SELECT * FROM Produits WHERE Produits.categorie = "livres"')->fetch();
+}
+
+
+if(empty($produit2ID)){
+ $produit2ID = Site::getDatabase()->requete('SELECT * FROM Produits WHERE Produits.categorie = "musique"')->fetch();                    
+}
+
+if(empty($produit3ID)){
+  $produit3ID = Site::getDatabase()->requete('SELECT * FROM Produits WHERE Produits.categorie = "vetements"')->fetch();
+}
+
+if(empty($produit4ID)){
+  $produit4ID = Site::getDatabase()->requete('SELECT * FROM Produits WHERE Produits.categorie = "sport"')->fetch();
+}
 
 $pdt1 = Site::getDatabase()->requete('SELECT * FROM Produits WHERE idProduit = ?', [$produit1ID->idProduit])->fetch();
 $pdt2 = Site::getDatabase()->requete('SELECT * FROM Produits WHERE idProduit = ?', [$produit2ID->idProduit])->fetch();
