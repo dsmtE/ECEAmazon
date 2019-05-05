@@ -22,9 +22,9 @@ if(!empty($_POST)) { // si on recoi des données
   !isset($_POST['codePostal']) || empty($_POST['codePostal']) ? $_POST['codePostal'] = isset($user->codePostal) ? $user->codePostal : null :"";
   !isset($_POST['ville']) || empty($_POST['ville']) ? $ $_POST['ville']              = isset($user->ville) ? $user->ville : null  :"";
   !isset($_POST['pays']) || empty($_POST['pays']) ? $_POST['pays']                   = isset($user->pays) ? $user->pays : null  :"";
-  !isset($_POST['img']) || empty($_POST['img']) ? $_POST['img']                      = $user->img :"";
-  !isset($_POST['imgFond']) || empty($_POST['imgFond']) ? $_POST['imgFond']          = $user->imgFond :"";
 
+  !isset($_FILES['img']['tmp_name']) || empty($_FILES['img']['tmp_name']) ? $img = $user->img : $img = file_get_contents($_FILES['img']['tmp_name']);
+  !isset($_FILES['imgFond']['tmp_name']) || empty($_FILES['imgFond']['tmp_name']) ? $imgFond = $user->imgFond : $imgFond = file_get_contents($_FILES['imgFond']['tmp_name']);
 
 
 // test nom
@@ -70,17 +70,17 @@ if(!empty($_POST)) { // si on recoi des données
   if($_POST['pays'] != null && !Validation::isAlphanumeric($_POST['pays']) ) {
     array_push($erreurs, "le nouveau pays n'est pas valide");
   }    
-  
+
 
   if(empty($erreurs)) { // il n'y a pas eu d'erreurs on procède à l'inscription
 
-    Site::getUser()->modificationCompte( $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['telephone'], $_POST['mdp'], $_POST['adresse'], $_POST['codePostal'], $_POST['ville'], $_POST['pays'], $_POST['img'], $_POST['imgFond']);
+    Site::getUser()->modificationCompte( $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['telephone'], $_POST['mdp'], $_POST['adresse'], $_POST['codePostal'], $_POST['ville'], $_POST['pays'], $img, $imgFond);
 
     Site::redirection("index.php");
 
   }else {
     Session::getSession()->addMessages('danger', $erreurs);
-    Site::rechargerPage();
+    Site::redirection('compte.php');
   }
 }
 ?>
@@ -146,7 +146,7 @@ if(!empty($_POST)) { // si on recoi des données
       <div class="form-group row">
         <div class="col-sm-8 offset-sm-4">
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="img" name="img">
+            <input type="file" class="custom-file-input"  name="img">
             <label class="custom-file-label" for="img">Modifier l'image de profil</label>
           </div>
         </div>
@@ -154,7 +154,7 @@ if(!empty($_POST)) { // si on recoi des données
       <div class="form-group row">
         <div class="col-sm-8 offset-sm-4">
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="imgFond" name="imgFond">
+            <input type="file" class="custom-file-input"  name="imgFond">
             <label class="custom-file-label" for="imgFond">Modifier l'image de fond</label>
           </div>
         </div>
